@@ -11,7 +11,7 @@ public class VediContatto {
     private JPanel schermata;
 
     public VediContatto(Contatto c) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("VediContatto constructor is not supported yet.");
     }
 
     public JPanel getSchermata() {
@@ -19,7 +19,7 @@ public class VediContatto {
     }
 
     public void pulsanteCliccato(JButton pulsante) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("VediContatto.pulsanteCliccato is not supported yet.");
     }
 
 }
