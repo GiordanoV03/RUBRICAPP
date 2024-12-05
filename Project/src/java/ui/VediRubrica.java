@@ -1,15 +1,21 @@
 package ui;
 
 import controller.RubricaController;
+import model.*;
 
 import javax.swing.*;
 
 public class VediRubrica {
 
     private RubricaController controller;
+    private JPanel schermata;
 
-    public void getSchermata() {
+    public VediRubrica(Rubrica r) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public JPanel getSchermata() {
+        return schermata;
     }
 
     public void pulsanteCliccato(JButton pulsante) {

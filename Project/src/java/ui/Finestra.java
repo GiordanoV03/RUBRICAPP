@@ -1,6 +1,7 @@
 package ui;
 
 import controller.*;
+import model.*;
 import javax.swing.*;
 
 public class Finestra{
