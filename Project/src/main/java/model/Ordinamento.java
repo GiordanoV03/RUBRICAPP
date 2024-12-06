@@ -1,71 +1,42 @@
 /// @file Ordinamento.java
-/// @brief Definisce la classe Ordinamento per il confronto e l'ordinamento dei contatti.
+/// @brief Classe per la configurazione del criterio di ordinamento dei contatti.
 ///
-/// Questa classe implementa un comparatore per ordinare i contatti in base al nome o al cognome.
-/// Fornisce metodi per configurare il criterio di ordinamento e per invertirlo.
+/// La classe Ordinamento permette di gestire il criterio di ordinamento utilizzato per i contatti,
+/// consentendo di scegliere tra l'ordinamento per nome e quello per cognome. Include metodi per
+/// verificare, configurare e invertire il criterio di ordinamento.
 
 package model;
 
-import java.util.Comparator;
-
 /// @class Ordinamento
-/// @brief Classe che implementa un comparatore per i contatti.
+/// @brief Classe per la gestione dinamica del criterio di ordinamento dei contatti.
 ///
-/// La classe Ordinamento consente di confrontare due contatti e ordinarli in base al criterio
-/// configurato. Supporta il confronto per nome o per cognome e permette di cambiare dinamicamente
-/// il criterio di ordinamento.
-public class Ordinamento implements Comparator<Contatto> {
-    private boolean ordinamentoPerNome; ///< Indica se l'ordinamento avviene per nome (true) o per cognome (false).
+/// La classe `Ordinamento` definisce un criterio globale per il confronto e l'ordinamento
+/// dei contatti. Permette di scegliere tra l'ordinamento per nome e quello per cognome.
+/// Questa configurazione viene utilizzata da altre classi, come `Contatto`, per determinare
+/// l'ordine in cui i contatti vengono ordinati o confrontati.
+public class Ordinamento {
 
-    /// @brief Costruttore predefinito della classe Ordinamento.
-    ///
-    /// Inizializza un oggetto Ordinamento con il criterio di ordinamento predefinito.
-    public Ordinamento() {
-        ordinamentoPerNome = true;
-    }
+    private static boolean ordinamentoPerNome = true; ///< Criterio attuale: true per ordinamento per nome, false per cognome.
 
-    /// @brief Verifica il criterio di ordinamento attuale.
-    /// @return true se l'ordinamento è per nome, false se è per cognome.
-    public boolean isOrdinamentoPerNome() {
+    /// @brief Restituisce il criterio di ordinamento corrente.
+    /// @return true se l'ordinamento è basato sul nome, false se è basato sul cognome.
+    public static boolean isOrdinamentoPerNome() {
         return ordinamentoPerNome;
     }
 
-    /// @brief Imposta il criterio di ordinamento.
-    /// @param ordinamentoPerNome true per ordinare per nome, false per ordinare per cognome.
-    public void setOrdinamento(boolean ordinamentoPerNome) {
-        this.ordinamentoPerNome = ordinamentoPerNome;
+    /// @brief Imposta un nuovo criterio di ordinamento.
+    /// @param ordinamentoPerNome true per ordinare i contatti in base al nome, false per ordinare in base al cognome.
+    public static void setOrdinamento(boolean ordinamentoPerNome) {
+        Ordinamento.ordinamentoPerNome = ordinamentoPerNome;
+        Rubrica.riordina();
     }
 
     /// @brief Inverte il criterio di ordinamento corrente.
     ///
-    /// Questo metodo cambia il criterio di ordinamento tra nome e cognome.
-    public void cambiaOrdinamento() {
-        throw new UnsupportedOperationException("Ordinamento.cambiaOrdinamento is not supported yet.");
-    }
-
-    /// @brief Confronta due contatti in base al criterio di ordinamento attuale.
-    /// @param o1 Il primo contatto da confrontare.
-    /// @param o2 Il secondo contatto da confrontare.
-    /// @return Un valore negativo, zero o positivo in base al risultato del confronto:
-    /// - Negativo se o1 è "minore" di o2,
-    /// - Positivo se o1 è "maggiore" di o2,
-    /// - o1.compareTo(o2) se o1 è uguale a o2.
-    @Override
-    public int compare(Contatto o1, Contatto o2) {
-        String n1;
-        String n2;
-
-        if (ordinamentoPerNome) {
-            n1 = o1.getNome() + o1.getCognome();
-            n2 = o2.getNome() + o2.getCognome();
-        } else {
-            n1 = o1.getCognome() + o1.getNome();
-            n2 = o2.getCognome() + o2.getNome();
-        }
-
-        if (n1.compareToIgnoreCase(n2) == 0)
-            return o1.compareTo(o2);
-        return n1.compareToIgnoreCase(n2);
+    /// Se l'ordinamento corrente è per nome, lo cambia in per cognome e viceversa.
+    public static void cambiaOrdinamento() {
+        ordinamentoPerNome = !ordinamentoPerNome;
+        Rubrica.riordina();
     }
 
 }
