@@ -68,11 +68,11 @@ public class Rubrica {
         throw new UnsupportedOperationException("Rubrica.esporta is not supported yet.");
     }
 
-    /// @brief Cerca contatti che contengono una specifica stringa nei loro nome e cognome.
+    /// @brief Cerca contatti che contengono una specifica stringa nei loro nome e cognome o tag.
     /// @param stringa La stringa da cercare nei contatti.
     /// @return Un set di contatti che corrispondono alla ricerca.
     ///
-    /// La ricerca viene effettuata sui campi rilevanti (ad esempio, nome, cognome,
+    /// La ricerca viene effettuata sui campi rilevanti (ad esempio, nome, cognome
     /// o tag) e restituisce i contatti che contengono
     /// la stringa specificata.
     public Set<Contatto> cerca(String stringa) {
