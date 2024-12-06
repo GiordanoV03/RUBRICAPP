@@ -49,7 +49,6 @@ public class ContattoController {
     }
 
     /// @brief Torna alla schermata precedente.
-    /// @throw UnsupportedOperationException Se l'operazione non è supportata.
     /// Questo metodo gestisce il ritorno alla schermata precedente nel flusso dell'applicazione.
     public void indietro() {
         throw new UnsupportedOperationException("ContattoController.indietro is not supported yet.");
