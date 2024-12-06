@@ -189,10 +189,10 @@ public class Contatto implements Comparable<Contatto> {
     /// Il confronto viene effettuato in base ai nomi dei due contatti in ordine alfabetico.
     @Override
     public int compareTo(Contatto o) {
-        if (nome.compareToIgnoreCase(o.getNome()) != 0)
-            return nome.compareTo(o.getNome());
-        if (cognome.compareToIgnoreCase(o.getCognome()) != 0)
-            return cognome.compareTo(o.getCognome());
+        String mio = nome + cognome;
+        String suo = o.getNome() + o.getCognome();
+        if (mio.compareToIgnoreCase(suo) != 0)
+            return mio.compareTo(suo);
         return 1;
     }
 }
