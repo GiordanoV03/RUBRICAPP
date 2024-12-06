@@ -20,15 +20,31 @@ public class Contatto implements Comparable<Contatto> {
     private String nome;     ///< Nome del contatto.
     private String cognome;  ///< Cognome del contatto.
     private String tag;      ///< Tag associato al contatto.
-    private String[] telefoni; ///< Array di numeri di telefono.
-    private String[] emails;   ///< Array di indirizzi email.
+    private final String[] telefoni; ///< Array di numeri di telefono.
+    private final String[] emails;   ///< Array di indirizzi email.
 
     /// @brief Costruttore con nome e cognome.
     /// @param nome Il nome del contatto.
     /// @param cognome Il cognome del contatto.
     /// @throw ContattoNonValidoException Se nome e cognome sono vuoti o null.
     public Contatto(String nome, String cognome) throws ContattoNonValidoException {
-        throw new UnsupportedOperationException("Contatto constructor (String nome, String cognome) is not supported yet.");
+        if (nome == null) nome = "";
+        if (cognome == null) cognome = "";
+
+        if (nome.isEmpty() && cognome.isEmpty())
+            throw new ContattoNonValidoException("Mancano nome e cognome.");
+
+        this.nome = nome;
+        this.cognome = cognome;
+        setTag("");
+
+        telefoni = new String[3];
+        emails = new String[3];
+
+        for (int i = 0; i < 3; i++) {
+            setTelefono(i, "");
+            setEmail(i, "");
+        }
     }
 
     /// @brief Costruttore che inizializza un contatto da una stringa di testo.
@@ -42,7 +58,29 @@ public class Contatto implements Comparable<Contatto> {
     /// @throw EmailNonValidaException Se uno degli indirizzi email nel testo è
     ///        malformato o non valido.
     public Contatto(String testo) throws ContattoNonValidoException, EmailNonValidaException {
-        throw new UnsupportedOperationException("Contatto constructor (String testo) is not supported yet.");
+        if (testo == null) testo = "";
+        if (testo.isEmpty())
+            throw new ContattoNonValidoException("Input nullo");
+
+        String[] dati = testo.split("\n");
+        if (dati.length != 10)
+            throw new ContattoNonValidoException("Formato non valido");
+
+        this.nome = dati[0];
+        this.cognome = dati[1];
+        setTag(dati[2]);
+
+        telefoni = new String[3];
+        emails = new String[3];
+
+        for (int i = 0; i < 3; i++) {
+            setTelefono(i, dati[i+3]);
+            try {
+                setEmail(i, dati[i+6]);
+            } catch (EmailNonValidaException e) {
+                throw new EmailNonValidaException(e.getMessage());
+            }
+        }
     }
 
 
@@ -55,70 +93,93 @@ public class Contatto implements Comparable<Contatto> {
     /// @brief Restituisce il cognome del contatto.
     /// @return Il cognome del contatto.
     public String getCognome() {
-        throw new UnsupportedOperationException("Contatto.getCognome is not supported yet.");
+        return cognome;
     }
 
     /// @brief Restituisce il tag associato al contatto.
     /// @return Il tag del contatto.
     public String getTag() {
-        throw new UnsupportedOperationException("Contatto.getTag is not supported yet.");
+        return tag;
     }
 
     /// @brief Restituisce un numero di telefono specifico.
     /// @param i Indice del numero di telefono.
     /// @return Il numero di telefono.
     public String getTelefono(int i) {
-        throw new UnsupportedOperationException("Contatto.getTelefono is not supported yet.");
+        return telefoni[i];
     }
 
     /// @brief Restituisce un indirizzo email specifico.
     /// @param i Indice dell'indirizzo email.
     /// @return L'indirizzo email.
     public String getEmail(int i) {
-        throw new UnsupportedOperationException("Contatto.getEmail is not supported yet.");
+        return emails[i];
     }
 
     /// @brief Imposta il nome del contatto.
     /// @param nome Il nuovo nome del contatto.
     /// @throw ContattoNonValidoException Se il nome e il cognome sono vuoti o null.
     public void setNome(String nome) throws ContattoNonValidoException {
-        throw new UnsupportedOperationException("Contatto.setNome is not supported yet.");
+        if (nome == null) nome = "";
+        if (nome.isEmpty() && cognome.isEmpty()) {
+            throw new ContattoNonValidoException("Tentativo di eliminare il nome a un contatto senza cognome.");
+        }
+        this.nome = nome;
     }
 
     /// @brief Imposta il cognome del contatto.
     /// @param cognome Il nuovo cognome del contatto.
     /// @throw ContattoNonValidoException Se il nome e il cognome sono vuoti o null.
     public void setCognome(String cognome) throws ContattoNonValidoException {
-        throw new UnsupportedOperationException("Contatto.setCognome is not supported yet.");
+        if (cognome == null) cognome = "";
+        if (cognome.isEmpty() && nome.isEmpty()) {
+            throw new ContattoNonValidoException("Tentativo di eliminare il cognome a un contatto senza nome.");
+        }
+        this.cognome = cognome;
     }
 
     /// @brief Imposta il tag del contatto.
     /// @param tag Il nuovo tag del contatto.
     public void setTag(String tag) {
-        throw new UnsupportedOperationException("Contatto.setTag is not supported yet.");
+        if (tag == null) tag = "";
+        this.tag = tag.toUpperCase();
     }
 
     /// @brief Imposta un numero di telefono specifico.
     /// @param i Indice del numero di telefono.
     /// @param telefono Il nuovo numero di telefono.
     public void setTelefono(int i, String telefono) {
-        throw new UnsupportedOperationException("Contatto.setTelefono is not supported yet.");
+        if (telefono == null) telefono = "";
+        telefoni[i] = telefono;
     }
 
     /// @brief Imposta un indirizzo email specifico.
     /// @param i Indice dell'indirizzo email.
     /// @param email Il nuovo indirizzo email.
-    public void setEmail(int i, String email) {
-        throw new UnsupportedOperationException("Contatto.setEmail is not supported yet.");
+    /// @throw EmailNonValidaException Se l'indirizzo email non è valido.
+    public void setEmail(int i, String email) throws EmailNonValidaException {
+        if (email == null) email = "";
+        if (!Email.isEmail(email))
+            throw new EmailNonValidaException("Indirizzo email non valido.");
+        emails[i] = email;
     }
 
     /// @brief Esporta i dati del contatto in formato testuale.
     /// @return Stringa contenente i dati esportati.
     ///
-    /// Questo metodo esporta i dati del contatto in una stringa di testo, utile per
-    /// l'input/output su file.
+    /// Questo metodo esporta i dati del contatto in una stringa
+    /// di testo, utile per l'output su file.
     public String esporta() {
-        throw new UnsupportedOperationException("Contatto.esporta is not supported yet.");
+        StringBuilder sb = new StringBuilder();
+        sb.append(nome).append("\n");
+        sb.append(cognome).append("\n");
+        sb.append(tag).append("\n");
+        for (int i = 0; i < 3; i++)
+            sb.append(telefoni[i]).append("\n");
+        for (int i = 0; i < 3; i++)
+            sb.append(emails[i]).append("\n");
+        sb.append("***");
+        return sb.toString();
     }
 
     /// @brief Confronta il contatto corrente con un altro contatto.
@@ -128,6 +189,10 @@ public class Contatto implements Comparable<Contatto> {
     /// Il confronto viene effettuato in base ai nomi dei due contatti in ordine alfabetico.
     @Override
     public int compareTo(Contatto o) {
-        throw new UnsupportedOperationException("Contatto.compareTo is not supported yet.");
+        if (nome.compareToIgnoreCase(o.getNome()) != 0)
+            return nome.compareTo(o.getNome());
+        if (cognome.compareToIgnoreCase(o.getCognome()) != 0)
+            return cognome.compareTo(o.getCognome());
+        return 1;
     }
 }

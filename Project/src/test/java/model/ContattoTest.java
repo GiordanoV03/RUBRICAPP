@@ -1,200 +1,163 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author salvo
- */
 public class ContattoTest {
-    
-    public ContattoTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
 
-    /**
-     * Test of getNome method, of class Contatto.
-     */
     @Test
-    public void testGetNome() {
+    public void testCostruttoreValido() {
         Contatto contatto = new Contatto("Mario", "Rossi");
-        String nome = contatto.getNome();
-        assertEquals("Mario", nome);
+        assertEquals("Mario", contatto.getNome());
+        assertEquals("Rossi", contatto.getCognome());
+        assertEquals("", contatto.getTag());
     }
 
-    /**
-     * Test of getCognome method, of class Contatto.
-     */
     @Test
-    public void testGetCognome() {
-        Contatto contatto = new Contatto("Mario", "Rossi");
-        String cognome = contatto.getCognome();
-        assertEquals("Rossi", cognome);
+    public void testCostruttoreConEccezione() {
+        assertThrows(ContattoNonValidoException.class, () -> new Contatto("", ""));
+        assertThrows(ContattoNonValidoException.class, () -> new Contatto(null, null));
+        assertThrows(ContattoNonValidoException.class, () -> new Contatto(null, ""));
+        assertThrows(ContattoNonValidoException.class, () -> new Contatto("", null));
     }
 
-    /**
-     * Test of getTag method, of class Contatto.
-     */
     @Test
-    public void testGetTag() {
-        System.out.println("getTag");
-        Contatto instance = null;
-        String expResult = "";
-        String result = instance.getTag();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCostruttoreDaTestoValido() {
+        String input = "Mario\nRossi\nAMICO\n123456789\n987654321\n456123789\nemail1@example.com\nemail2@example.com\nemail3@example.com\n***";
+        Contatto contatto = new Contatto(input);
+
+        assertEquals("Mario", contatto.getNome());
+        assertEquals("Rossi", contatto.getCognome());
+        assertEquals("AMICO", contatto.getTag());
+        assertEquals("123456789", contatto.getTelefono(0));
+        assertEquals("email1@example.com", contatto.getEmail(0));
     }
 
-    /**
-     * Test of getTelefono method, of class Contatto.
-     */
     @Test
-    public void testGetTelefono() {
-        System.out.println("getTelefono");
-        int i = 0;
-        Contatto instance = null;
-        String expResult = "";
-        String result = instance.getTelefono(i);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCostruttoreDaTestoInvalido() {
+        String inputInvalido = "Mario\nRossi";
+        assertThrows(ContattoNonValidoException.class, () -> new Contatto(inputInvalido));
+
+        String inputEmailInvalida = "Mario\nRossi\nAMICO\n123456789\n\n\ninvalid_email\n\n\n***";
+        assertThrows(EmailNonValidaException.class, () -> new Contatto(inputEmailInvalida));
     }
 
-    /**
-     * Test of getEmail method, of class Contatto.
-     */
     @Test
-    public void testGetEmail() {
-        System.out.println("getEmail");
-        int i = 0;
-        Contatto instance = null;
-        String expResult = "";
-        String result = instance.getEmail(i);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testEsportaImporta() throws ContattoNonValidoException, EmailNonValidaException {
+        // 1. Creazione di un contatto originale
+        Contatto contattoOriginale = new Contatto("Luca", "Bianchi");
+        contattoOriginale.setTag("Amico");
+        contattoOriginale.setTelefono(0, "1234567890");
+        contattoOriginale.setTelefono(1, "0987654321");
+        contattoOriginale.setTelefono(2, "1122334455");
+        contattoOriginale.setEmail(0, "luca.bianchi@example.com");
+        contattoOriginale.setEmail(1, "luca@example.com");
+        contattoOriginale.setEmail(2, "contact.luca@example.org");
+
+        // 2. Esportazione del contatto in una stringa
+        String datiEsportati = contattoOriginale.esporta();
+
+        // 3. Creazione di un nuovo contatto utilizzando i dati esportati
+        Contatto contattoImportato = new Contatto(datiEsportati);
+
+        // 4. Confronto dei due contatti
+        assertEquals(contattoOriginale.getNome(), contattoImportato.getNome(), "I nomi devono essere uguali");
+        assertEquals(contattoOriginale.getCognome(), contattoImportato.getCognome(), "I cognomi devono essere uguali");
+        assertEquals(contattoOriginale.getTag(), contattoImportato.getTag(), "I tag devono essere uguali");
+
+        // Verifica dei numeri di telefono
+        for (int i = 0; i < 3; i++) {
+            assertEquals(contattoOriginale.getTelefono(i), contattoImportato.getTelefono(i), "I numeri di telefono devono essere uguali");
+        }
+
+        // Verifica degli indirizzi email
+        for (int i = 0; i < 3; i++) {
+            assertEquals(contattoOriginale.getEmail(i), contattoImportato.getEmail(i), "Gli indirizzi email devono essere uguali");
+        }
     }
 
-    /**
-     * Test of setNome method, of class Contatto.
-     */
     @Test
     public void testSetNome() {
-        System.out.println("setNome");
-        String nome = "";
-        Contatto instance = null;
-        instance.setNome(nome);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Contatto contatto = new Contatto("Mario", "Rossi");
+        contatto.setNome("Luigi");
+        assertEquals("Luigi", contatto.getNome());
+
+        contatto.setNome(null);
+        assertEquals("", contatto.getNome());
+
+        assertThrows(ContattoNonValidoException.class, () -> {
+            contatto.setNome("");
+            contatto.setCognome("");
+        });
     }
 
-    /**
-     * Test of setCognome method, of class Contatto.
-     */
     @Test
     public void testSetCognome() {
-        System.out.println("setCognome");
-        String cognome = "";
-        Contatto instance = null;
-        instance.setCognome(cognome);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Contatto contatto = new Contatto("Mario", "Rossi");
+        contatto.setCognome("Verdi");
+        assertEquals("Verdi", contatto.getCognome());
+
+        contatto.setCognome(null);
+        assertEquals("", contatto.getCognome());
+
+        assertThrows(ContattoNonValidoException.class, () -> {
+            contatto.setNome("");
+            contatto.setCognome("");
+        });
     }
 
-    /**
-     * Test of setTag method, of class Contatto.
-     */
     @Test
     public void testSetTag() {
-        System.out.println("setTag");
-        String tag = "";
-        Contatto instance = null;
-        instance.setTag(tag);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Contatto contatto = new Contatto("Mario", "Rossi");
+        contatto.setTag("Amico");
+        assertEquals("AMICO", contatto.getTag());
+
+        contatto.setTag(null);
+        assertEquals("", contatto.getTag());
     }
 
-    /**
-     * Test of setTelefono method, of class Contatto.
-     */
     @Test
     public void testSetTelefono() {
-        System.out.println("setTelefono");
-        int i = 0;
-        String telefono = "";
-        Contatto instance = null;
-        instance.setTelefono(i, telefono);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Contatto contatto = new Contatto("Mario", "Rossi");
+        contatto.setTelefono(0, "123456789");
+        assertEquals("123456789", contatto.getTelefono(0));
+
+        contatto.setTelefono(1, null);
+        assertEquals("", contatto.getTelefono(1));
     }
 
-    /**
-     * Test of setEmail method, of class Contatto.
-     */
     @Test
     public void testSetEmail() {
-        System.out.println("setEmail");
-        int i = 0;
-        String email = "";
-        Contatto instance = null;
-        instance.setEmail(i, email);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Contatto contatto = new Contatto("Mario", "Rossi");
+        contatto.setEmail(0, "test@example.com");
+        assertEquals("test@example.com", contatto.getEmail(0));
+
+        contatto.setEmail(1, null);
+        assertEquals("", contatto.getEmail(1));
+
+        assertThrows(EmailNonValidaException.class, () -> contatto.setEmail(0, "invalid_email"));
     }
 
-    /**
-     * Test of esporta method, of class Contatto.
-     */
     @Test
     public void testEsporta() {
-        System.out.println("esporta");
-        Contatto instance = null;
-        String expResult = "";
-        String result = instance.esporta();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Contatto contatto = new Contatto("Mario", "Rossi");
+        contatto.setTag("Amico");
+        contatto.setTelefono(0, "123456789");
+        contatto.setEmail(0, "test@example.com");
+
+        String expectedOutput = "Mario\nRossi\nAMICO\n123456789\n\n\ntest@example.com\n\n\n***";
+        assertEquals(expectedOutput, contatto.esporta());
     }
 
-    /**
-     * Test of compareTo method, of class Contatto.
-     */
     @Test
     public void testCompareTo() {
-        System.out.println("compareTo");
-        Contatto o = null;
-        Contatto instance = null;
-        int expResult = 0;
-        int result = instance.compareTo(o);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Contatto contatto1 = new Contatto("Mario", "Rossi");
+        Contatto contatto2 = new Contatto("Luigi", "Bianchi");
+        Contatto contatto3 = new Contatto("Mario", "Verdi");
+        Contatto contatto4 = new Contatto("Mario", "Rossi");
+
+        assertTrue(contatto1.compareTo(contatto2) > 0); // "Mario" > "Luigi"
+        assertTrue(contatto1.compareTo(contatto3) < 0); // "Rossi" < "Verdi"
+        assertEquals(1, contatto1.compareTo(contatto4)); // Identici
     }
-    
 }
