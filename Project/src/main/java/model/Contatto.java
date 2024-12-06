@@ -184,17 +184,30 @@ public class Contatto implements Comparable<Contatto> {
         return sb.toString();
     }
 
-    /// @brief Confronta il contatto corrente con un altro contatto.
+    /// @brief Confronta il contatto corrente con un altro contatto in base all'ordinamento configurato.
     /// @param o Il contatto da confrontare.
-    /// @return Valore negativo o positivo se il contatto corrente è minore, uguale o maggiore del contatto passato.
+    /// @return Un valore negativo, zero o positivo se il contatto corrente è rispettivamente minore, uguale o maggiore del contatto passato.
     ///
-    /// Il confronto viene effettuato in base ai nomi dei due contatti in ordine alfabetico.
+    /// Il confronto tra i contatti avviene in base ai criteri di ordinamento configurati tramite la classe `Ordinamento`:
+    /// - Se l'ordinamento è per nome, vengono confrontate le concatenazioni `nome + cognome` di entrambi i contatti.
+    /// - Se l'ordinamento è per cognome, vengono confrontate le concatenazioni `cognome + nome`.
+    ///
+    /// Il confronto ignora la distinzione tra maiuscole e minuscole. In caso di parità, il metodo restituisce 1 per
+    /// permettere la presenza di duplicati all'interno della rubrica.
     @Override
     public int compareTo(Contatto o) {
-        String mio = nome + cognome;
-        String suo = o.getNome() + o.getCognome();
+        String mio, suo;
+
+        if (Ordinamento.isOrdinamentoPerNome()) {
+            mio = nome + cognome;
+            suo = o.getNome() + o.getCognome();
+        } else {
+            mio = cognome + nome;
+            suo = o.getCognome() + o.getNome();
+        }
+
         if (mio.compareToIgnoreCase(suo) != 0)
-            return mio.compareTo(suo);
+            return mio.compareToIgnoreCase(suo);
         return 1;
     }
 
