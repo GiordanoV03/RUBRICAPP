@@ -8,7 +8,7 @@
 
 package model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /// @class Contatto
 /// @brief Classe che rappresenta un contatto personale.
@@ -225,15 +225,17 @@ public class Contatto implements Comparable<Contatto> {
     public boolean contiene(String stringa) {
         if (stringa == null || stringa.isEmpty()) return false;
         stringa = stringa.toUpperCase();
-        List<String> campi = List.of(
-                nome,
-                cognome,
-                tag,
-                nome + cognome + tag,
-                nome + " " + cognome + " " + tag,
-                cognome + nome + tag,
-                cognome + " " + nome + " " + tag
-        );
+
+        // Usa ArrayList invece di List.of
+        ArrayList<String> campi = new ArrayList<>();
+        campi.add(nome);
+        campi.add(cognome);
+        campi.add(tag);
+        campi.add(nome + cognome + tag);
+        campi.add(nome + " " + cognome + " " + tag);
+        campi.add(cognome + nome + tag);
+        campi.add(cognome + " " + nome + " " + tag);
+
         for (String campo : campi) {
             if (campo.toUpperCase().contains(stringa)) return true;
         }
