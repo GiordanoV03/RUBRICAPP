@@ -49,7 +49,7 @@ public class Contatto implements Comparable<Contatto> {
     /// @brief Restituisce il nome del contatto.
     /// @return Il nome del contatto.
     public String getNome() {
-        throw new UnsupportedOperationException("Contatto.getNome is not supported yet.");
+        return nome;
     }
 
     /// @brief Restituisce il cognome del contatto.

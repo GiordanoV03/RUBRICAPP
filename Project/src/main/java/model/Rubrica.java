@@ -8,6 +8,7 @@
 package model;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 /// @class Rubrica
 /// @brief Classe per la gestione di una rubrica di contatti.
@@ -19,43 +20,47 @@ import java.util.Set;
 public class Rubrica {
 
     private Set<Contatto> contatti; ///< Insieme di contatti nella rubrica.
+    public static int numeroContatti = 0; ///< Numero di contatti presenti in rubrica
 
     /// @brief Costruttore che crea una rubrica vuota con un ordinamento specifico.
     /// @param o Il criterio di ordinamento da utilizzare.
     public Rubrica(Ordinamento o) {
-        throw new UnsupportedOperationException("Rubrica constructor (Ordinamento o) is not supported yet.");
+        this.contatti = new TreeSet<>(o);
     }
 
     /// @brief Costruttore che inizializza una rubrica con un insieme di contatti e un ordinamento.
     /// @param contatti Insieme iniziale di contatti.
     /// @param o Il criterio di ordinamento da utilizzare.
     public Rubrica(Set<Contatto> contatti, Ordinamento o) {
-        throw new UnsupportedOperationException("Rubrica constructor (Set<Contatto> contatti, Ordinamento o) is not supported yet.");
+        contatti = new TreeSet<Contatto>(o);
     }
 
     /// @brief Restituisce l'insieme di contatti presenti nella rubrica.
     /// @return Un set di oggetti Contatto.
     public Set<Contatto> getContatti() {
-        throw new UnsupportedOperationException("Rubrica.getContatti is not supported yet.");
+        return contatti;
     }
 
     /// @brief Aggiunge un nuovo contatto alla rubrica.
     /// @param c Il contatto da aggiungere.
     public void aggiungi(Contatto c) {
-        throw new UnsupportedOperationException("Rubrica.aggiungi is not supported yet.");
+        contatti.add(c);
+        numeroContatti++;
     }
 
     /// @brief Rimuove un contatto dalla rubrica.
     /// @param c Il contatto da rimuovere.
     public void rimuovi(Contatto c) {
-        throw new UnsupportedOperationException("Rubrica.rimuovi is not supported yet.");
+        contatti.remove(c);
+        numeroContatti--;
     }
 
     /// @brief Modifica un contatto esistente nella rubrica.
     /// @param vecchio Il contatto da modificare.
     /// @param nuovo Il nuovo contatto con cui sostituire quello esistente.
     public void modifica(Contatto vecchio, Contatto nuovo) {
-        throw new UnsupportedOperationException("Rubrica.modifica is not supported yet.");
+        contatti.remove(vecchio);
+        contatti.add(nuovo);
     }
 
     /// @brief Esporta i dati dei contatti in formato testuale.
@@ -76,6 +81,14 @@ public class Rubrica {
     /// o tag) e restituisce i contatti che contengono
     /// la stringa specificata.
     public Set<Contatto> cerca(String stringa) {
-        throw new UnsupportedOperationException("Rubrica.cerca is not supported yet.");
+        Set<Contatto> trovati = new TreeSet<>();
+        
+        for(Contatto c : contatti){
+            if(c.getNome().contains(stringa) | c.getCognome().contains(stringa) | c.getTag().contains(stringa)){
+                trovati.add(c);
+            }
+        }
+        
+        return trovati;
     }
 }
