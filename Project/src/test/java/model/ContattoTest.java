@@ -160,4 +160,37 @@ public class ContattoTest {
         assertTrue(contatto1.compareTo(contatto3) < 0); // "Rossi" < "Verdi"
         assertEquals(1, contatto1.compareTo(contatto4)); // Identici
     }
+
+    @Test
+    public void testContieneStringaPresente() {
+        Contatto contatto = new Contatto("Mario", "Rossi");
+        contatto.setTag("Amico");
+
+        assertTrue(contatto.contiene("Mario"), "Il contatto dovrebbe contenere 'Mario'");
+        assertTrue(contatto.contiene("Rossi"), "Il contatto dovrebbe contenere 'Rossi'");
+        assertTrue(contatto.contiene("Amico"), "Il contatto dovrebbe contenere 'Amico'");
+
+        assertTrue(contatto.contiene("Mario Rossi"), "Il contatto dovrebbe contenere 'Mario Rossi'");
+        assertTrue(contatto.contiene("Rossi Mario"), "Il contatto dovrebbe contenere 'Rossi Mario'");
+    }
+
+    @Test
+    public void testContieneStringaAssente() {
+        Contatto contatto = new Contatto("Mario", "Rossi");
+        contatto.setTag("Amico");
+
+        assertFalse(contatto.contiene("Luigi"), "Il contatto non dovrebbe contenere 'Luigi'");
+        assertFalse(contatto.contiene("Verdi"), "Il contatto non dovrebbe contenere 'Verdi'");
+        assertFalse(contatto.contiene("Nemico"), "Il contatto non dovrebbe contenere 'Nemico'");
+    }
+
+    @Test
+    public void testContieneStringaVuotaONulla() {
+        Contatto contatto = new Contatto("Mario", "Rossi");
+        contatto.setTag("Amico");
+
+        assertFalse(contatto.contiene(""), "Il contatto non dovrebbe contenere una stringa vuota");
+        assertFalse(contatto.contiene(null), "Il contatto non dovrebbe contenere una stringa null");
+    }
+
 }

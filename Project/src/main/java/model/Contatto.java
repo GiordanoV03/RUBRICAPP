@@ -8,6 +8,8 @@
 
 package model;
 
+import java.util.List;
+
 /// @class Contatto
 /// @brief Classe che rappresenta un contatto personale.
 ///
@@ -194,6 +196,35 @@ public class Contatto implements Comparable<Contatto> {
         if (mio.compareToIgnoreCase(suo) != 0)
             return mio.compareTo(suo);
         return 1;
+    }
+
+    /// @brief Verifica se una stringa è contenuta nei dati del contatto.
+    /// @param stringa La stringa da cercare nei dati del contatto.
+    /// @return true se la stringa è presente in almeno uno dei campi del contatto (nome, cognome, tag) o nelle combinazioni di essi; false altrimenti.
+    ///
+    /// Questo metodo verifica se la stringa fornita, trasformata in maiuscolo, è contenuta in uno dei seguenti campi del contatto:
+    /// - Nome
+    /// - Cognome
+    /// - Tag
+    /// - Combinazioni di nome, cognome e tag (concatenati o separati da spazi, in diversi ordini).
+    ///
+    /// Se la stringa è nulla o vuota, il metodo restituisce `false`.
+    public boolean contiene(String stringa) {
+        if (stringa == null || stringa.isEmpty()) return false;
+        stringa = stringa.toUpperCase();
+        List<String> campi = List.of(
+                nome,
+                cognome,
+                tag,
+                nome + cognome + tag,
+                nome + " " + cognome + " " + tag,
+                cognome + nome + tag,
+                cognome + " " + nome + " " + tag
+        );
+        for (String campo : campi) {
+            if (campo.toUpperCase().contains(stringa)) return true;
+        }
+        return false;
     }
 
     /// @brief Verifica se l'oggetto corrente è uguale a un altro oggetto.
