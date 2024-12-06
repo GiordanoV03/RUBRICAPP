@@ -1,12 +1,12 @@
-package model;
-
-import java.util.Comparator;
-
 /// @file Ordinamento.java
 /// @brief Definisce la classe Ordinamento per il confronto e l'ordinamento dei contatti.
 ///
 /// Questa classe implementa un comparatore per ordinare i contatti in base al nome o al cognome.
 /// Fornisce metodi per configurare il criterio di ordinamento e per invertirlo.
+
+package model;
+
+import java.util.Comparator;
 
 /// @class Ordinamento
 /// @brief Classe che implementa un comparatore per i contatti.
@@ -21,19 +21,19 @@ public class Ordinamento implements Comparator<Contatto> {
     ///
     /// Inizializza un oggetto Ordinamento con il criterio di ordinamento predefinito.
     public Ordinamento() {
-        throw new UnsupportedOperationException("Ordinamento constructor is not supported yet.");
+        ordinamentoPerNome = true;
     }
 
     /// @brief Verifica il criterio di ordinamento attuale.
     /// @return true se l'ordinamento è per nome, false se è per cognome.
     public boolean isOrdinamentoPerNome() {
-        throw new UnsupportedOperationException("Ordinamento.isOrdinamentoPerNome is not supported yet.");
+        return ordinamentoPerNome;
     }
 
     /// @brief Imposta il criterio di ordinamento.
     /// @param ordinamentoPerNome true per ordinare per nome, false per ordinare per cognome.
     public void setOrdinamento(boolean ordinamentoPerNome) {
-        throw new UnsupportedOperationException("Ordinamento.setOrdinamento is not supported yet.");
+        this.ordinamentoPerNome = ordinamentoPerNome;
     }
 
     /// @brief Inverte il criterio di ordinamento corrente.
@@ -52,7 +52,20 @@ public class Ordinamento implements Comparator<Contatto> {
     /// - o1.compareTo(o2) se o1 è uguale a o2.
     @Override
     public int compare(Contatto o1, Contatto o2) {
-        throw new UnsupportedOperationException("Ordinamento.compare is not supported yet.");
+        String n1;
+        String n2;
+
+        if (ordinamentoPerNome) {
+            n1 = o1.getNome() + o1.getCognome();
+            n2 = o2.getNome() + o2.getCognome();
+        } else {
+            n1 = o1.getCognome() + o1.getNome();
+            n2 = o2.getCognome() + o2.getNome();
+        }
+
+        if (n1.compareToIgnoreCase(n2) == 0)
+            return o1.compareTo(o2);
+        return n1.compareToIgnoreCase(n2);
     }
 
 }
