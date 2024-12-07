@@ -5,7 +5,7 @@
  */
 package model;
 
-import java.util.Set;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +24,7 @@ public class RubricaTest {
     
     @BeforeAll
     public static void setUpClass() {
+        Rubrica.svuota();
     }
     
     @AfterAll
@@ -32,6 +33,7 @@ public class RubricaTest {
     
     @BeforeEach
     public void setUp() {
+        Rubrica.svuota();
     }
     
     @AfterEach
@@ -43,82 +45,157 @@ public class RubricaTest {
      */
     @Test
     public void testGetContatti() {
-        System.out.println("getContatti");
-        Rubrica instance = null;
-        Set<Contatto> expResult = null;
-        Set<Contatto> result = instance.getContatti();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Rubrica.svuota();
+        
+        assertTrue(Rubrica.getContatti().isEmpty());
+        
+        Contatto contatto1 = new Contatto("Mario", "Rossi");
+        Contatto contatto2 = new Contatto("Giovanni", "Bianchi");
+        
+        Rubrica.aggiungi(contatto1);
+        Rubrica.aggiungi(contatto2);
+        
+        List<Contatto> contatti = Rubrica.getContatti();
+        
+        assertEquals(2, contatti.size());
     }
-
+    
+    /**
+     * Test of getNumeroContatti method, of class Rubrica.
+     */
+    @Test
+    public void testGetNumeroContatti() {
+        Rubrica.svuota();
+        
+        assertTrue(Rubrica.getContatti().isEmpty());
+        
+        Contatto contatto1 = new Contatto("Mario", "Rossi");
+        Contatto contatto2 = new Contatto("Giovanni", "Bianchi");
+        
+        Rubrica.aggiungi(contatto1);
+        Rubrica.aggiungi(contatto2);
+        
+        assertEquals(2, Rubrica.getNumeroContatti());
+    }  
+    
     /**
      * Test of aggiungi method, of class Rubrica.
      */
     @Test
     public void testAggiungi() {
-        System.out.println("aggiungi");
-        Contatto c = null;
-        Rubrica instance = null;
-        instance.aggiungi(c);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Rubrica.svuota();
+        
+        assertTrue(Rubrica.getContatti().isEmpty());
+        
+        Contatto contatto = new Contatto("Mario", "Rossi");
+        
+        Rubrica.aggiungi(contatto);
+        
+        List<Contatto> contatti = Rubrica.getContatti();
+        
+        assertEquals(1, contatti.size());
     }
-
+    
     /**
      * Test of rimuovi method, of class Rubrica.
      */
     @Test
     public void testRimuovi() {
-        System.out.println("rimuovi");
-        Contatto c = null;
-        Rubrica instance = null;
-        instance.rimuovi(c);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Rubrica.svuota();
+        
+        assertTrue(Rubrica.getContatti().isEmpty());
+        
+        Contatto contatto1 = new Contatto("Mario", "Rossi");
+        Contatto contatto2 = new Contatto("Giovanni", "Bianchi");
+        
+        Rubrica.aggiungi(contatto1);
+        Rubrica.aggiungi(contatto2);
+        
+        assertEquals(2, Rubrica.getNumeroContatti());
+        
+        Rubrica.rimuovi(contatto1);
+        
+        List<Contatto> contatti = Rubrica.getContatti();
+        
+        assertEquals(1, Rubrica.getNumeroContatti());
     }
-
+    
     /**
      * Test of modifica method, of class Rubrica.
      */
     @Test
     public void testModifica() {
-        System.out.println("modifica");
-        Contatto vecchio = null;
-        Contatto nuovo = null;
-        Rubrica instance = null;
-        instance.modifica(vecchio, nuovo);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Rubrica.svuota();
+        assertTrue(Rubrica.getContatti().isEmpty());
+        
+        Contatto vecchio = new Contatto("Mario", "Rossi");
+        Contatto nuovo = new Contatto("Giovanni", "Bianchi");
+        
+        Rubrica.aggiungi(vecchio);
+        Rubrica.modifica(vecchio, nuovo);
+        
+        List<Contatto> contatti = Rubrica.getContatti();
+        
+        assertTrue(contatti.contains(nuovo));
     }
-
+    
+    /**
+     * Test of svuota method, of class Rubrica.
+     */
+    @Test
+    public void testSvuota() {
+        Rubrica.svuota();
+        
+        assertTrue(Rubrica.getContatti().isEmpty());
+        
+        Contatto contatto1 = new Contatto("Mario", "Rossi");
+        Contatto contatto2 = new Contatto("Giovanni", "Bianchi");
+        
+        Rubrica.aggiungi(contatto1);
+        Rubrica.aggiungi(contatto2);
+        
+        assertFalse(Rubrica.getContatti().isEmpty());
+        
+        Rubrica.svuota();
+        
+        assertTrue(Rubrica.getContatti().isEmpty());
+    }
+    
     /**
      * Test of esporta method, of class Rubrica.
      */
     @Test
     public void testEsporta() {
-        System.out.println("esporta");
-        Rubrica instance = null;
-        String expResult = "";
-        String result = instance.esporta();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Rubrica.svuota();
+        
+        Contatto contatto1 = new Contatto("Mario", "Rossi");
+        Contatto contatto2 = new Contatto("Giovanni", "Bianchi");
+        
+        Rubrica.aggiungi(contatto1);
+        Rubrica.aggiungi(contatto2);
+        
+        String risultato = Rubrica.esporta();
+        
+        String risultatoAtteso = "Giovanni\nBianchi\n\n\n\n\n\n\n\n***\nMario\nRossi\n\n\n\n\n\n\n\n***\n";
+        
+        assertEquals(risultatoAtteso, risultato);
     }
-
+    
     /**
      * Test of cerca method, of class Rubrica.
      */
     @Test
     public void testCerca() {
-        System.out.println("cerca");
-        String stringa = "";
-        Rubrica instance = null;
-        Set<Contatto> expResult = null;
-        Set<Contatto> result = instance.cerca(stringa);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
+        Rubrica.svuota();
+        Contatto contatto1 = new Contatto("Mario", "Rossi");
+        Contatto contatto2 = new Contatto("Giovanni", "Bianchi");
+        
+        Rubrica.aggiungi(contatto1);
+        Rubrica.aggiungi(contatto2);
+        
+        List<Contatto> contattiTrovati = Rubrica.cerca("Mar");
+        
+        assertEquals(1, contattiTrovati.size());
+        assertTrue(contattiTrovati.contains(contatto1));
+    } 
 }

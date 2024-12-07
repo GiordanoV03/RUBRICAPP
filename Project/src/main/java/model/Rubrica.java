@@ -8,6 +8,8 @@
 
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -15,12 +17,13 @@ import java.util.TreeSet;
 /// @brief Classe per la gestione di una rubrica di contatti.
 ///
 /// La classe `Rubrica` fornisce un contenitore per gestire un insieme di oggetti
-/// `Contatto`. Supporta l'aggiunta, la rimozione, la modifica, la ricerca di contatti,
-/// nonché l'esportazione dei dati in formato testuale. I contatti all'interno della rubrica
-/// sono mantenuti in ordine, rispettando il criterio di ordinamento configurato nella
-/// classe `Ordinamento`.
+/// `Contatto` e un contatore di contatti. Supporta l'aggiunta, la rimozione, la modifica, 
+/// la ricerca di contatti, nonché l'esportazione dei dati in formato testuale. 
+/// I contatti all'interno della rubrica sono mantenuti in ordine, rispettando il criterio 
+/// di ordinamento configurato nella classe `Ordinamento`.
 public class Rubrica {
     private static Set<Contatto> contatti = new TreeSet<>(); ///< Insieme di contatti nella rubrica.
+    private static int numeroContatti = 0;
 
     /// @brief Riordina i contatti nella rubrica.
     ///
@@ -35,19 +38,31 @@ public class Rubrica {
     /// @brief Restituisce l'insieme di contatti presenti nella rubrica.
     /// @return Un set di oggetti `Contatto` che rappresentano tutti i contatti presenti
     ///         nella rubrica.
-    public static Set<Contatto> getContatti() {
-        return contatti;
+    public static List<Contatto> getContatti() {
+        List<Contatto> l = new ArrayList<>();
+        for(Contatto c : contatti){
+            l.add(c);
+        }
+        return l;
+    }
+    
+    /// @brief Restituisce il numero di contatti presenti in rubrica.
+    /// @return un intero che rappresenta il numero di contatti presenti nella rubrica
+    public static int getNumeroContatti(){
+        return numeroContatti;
     }
 
     /// @brief Aggiunge un nuovo contatto alla rubrica.
     /// @param c Il contatto da aggiungere alla rubrica.
     public static void aggiungi(Contatto c) {
+        numeroContatti++;
         contatti.add(c);
     }
 
     /// @brief Rimuove un contatto dalla rubrica.
     /// @param c Il contatto da rimuovere dalla rubrica.
     public static void rimuovi(Contatto c) {
+        numeroContatti--;
         contatti.remove(c);
     }
 
@@ -57,6 +72,12 @@ public class Rubrica {
     public static void modifica(Contatto vecchio, Contatto nuovo) {
         contatti.remove(vecchio);
         contatti.add(nuovo);
+    }
+    
+    /// @brief Eliminazione di tutti i contatti presenti in rubrica.
+    public static void svuota(){
+        numeroContatti = 0;
+        contatti.clear();
     }
 
     /// @brief Esporta i dati dei contatti in formato testuale.
@@ -68,7 +89,7 @@ public class Rubrica {
     public static String esporta() {
         StringBuilder sb = new StringBuilder();
         for (Contatto c : contatti) {
-            sb.append(c.toString());
+            sb.append(c.esporta());
             sb.append("\n");
         }
         return sb.toString();
@@ -81,8 +102,8 @@ public class Rubrica {
     ///
     /// La ricerca avviene sui campi rilevanti dei contatti e restituisce un insieme di
     /// contatti che contengono la stringa specificata.
-    public static Set<Contatto> cerca(String stringa) {
-        Set<Contatto> trovati = new TreeSet<>();
+    public static List<Contatto> cerca(String stringa) {
+        List<Contatto> trovati = new ArrayList<>();
 
         for(Contatto c : contatti){
             if(c.contiene(stringa.toUpperCase()))
