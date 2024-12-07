@@ -6,10 +6,10 @@
 
 package ui;
 
-import controller.ModificaContattoController;
 import model.*;
 
 import javax.swing.*;
+import java.awt.*;
 
 /// @class ModificaContatto
 /// @brief Classe per la gestione dell'interfaccia di modifica dei contatti.
@@ -19,7 +19,6 @@ import javax.swing.*;
 /// modificare un contatto selezionato.
 public class ModificaContatto {
 
-    private ModificaContattoController controller; ///< Controller associato per la gestione della logica di modifica dei contatti.
     private JPanel schermata; ///< Pannello che contiene la schermata dell'interfaccia utente per la modifica dei contatti.
 
     /// @brief Costruttore che crea una schermata per modificare un contatto.
@@ -28,7 +27,8 @@ public class ModificaContatto {
     /// Questo costruttore inizializza l'interfaccia utente per la modifica dei dati
     /// di un contatto specifico.
     public ModificaContatto(Contatto c) {
-        throw new UnsupportedOperationException("ModificaContatto constructor is not supported yet.");
+        schermata = new JPanel(new BorderLayout());
+        schermata.setBackground(Color.GREEN);
     }
 
     /// @brief Restituisce il pannello della schermata di modifica.

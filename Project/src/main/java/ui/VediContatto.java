@@ -7,10 +7,10 @@
 
 package ui;
 
-import controller.ContattoController;
 import model.*;
 
 import javax.swing.*;
+import java.awt.*;
 
 /// @class VediContatto
 /// @brief Classe che rappresenta la schermata per visualizzare un contatto.
@@ -19,7 +19,6 @@ import javax.swing.*;
 /// Permette di interagire con i dati del contatto tramite eventi generati dall'utente.
 public class VediContatto {
 
-    private ContattoController controller; ///< Controller associato alla gestione della logica di visualizzazione di un contatto.
     private JPanel schermata; ///< Pannello della schermata per visualizzare il contatto.
 
     /// @brief Costruttore della classe VediContatto.
@@ -27,7 +26,8 @@ public class VediContatto {
     ///
     /// Inizializza l'interfaccia utente per visualizzare le informazioni del contatto specificato.
     public VediContatto(Contatto c) {
-        throw new UnsupportedOperationException("VediContatto constructor is not supported yet.");
+        schermata = new JPanel(new BorderLayout());
+        schermata.setBackground(Color.BLUE);
     }
 
     /// @brief Restituisce il pannello della schermata di modifica.

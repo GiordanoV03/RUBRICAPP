@@ -7,7 +7,6 @@
 
 package ui;
 
-import controller.*;
 import model.*;
 import javax.swing.*;
 
@@ -19,7 +18,7 @@ import javax.swing.*;
 /// fornito dalle classi corrispondenti nel package "Ui".
 public class Finestra extends JFrame {
 
-    private JPanel schermata; ///< Il pannello attualmente visualizzato nella finestra.
+    private JPanel schermata = new JPanel(); ///< Il pannello attualmente visualizzato nella finestra.
 
     /// @brief Costruttore della finestra principale.
     ///
@@ -27,17 +26,18 @@ public class Finestra extends JFrame {
     /// di base per la GUI, come dimensioni e layout. La schermata iniziale viene impostata
     /// automaticamente.
     public Finestra() {
-        throw new UnsupportedOperationException("Finestra constructor is not supported yet.");
+        setTitle("RUBRICAPP");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        mostraVediRubrica();
+        setVisible(true);
     }
 
     /// @brief Mostra la schermata "VediRubrica".
-    /// @param c Contatto da visualizzare.
-    ///
-    /// Questo metodo cambia la schermata attualmente visualizzata con la schermata
-    /// per visualizzare l'intera rubrica. I dettagli del contatto specificato vengono
-    /// evidenziati o mostrati, se applicabile.
-    public void mostraVediRubrica(Contatto c) {
-        throw new UnsupportedOperationException("Finestra.mostraVediRubrica is not supported yet.");
+    public void mostraVediRubrica() {
+        VediRubrica v = new VediRubrica();
+        schermata = v.getSchermata();
+        setContentPane(schermata);
     }
 
     /// @brief Mostra la schermata "VediContatto".
@@ -46,7 +46,9 @@ public class Finestra extends JFrame {
     /// Cambia la schermata visualizzata con una schermata che mostra i dettagli
     /// completi del contatto specificato.
     public void mostraContatto(Contatto c) {
-        throw new UnsupportedOperationException("Finestra.mostraContatto is not supported yet.");
+        VediContatto v = new VediContatto(c);
+        schermata = v.getSchermata();
+        setContentPane(schermata);
     }
 
     /// @brief Mostra la schermata "ModificaContatto".
@@ -55,7 +57,9 @@ public class Finestra extends JFrame {
     /// Cambia la schermata attualmente visualizzata con una schermata che consente
     /// di modificare i dettagli del contatto specificato.
     public void mostraModificaContatto(Contatto c) {
-        throw new UnsupportedOperationException("Finestra.mostraModificaContatto is not supported yet.");
+        ModificaContatto v = new ModificaContatto(c);
+        schermata = v.getSchermata();
+        setContentPane(schermata);
     }
 
     /// @brief Mostra una finestra di dialogo per confermare un'azione.
