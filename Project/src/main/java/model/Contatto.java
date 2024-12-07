@@ -24,6 +24,7 @@ public class Contatto implements Comparable<Contatto> {
     private String tag;      ///< Tag associato al contatto.
     private final String[] telefoni; ///< Array di numeri di telefono.
     private final String[] emails;   ///< Array di indirizzi email.
+    private boolean selezionato;    ///< Indica se un contatto e' selezionato o meno
 
     /// @brief Costruttore con nome e cognome.
     /// @param nome Il nome del contatto.
@@ -117,6 +118,12 @@ public class Contatto implements Comparable<Contatto> {
     public String getEmail(int i) {
         return emails[i];
     }
+    
+    /// @brief Restituisce un booleano.
+    /// @return Il booleano restituito e' vero se il contatto e' selezionato, falso altrimenti.
+    public boolean getSelezionato(){
+        return selezionato;
+    }
 
     /// @brief Imposta il nome del contatto.
     /// @param nome Il nuovo nome del contatto.
@@ -164,6 +171,12 @@ public class Contatto implements Comparable<Contatto> {
         if (!Email.isEmail(email))
             throw new EmailNonValidaException("Indirizzo email non valido.");
         emails[i] = email;
+    }
+    
+    /// @brief Imposta un booleano.
+    /// @param selezionato Il nuovo valore del booleano (vero se un contatto e' selezionato, falso altrimenti)
+    public void setSelezionato(boolean selezionato){
+        this.selezionato = selezionato;
     }
 
     /// @brief Esporta i dati del contatto in formato testuale.

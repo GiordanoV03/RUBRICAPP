@@ -9,6 +9,8 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
+import model.Contatto;
+import java.util.List;
 
 /// @class VediRubrica
 /// @brief Classe per la gestione della schermata di visualizzazione della rubrica.
@@ -19,9 +21,11 @@ import java.awt.*;
 public class VediRubrica {
 
     private JPanel schermata; ///< Pannello che contiene la schermata dell'interfaccia utente per la visualizzazione della rubrica.
+    private List<Contatto> contatti; /// < Lista che contiene tutti i contatti
 
     /// @brief Costruttore che inizializza la schermata di visualizzazione della rubrica.
-    public VediRubrica() {
+    public VediRubrica(List<Contatto> contatti) {
+        this.contatti = contatti;
         schermata = new JPanel(new BorderLayout());
         schermata.setBackground(Color.RED);
     }

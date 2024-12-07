@@ -7,6 +7,7 @@
 
 package ui;
 
+import java.util.List;
 import model.*;
 import javax.swing.*;
 
@@ -29,13 +30,13 @@ public class Finestra extends JFrame {
         setTitle("RUBRICAPP");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        mostraVediRubrica();
+        mostraVediRubrica(Rubrica.getContatti());
         setVisible(true);
     }
 
     /// @brief Mostra la schermata "VediRubrica".
-    public void mostraVediRubrica() {
-        VediRubrica v = new VediRubrica();
+    public void mostraVediRubrica(List<Contatto> contatti) {
+        VediRubrica v = new VediRubrica(contatti);
         schermata = v.getSchermata();
         setContentPane(schermata);
     }
