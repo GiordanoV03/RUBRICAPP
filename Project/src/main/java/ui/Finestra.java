@@ -17,28 +17,27 @@ import javax.swing.*;
 /// La classe Finestra gestisce la visualizzazione delle schermate principali
 /// e dei dialoghi di conferma o selezione del percorso. Ogni schermata è un JPanel
 /// fornito dalle classi corrispondenti nel package "Ui".
-public class Finestra extends JFrame {
-
-    private JPanel schermata = new JPanel(); ///< Il pannello attualmente visualizzato nella finestra.
+public class Finestra {
+    private final static JFrame finestra = new JFrame(); ///< Il frame che mostra la finestra
+    private static JPanel schermata = new JPanel(); ///< Il pannello attualmente visualizzato nella finestra.
 
     /// @brief Costruttore della finestra principale.
     ///
     /// Inizializza la finestra principale dell'applicazione e configura le impostazioni
     /// di base per la GUI, come dimensioni e layout. La schermata iniziale viene impostata
     /// automaticamente.
-    public Finestra() {
-        setTitle("RUBRICAPP");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        mostraVediRubrica(Rubrica.getContatti());
-        setVisible(true);
+    public static void start() {
+        finestra.setTitle("RUBRICAPP");
+        finestra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        finestra.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        finestra.setVisible(true);
     }
 
     /// @brief Mostra la schermata "VediRubrica".
-    public void mostraVediRubrica(List<Contatto> contatti) {
+    public static void mostraVediRubrica(List<Contatto> contatti) {
         VediRubrica v = new VediRubrica(contatti);
         schermata = v.getSchermata();
-        setContentPane(schermata);
+        finestra.setContentPane(schermata);
     }
 
     /// @brief Mostra la schermata "VediContatto".
@@ -46,10 +45,10 @@ public class Finestra extends JFrame {
     ///
     /// Cambia la schermata visualizzata con una schermata che mostra i dettagli
     /// completi del contatto specificato.
-    public void mostraContatto(Contatto c) {
+    public static void mostraContatto(Contatto c) {
         VediContatto v = new VediContatto(c);
         schermata = v.getSchermata();
-        setContentPane(schermata);
+        finestra.setContentPane(schermata);
     }
 
     /// @brief Mostra la schermata "ModificaContatto".
@@ -57,10 +56,10 @@ public class Finestra extends JFrame {
     ///
     /// Cambia la schermata attualmente visualizzata con una schermata che consente
     /// di modificare i dettagli del contatto specificato.
-    public void mostraModificaContatto(Contatto c) {
+    public static void mostraModificaContatto(Contatto c) {
         ModificaContatto v = new ModificaContatto(c);
         schermata = v.getSchermata();
-        setContentPane(schermata);
+        finestra.setContentPane(schermata);
     }
 
     /// @brief Mostra una finestra di dialogo per confermare un'azione.
@@ -68,7 +67,7 @@ public class Finestra extends JFrame {
     /// Questo metodo mostra un messaggio di dialogo che richiede conferma
     /// per un'operazione (ad esempio, eliminazione o salvataggio). L'implementazione
     /// prevede l'uso di una finestra di dialogo predefinita di Swing.
-    public void chiediConferma() {
+    public static void chiediConferma() {
         throw new UnsupportedOperationException("Finestra.chiediConferma is not supported yet.");
     }
 
@@ -78,7 +77,7 @@ public class Finestra extends JFrame {
     /// un percorso o un file da utilizzare per operazioni come il caricamento
     /// o il salvataggio dei dati. L'implementazione prevede l'uso di una
     /// finestra JFileChooser.
-    public void chiediPercorso() {
+    public static String chiediPercorso() {
         throw new UnsupportedOperationException("Finestra.chiediPercorso is not supported yet.");
     }
 
