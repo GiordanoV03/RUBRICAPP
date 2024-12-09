@@ -44,7 +44,6 @@ public class ContattoTest {
 
     @Test
     public void testEsportaImporta() throws ContattoNonValidoException, EmailNonValidaException {
-        // 1. Creazione di un contatto originale
         Contatto contattoOriginale = new Contatto("Luca", "Bianchi");
         contattoOriginale.setTag("Amico");
         contattoOriginale.setTelefono(0, "1234567890");
@@ -54,24 +53,16 @@ public class ContattoTest {
         contattoOriginale.setEmail(1, "luca@example.com");
         contattoOriginale.setEmail(2, "contact.luca@example.org");
 
-        // 2. Esportazione del contatto in una stringa
         String datiEsportati = contattoOriginale.esporta();
 
-        // 3. Creazione di un nuovo contatto utilizzando i dati esportati
         Contatto contattoImportato = new Contatto(datiEsportati);
 
-        // 4. Confronto dei due contatti
         assertEquals(contattoOriginale.getNome(), contattoImportato.getNome(), "I nomi devono essere uguali");
         assertEquals(contattoOriginale.getCognome(), contattoImportato.getCognome(), "I cognomi devono essere uguali");
         assertEquals(contattoOriginale.getTag(), contattoImportato.getTag(), "I tag devono essere uguali");
 
-        // Verifica dei numeri di telefono
         for (int i = 0; i < 3; i++) {
             assertEquals(contattoOriginale.getTelefono(i), contattoImportato.getTelefono(i), "I numeri di telefono devono essere uguali");
-        }
-
-        // Verifica degli indirizzi email
-        for (int i = 0; i < 3; i++) {
             assertEquals(contattoOriginale.getEmail(i), contattoImportato.getEmail(i), "Gli indirizzi email devono essere uguali");
         }
     }
@@ -192,5 +183,82 @@ public class ContattoTest {
         assertFalse(contatto.contiene(""), "Il contatto non dovrebbe contenere una stringa vuota");
         assertFalse(contatto.contiene(null), "Il contatto non dovrebbe contenere una stringa null");
     }
+
+    @Test
+    void testEqualsConIdentico() {
+        Contatto c1 = new Contatto("Mario", "Rossi");
+        c1.setTag("TAG1");
+        c1.setTelefono(0, "123456789");
+        c1.setEmail(0, "mario.rossi@example.com");
+
+        Contatto c2 = new Contatto("Mario", "Rossi");
+        c2.setTag("TAG1");
+        c2.setTelefono(0, "123456789");
+        c2.setEmail(0, "mario.rossi@example.com");
+
+        assertEquals(c1, c2, "Contatti con gli stessi dati dovrebbero essere uguali");
+    }
+
+    @Test
+    void testEqualsConDiverso() {
+        Contatto c1 = new Contatto("Mario", "Rossi");
+        c1.setTag("TAG1");
+        c1.setTelefono(0, "123456789");
+        c1.setEmail(0, "mario.rossi@example.com");
+
+        Contatto c2 = new Contatto("Luigi", "Bianchi");
+        c2.setTag("TAG2");
+        c2.setTelefono(0, "987654321");
+        c2.setEmail(0, "luigi.bianchi@example.com");
+
+        assertNotEquals(c1, c2, "Contatti con dati diversi non dovrebbero essere uguali");
+    }
+
+    @Test
+    void testEqualsConLeggermenteDiverso() {
+        Contatto c1 = new Contatto("Mario", "Rossi");
+        c1.setTag("TAG1");
+        c1.setTelefono(0, "123456789");
+        c1.setEmail(0, "mario.rossi@example.com");
+
+        Contatto c2 = new Contatto("Mario", "Rossi");
+        c2.setTag("TAG2"); // Differente
+        c2.setTelefono(0, "123456789");
+        c2.setEmail(0, "mario.rossi@example.com");
+
+        assertNotEquals(c1, c2, "Contatti con tag diverso non dovrebbero essere uguali");
+    }
+
+    @Test
+    void testEqualsConThis() {
+        Contatto c1 = new Contatto("Mario", "Rossi");
+        c1.setTag("TAG1");
+        c1.setTelefono(0, "123456789");
+        c1.setEmail(0, "mario.rossi@example.com");
+
+        assertEquals(c1, c1, "Un contatto dovrebbe essere uguale a se stesso");
+    }
+
+    @Test
+    void testEqualsConNull() {
+        Contatto c1 = new Contatto("Mario", "Rossi");
+        c1.setTag("TAG1");
+        c1.setTelefono(0, "123456789");
+        c1.setEmail(0, "mario.rossi@example.com");
+
+        assertNotEquals(null, c1, "Un contatto non dovrebbe essere uguale a null");
+    }
+
+    @Test
+    void testEqualsConAltraClase() {
+        Contatto c1 = new Contatto("Mario", "Rossi");
+        c1.setTag("TAG1");
+        c1.setTelefono(0, "123456789");
+        c1.setEmail(0, "mario.rossi@example.com");
+
+        String other = "Non un contatto";
+        assertNotEquals(c1, other, "Un contatto non dovrebbe essere uguale a un'istanza di una classe diversa");
+    }
+
 
 }
