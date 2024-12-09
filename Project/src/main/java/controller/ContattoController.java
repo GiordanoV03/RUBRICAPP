@@ -1,12 +1,13 @@
-package controller;
-
-import model.*;
-
 /// @file ContattoController.java
 /// @brief Definisce la classe ContattoController per la gestione delle operazioni sui contatti.
 ///
 /// Questa classe fornisce metodi per visualizzare, modificare, eliminare un contatto, gestire
 /// le email associate ai contatti e navigare nel flusso dell'applicazione.
+
+package controller;
+
+import model.*;
+import ui.Finestra;
 
 /// @class ContattoController
 /// @brief Classe che gestisce le operazioni sui contatti.
@@ -15,29 +16,30 @@ import model.*;
 /// la visualizzazione, modifica ed eliminazione dei dati, oltre alla gestione di operazioni
 /// come l'apertura di email e il ritorno a una schermata precedente.
 public class ContattoController {
+    private Contatto contatto;
 
-    /// @brief Visualizza i dettagli di un contatto.
-    /// @param c Il contatto di cui visualizzare i dettagli.
+    /// @brief Costruttore del controller.
+    /// @param contatto Il contatto di cui visualizzare i dettagli.
     ///
     /// Questo metodo è responsabile della visualizzazione delle informazioni complete
     /// di un contatto specifico, incluse email e numeri di telefono.
-    public void visualizza(Contatto c) {
-        throw new UnsupportedOperationException("ContattoController.visualizza is not supported yet.");
+    public ContattoController(Contatto contatto) {
+        this.contatto = contatto;
+        Finestra.mostraContatto(contatto);
     }
 
-    /// @brief Modifica un contatto esistente con nuovi dati.
-    /// @param nuovo Oggetto Contatto contenente i dati aggiornati.
-    /// Questo metodo permette di aggiornare le informazioni di un contatto già esistente,
-    /// sovrascrivendo i dati con quelli forniti nel parametro "nuovo".
-    public void modifica(Contatto nuovo) {
-        throw new UnsupportedOperationException("ContattoController.modifica is not supported yet.");
+    /// @brief Modifica il contatto visualizzato con nuovi dati.
+    /// Questo metodo permette di aggiornare le informazioni del contatto
+    /// visualizzato, passando alla schermata ModificaContatto.
+    public void modifica() {
+        Finestra.mostraModificaContatto(contatto);
     }
 
     /// @brief Elimina un contatto.
-    /// @param c Il contatto da eliminare.
     /// Questo metodo consente di rimuovere un contatto specificato dal sistema.
-    public void elimina(Contatto c) {
-        throw new UnsupportedOperationException("ContattoController.elimina is not supported yet.");
+    public void elimina() {
+        Rubrica.rimuovi(contatto);
+        Finestra.mostraVediRubrica(Rubrica.getContatti());
     }
 
     /// @brief Apre il client email per inviare un'email.
@@ -45,13 +47,17 @@ public class ContattoController {
     /// Questo metodo lancia un'operazione per aprire il client email predefinito
     /// del sistema utilizzando l'indirizzo email fornito.
     public void apriEmail(String email) {
-        throw new UnsupportedOperationException("ContattoController.apriEmail is not supported yet.");
+        try {
+            Email.apriEmail(email);
+        } catch (EmailNonValidaException e) {
+            Finestra.mostraErrore("L'email del contatto non è valida.");
+        }
     }
 
     /// @brief Torna alla schermata precedente.
     /// Questo metodo gestisce il ritorno alla schermata precedente nel flusso dell'applicazione.
     public void indietro() {
-        throw new UnsupportedOperationException("ContattoController.indietro is not supported yet.");
+        Finestra.mostraVediRubrica(Rubrica.getContatti());
     }
 
 }
