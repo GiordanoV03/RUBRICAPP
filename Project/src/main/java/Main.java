@@ -19,7 +19,7 @@ public class Main {
     /// Questo metodo avvia l'applicazione istanziando un oggetto "Finestra",
     /// che rappresenta l'interfaccia grafica principale.
     public static void main(String[] args) {
-        new Finestra();
+        Finestra.start();
     }
 
 }
