@@ -121,7 +121,7 @@ public class Contatto implements Comparable<Contatto> {
     
     /// @brief Restituisce un booleano.
     /// @return Il booleano restituito e' vero se il contatto e' selezionato, falso altrimenti.
-    public boolean getSelezionato(){
+    public boolean isSelezionato(){
         return selezionato;
     }
 
