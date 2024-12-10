@@ -9,6 +9,7 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import model.Contatto;
 import java.util.List;
 
@@ -26,8 +27,58 @@ public class VediRubrica {
     /// @brief Costruttore che inizializza la schermata di visualizzazione della rubrica.
     public VediRubrica(List<Contatto> contatti) {
         this.contatti = contatti;
-        schermata = new JPanel(new BorderLayout());
-        schermata.setBackground(Color.RED);
+        
+        schermata = new JPanel(new BorderLayout()) {
+            private final Color bg1 = new Color(0x8C52FF);
+            private final Color bg2 = new Color(0x5CE1E6);
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                GradientPaint gradient = new GradientPaint(
+                        0, getHeight()/2, bg1,
+                        getWidth(), getHeight()/2, bg2
+                );
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        
+        //Creazione del TOP PANEL (sezione superiore della finestra)
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setBackground(new Color(0x5271FF));
+        topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        
+        //Etichetta del titolo RUBRICAPP
+        JLabel titolo = new JLabel("RUBRICAPP", JLabel.CENTER);
+        titolo.setFont(new Font("Colette", Font.BOLD, 28));
+        titolo.setForeground(Color.white);
+        titolo.setBackground(new Color(0x5271FF));
+        topPanel.add(titolo, BorderLayout.WEST);
+        
+        //Barra di ricerca
+        JPanel barraRicerca = new JPanel(new BorderLayout());
+        barraRicerca.setPreferredSize(new Dimension(600, 40));
+        
+        //Campo dove inserire caratteri per la ricerca
+        JTextField campoRicerca = new JTextField();
+        campoRicerca.setForeground(Color.black);
+        barraRicerca.add(campoRicerca, BorderLayout.CENTER);
+        
+        //Pulsante della ricerca
+        JButton bottoneRicerca = new JButton("🔍");
+        barraRicerca.add(bottoneRicerca, BorderLayout.EAST);
+        topPanel.add(barraRicerca, BorderLayout.CENTER);
+        
+        //Pulsante "+"
+        JButton bottoneAggiungi = new JButton("+");
+        topPanel.add(bottoneAggiungi, BorderLayout.WEST);
+        
+        //Aggiunta del pannello superiore a schermata
+        schermata.add(topPanel, BorderLayout.NORTH);
+        
+        //Creazione del CENTER PANEL (sezione centrale della finestra)
+        
     }
 
     /// @brief Restituisce il pannello della schermata di visualizzazione della rubrica.
@@ -38,23 +89,6 @@ public class VediRubrica {
     public JPanel getSchermata() {
         return schermata;
     }
-
-    /// @brief Gestisce l'evento di clic su un pulsante.
-    /// @param pulsante Il pulsante cliccato dall'utente.
-    ///
-    /// Questo metodo viene chiamato quando un pulsante viene cliccato
-    /// all'interno dell'interfaccia utente, permettendo di gestire l'azione associata.
-    public void pulsanteCliccato(JButton pulsante) {
-        throw new UnsupportedOperationException("VediRubrica.pulsanteCliccato is not supported yet.");
-    }
-
-    /// @brief Gestisce i dati inseriti dall'utente.
-    /// @param testo I dati inseriti dall'utente.
-    ///
-    /// Questo metodo viene invocato quando l'utente inserisce del testo,
-    /// ad esempio in un campo di input, ed esegue l'operazione appropriata
-    /// utilizzando il controller della rubrica.
-    public void datiInseriti(String testo) {
-        throw new UnsupportedOperationException("VediRubrica.datiInseriti is not supported yet.");
-    }
+    
 }
+
