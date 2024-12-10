@@ -6,7 +6,9 @@
 
 package ui;
 
+import controller.ModificaContattoController;
 import model.*;
+import ui.ModificaContattoPanels.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +22,7 @@ import java.awt.*;
 public class ModificaContatto {
 
     private JPanel schermata; ///< Pannello che contiene la schermata dell'interfaccia utente per la modifica dei contatti.
+    private ModificaContattoController controller; ///< Controller che gestisce la logica della schermata.
 
     /// @brief Costruttore che crea una schermata per modificare un contatto.
     /// @param c Il contatto da modificare.
@@ -27,8 +30,25 @@ public class ModificaContatto {
     /// Questo costruttore inizializza l'interfaccia utente per la modifica dei dati
     /// di un contatto specifico.
     public ModificaContatto(Contatto c) {
-        schermata = new JPanel(new BorderLayout());
-        schermata.setBackground(Color.GREEN);
+        controller = new ModificaContattoController(c);
+        schermata = new JPanel(new BorderLayout()) {
+            private final Color bg1 = new Color(0x8C52FF);
+            private final Color bg2 = new Color(0x5CE1E6);
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                GradientPaint gradient = new GradientPaint(
+                        0, getHeight()/2, bg1,
+                        getWidth(), getHeight()/2, bg2
+                );
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        schermata.add(new TopPanel(controller), BorderLayout.NORTH);
+        schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
+        schermata.add(new BottomPanel(controller), BorderLayout.SOUTH);
     }
 
     /// @brief Restituisce il pannello della schermata di modifica.
@@ -40,13 +60,9 @@ public class ModificaContatto {
         return schermata;
     }
 
-    /// @brief Gestisce l'evento di clic su un pulsante.
-    /// @param pulsante Il pulsante cliccato dall'utente.
-    ///
-    /// Questo metodo viene chiamato quando un pulsante viene cliccato
-    /// all'interno dell'interfaccia utente, permettendo di gestire l'azione associata.
-    public void pulsanteCliccato(JButton pulsante) {
-        throw new UnsupportedOperationException("ModificaContatto.pulsanteCliccato is not supported yet.");
+    public static void main(String[] args) {
+        Finestra.start();
+        Finestra.mostraModificaContatto(null);
     }
 
 }
