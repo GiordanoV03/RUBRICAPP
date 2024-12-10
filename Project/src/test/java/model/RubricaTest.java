@@ -13,7 +13,7 @@ public class RubricaTest {
 
     @Test
     public void testGetContatti() {
-        Rubrica.svuota();
+
         
         assertTrue(Rubrica.getContatti().isEmpty());
         
@@ -30,7 +30,7 @@ public class RubricaTest {
 
     @Test
     public void testGetNumeroContatti() {
-        Rubrica.svuota();
+
         
         assertTrue(Rubrica.getContatti().isEmpty());
         
@@ -45,7 +45,7 @@ public class RubricaTest {
 
     @Test
     public void testAggiungi() {
-        Rubrica.svuota();
+
         
         assertTrue(Rubrica.getContatti().isEmpty());
         
@@ -60,7 +60,7 @@ public class RubricaTest {
 
     @Test
     public void testRimuovi() {
-        Rubrica.svuota();
+
         
         assertTrue(Rubrica.getContatti().isEmpty());
         
@@ -81,7 +81,7 @@ public class RubricaTest {
 
     @Test
     public void testModifica() {
-        Rubrica.svuota();
+
         assertTrue(Rubrica.getContatti().isEmpty());
         
         Contatto vecchio = new Contatto("Mario", "Rossi");
@@ -97,7 +97,7 @@ public class RubricaTest {
 
     @Test
     public void testSvuota() {
-        Rubrica.svuota();
+
         
         assertTrue(Rubrica.getContatti().isEmpty());
         
@@ -115,7 +115,7 @@ public class RubricaTest {
     }
     @Test
     public void testCerca() {
-        Rubrica.svuota();
+
         Contatto contatto1 = new Contatto("Mario", "Rossi");
         Contatto contatto2 = new Contatto("Giovanni", "Bianchi");
         
