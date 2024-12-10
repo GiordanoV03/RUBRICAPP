@@ -7,8 +7,10 @@
 
 package ui;
 
+import controller.ContattoController;
 import model.*;
-import ui.VediContattoPanels.*;
+import ui.vediContattoPanels.CenterPanel;
+import ui.vediContattoPanels.TopPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +21,8 @@ import java.awt.*;
 /// Questa classe gestisce l'interfaccia utente per visualizzare le informazioni di un contatto.
 /// Permette di interagire con i dati del contatto tramite eventi generati dall'utente.
 public class VediContatto {
+    Contatto c = new Contatto("Pietro", "Giordano");
+
 
     private JPanel schermata; ///< Pannello della schermata per visualizzare il contatto.
 
@@ -27,9 +31,11 @@ public class VediContatto {
     ///
     /// Inizializza l'interfaccia utente per visualizzare le informazioni del contatto specificato.
     public VediContatto(Contatto c) {
+        ContattoController controller = new ContattoController(c);
         schermata = new JPanel(new BorderLayout()) {
             private final Color bg1 = new Color(0x8C52FF);
             private final Color bg2 = new Color(0x5CE1E6);
+
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -42,7 +48,7 @@ public class VediContatto {
                 g2d.fillRect(0, 0, getWidth(), getHeight());
             }
         };
-        schermata.add(new TopPanel(), BorderLayout.NORTH);
+        schermata.add(new TopPanel(controller), BorderLayout.NORTH);
         schermata.add(new CenterPanel(), BorderLayout.CENTER);
     }
 

@@ -8,7 +8,7 @@ package ui;
 
 import controller.ModificaContattoController;
 import model.*;
-import ui.ModificaContattoPanels.*;
+import ui.modificaContattoPanels.*;
 
 import javax.swing.*;
 import java.awt.*;

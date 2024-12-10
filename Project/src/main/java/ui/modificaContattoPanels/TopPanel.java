@@ -1,4 +1,4 @@
-package ui.ModificaContattoPanels;
+package ui.modificaContattoPanels;
 
 import controller.ModificaContattoController;
 

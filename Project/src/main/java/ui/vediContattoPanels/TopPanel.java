@@ -1,11 +1,9 @@
-package ui.VediContattoPanels;
+package ui.vediContattoPanels;
 
 import controller.ContattoController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.Objects;
 
 public class TopPanel extends JPanel {
 

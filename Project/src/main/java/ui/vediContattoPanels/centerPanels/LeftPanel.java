@@ -1,4 +1,4 @@
-package ui.VediContattoPanels.Panels;
+package ui.vediContattoPanels.Panels;
 
 import javax.swing.*;
 
