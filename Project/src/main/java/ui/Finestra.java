@@ -38,6 +38,8 @@ public class Finestra {
     public static void mostraVediRubrica(List<Contatto> contatti) {
         schermata = new VediRubrica(contatti).getSchermata();
         finestra.setContentPane(schermata);
+        finestra.revalidate();
+        finestra.repaint();
     }
 
     /// @brief Mostra la schermata "VediContatto".
@@ -48,6 +50,8 @@ public class Finestra {
     public static void mostraContatto(Contatto contatto) {
         schermata = new VediContatto(contatto).getSchermata();
         finestra.setContentPane(schermata);
+        finestra.revalidate();
+        finestra.repaint();
     }
 
     /// @brief Mostra la schermata "ModificaContatto".
@@ -58,6 +62,8 @@ public class Finestra {
     public static void mostraModificaContatto(Contatto contatto) {
         schermata = new ModificaContatto(contatto).getSchermata();
         finestra.setContentPane(schermata);
+        finestra.revalidate();
+        finestra.repaint();
     }
 
     /// @brief Mostra una finestra di dialogo per confermare un'azione.
