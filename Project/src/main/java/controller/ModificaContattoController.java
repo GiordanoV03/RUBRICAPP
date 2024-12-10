@@ -29,6 +29,10 @@ public class ModificaContattoController {
         this.vecchio = vecchio;
     }
 
+    public Contatto getContatto() {
+        return vecchio;
+    }
+
     /// @brief Aggiunge un nuovo contatto alla rubrica.
     /// @param contatto Il contatto da aggiungere alla rubrica.
     ///
@@ -68,7 +72,7 @@ public class ModificaContattoController {
     /// Questo metodo annulla la modifica in corso,
     /// ripristinando lo stato precedente della rubrica,
     /// senza apportare modifiche al contatto.
-    public void annullaModifica() {
+    private void annullaModifica() {
         Finestra.mostraContatto(vecchio);
     }
 
@@ -77,7 +81,7 @@ public class ModificaContattoController {
     /// Questo metodo annulla la creazione in corso,
     /// ripristinando lo stato precedente della rubrica,
     /// senza apportare modifiche a essa.
-    public void annullaCreazione() {
+    private void annullaCreazione() {
         Finestra.mostraVediRubrica(Rubrica.getContatti());
     }
 
