@@ -14,7 +14,6 @@ public class CenterPanel extends JPanel{
 
         GridBagConstraints gbc = new GridBagConstraints();
 
-        
 
     }
 
