@@ -21,8 +21,11 @@ import java.awt.*;
 /// modificare un contatto selezionato.
 public class ModificaContatto {
 
-    private JPanel schermata; ///< Pannello che contiene la schermata dell'interfaccia utente per la modifica dei contatti.
-    private ModificaContattoController controller; ///< Controller che gestisce la logica della schermata.
+    private final JPanel schermata; ///< Pannello che contiene la schermata dell'interfaccia utente per la modifica dei contatti.
+    private final ModificaContattoController controller; ///< Controller che gestisce la logica della schermata.
+    private final TopPanel topPanel;
+    private final CenterPanel centerPanel;
+    private final BottomPanel bottomPanel;
 
     /// @brief Costruttore che crea una schermata per modificare un contatto.
     /// @param c Il contatto da modificare.
@@ -30,7 +33,7 @@ public class ModificaContatto {
     /// Questo costruttore inizializza l'interfaccia utente per la modifica dei dati
     /// di un contatto specifico.
     public ModificaContatto(Contatto c) {
-        controller = new ModificaContattoController(c);
+        controller = new ModificaContattoController(this, c);
         schermata = new JPanel(new BorderLayout()) {
             private final Color bg1 = new Color(0x8C52FF);
             private final Color bg2 = new Color(0x5CE1E6);
@@ -46,9 +49,13 @@ public class ModificaContatto {
                 g2d.fillRect(0, 0, getWidth(), getHeight());
             }
         };
-        schermata.add(new TopPanel(controller), BorderLayout.NORTH);
-        schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
-        schermata.add(new BottomPanel(controller), BorderLayout.SOUTH);
+        topPanel = new TopPanel(controller);
+        centerPanel = new CenterPanel(controller);
+        bottomPanel = new BottomPanel(controller);
+
+        schermata.add(topPanel, BorderLayout.NORTH);
+        schermata.add(centerPanel, BorderLayout.CENTER);
+        schermata.add(bottomPanel, BorderLayout.SOUTH);
     }
 
     /// @brief Restituisce il pannello della schermata di modifica.
@@ -60,9 +67,30 @@ public class ModificaContatto {
         return schermata;
     }
 
+    public String getNome() {
+        return centerPanel.getNome();
+    }
+
+    public String getCognome() {
+        return centerPanel.getCognome();
+    }
+
+    public String getTag() {
+        return centerPanel.getTag();
+    }
+
+    public String getTelefono(int i) {
+        return centerPanel.getTelefono(i);
+    }
+
+    public String getEmail(int i) {
+        return centerPanel.getEmail(i);
+    }
+
     public static void main(String[] args) {
         Finestra.start();
         Finestra.mostraModificaContatto(null);
+        // Finestra.mostraModificaContatto(new Contatto("Giuseppe", "Pastore"));
     }
 
 }

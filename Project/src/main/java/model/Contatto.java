@@ -131,7 +131,7 @@ public class Contatto implements Comparable<Contatto> {
     public void setNome(String nome) throws ContattoNonValidoException {
         if (nome == null) nome = "";
         if (nome.isEmpty() && cognome.isEmpty()) {
-            throw new ContattoNonValidoException("Tentativo di eliminare il nome a un contatto senza cognome.");
+            throw new ContattoNonValidoException("Un contatto deve avere almeno uno tra nome e cognome.");
         }
         this.nome = nome;
     }
@@ -142,7 +142,7 @@ public class Contatto implements Comparable<Contatto> {
     public void setCognome(String cognome) throws ContattoNonValidoException {
         if (cognome == null) cognome = "";
         if (cognome.isEmpty() && nome.isEmpty()) {
-            throw new ContattoNonValidoException("Tentativo di eliminare il cognome a un contatto senza nome.");
+            throw new ContattoNonValidoException("Un contatto deve avere almeno uno tra nome e cognome.");
         }
         this.cognome = cognome;
     }

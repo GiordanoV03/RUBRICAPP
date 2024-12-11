@@ -17,13 +17,16 @@ import ui.*;
 /// consentendo di aggiungere un nuovo contatto, modificare i dati di un contatto esistente, e annullare
 /// le operazioni in corso.
 public class ModificaContattoController {
+    private ModificaContatto parent; ///< La schermata chiamante.
     private Contatto vecchio; ///< Il contatto originale da modificare, o `null` se si sta creando un nuovo contatto.
+    private final Contatto nuovo = new Contatto("NOME", "COGNOME"); ///< Il contatto che verrà salvato nella rubrica.
 
     /// @brief Costruttore del controller.
     /// @param vecchio Il contatto da modificare (null se si sta creando un nuovo contatto).
     ///
     /// Inizializza il controller.
-    public ModificaContattoController(Contatto vecchio) {
+    public ModificaContattoController(ModificaContatto parent, Contatto vecchio) {
+        this.parent = parent;
         this.vecchio = vecchio;
     }
 
@@ -34,24 +37,22 @@ public class ModificaContattoController {
     }
 
     /// @brief Aggiunge un nuovo contatto alla rubrica.
-    /// @param contatto Il contatto da aggiungere alla rubrica.
     ///
     /// Questo metodo aggiunge il contatto appena creato alla rubrica,
     /// poi passa alla schermata di visualizzazione del contatto
     /// appena aggiunto.
-    public void aggiungi(Contatto contatto) {
-        Rubrica.aggiungi(contatto);
-        Finestra.mostraContatto(contatto);
+    public void aggiungi() {
+        Rubrica.aggiungi(nuovo);
+        Finestra.mostraContatto(nuovo);
     }
 
     /// @brief Modifica un contatto esistente nella rubrica.
-    /// @param nuovo Il contatto con i nuovi dati da applicare.
     ///
     /// Questo metodo aggiorna un contatto già esistente nella rubrica,
     /// sostituendo il contatto originale con quello modificato,
     /// poi passa alla schermata di visualizzazione del contatto
     /// appena modificato.
-    public void modifica(Contatto nuovo) {
+    public void modifica() {
         Rubrica.modifica(vecchio, nuovo);
         Finestra.mostraContatto(nuovo);
     }
@@ -84,6 +85,29 @@ public class ModificaContattoController {
     /// senza apportare modifiche a essa.
     private void annullaCreazione() {
         Finestra.mostraVediRubrica(Rubrica.getContatti());
+    }
+
+    public void salvaModifiche() {
+        try {
+
+            nuovo.setNome(parent.getNome());
+            nuovo.setCognome(parent.getCognome());
+            nuovo.setTag(parent.getTag());
+            nuovo.setTelefono(0, parent.getTelefono(0));
+            nuovo.setTelefono(1, parent.getTelefono(1));
+            nuovo.setTelefono(2, parent.getTelefono(2));
+            nuovo.setEmail(0, parent.getEmail(0));
+            nuovo.setEmail(1, parent.getEmail(1));
+            nuovo.setEmail(2, parent.getEmail(2));
+
+            if (vecchio == null)
+                aggiungi();
+            else
+                modifica();
+
+        } catch (ContattoNonValidoException | EmailNonValidaException e) {
+            Finestra.mostraErrore(e.getMessage());
+        }
     }
 
 }
