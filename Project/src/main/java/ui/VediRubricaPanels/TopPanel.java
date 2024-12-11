@@ -1,37 +1,68 @@
 package ui.VediRubricaPanels;
 
+import controller.RubricaController;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TopPanel extends JPanel {
-    public TopPanel() {
+    
+    public TopPanel(RubricaController controller) {
         setVisible(true);
-        setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         setBackground(new Color(0,0,0,0));
-
-        // Etichetta del titolo RUBRICAPP
-        JLabel titolo = new JLabel("RUBRICAPP", JLabel.CENTER);
-        titolo.setFont(new Font("Colette", Font.BOLD, 28));
-        titolo.setForeground(Color.white);
-        titolo.setBackground(new Color(0x5271FF));
-        add(titolo, BorderLayout.WEST);
-
-        // Barra di ricerca
-        JPanel barraRicerca = new JPanel(new BorderLayout());
-        barraRicerca.setPreferredSize(new Dimension(600, 40));
-
-        // Campo dove inserire caratteri per la ricerca
-        JTextField campoRicerca = new JTextField();
-        campoRicerca.setForeground(Color.black);
-        barraRicerca.add(campoRicerca, BorderLayout.CENTER);
-
-        // Pulsante della ricerca
-        JButton bottoneRicerca = new JButton("🔍");
-        barraRicerca.add(bottoneRicerca, BorderLayout.EAST);
-        add(barraRicerca, BorderLayout.CENTER);
-
-        // Pulsante "+"
-        JButton bottoneAggiungi = new JButton("+");
-        add(bottoneAggiungi, BorderLayout.WEST);
-    }   
+        
+        add(new Titolo(controller), BorderLayout.WEST);
+        add(new BarraRicerca(controller), BorderLayout.CENTER);
+        add(new BottoneAggiungi(controller), BorderLayout.EAST);
+    }
+    
+    public static class Titolo extends JLabel {
+        private Titolo(RubricaController controller){
+            setText("RUBRICAPP");
+            setHorizontalAlignment(JLabel.CENTER);
+            setFont(new Font("Colette", Font.BOLD, 28));
+            setForeground(Color.white);
+            setBackground(new Color(0x5271FF));
+        } 
+    }
+    
+    public static class BarraRicerca extends JPanel {
+        private BarraRicerca(RubricaController controller){
+            setPreferredSize(new Dimension(600, 40));
+            setBackground(new Color(0,0,0,0));
+            
+            CampoRicerca campoRicerca = new CampoRicerca(controller);
+            BottoneRicerca bottoneRicerca = new BottoneRicerca(controller);
+            
+            bottoneRicerca.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.cerca(campoRicerca.getText());
+            }
+        });
+            
+            add(campoRicerca, BorderLayout.CENTER);
+            add(bottoneRicerca, BorderLayout.EAST);
+        }
+    }
+    
+    public static class CampoRicerca extends JTextField {
+        private CampoRicerca(RubricaController controller){
+            setForeground(Color.black);
+            setPreferredSize(new Dimension(500, 40));
+        }
+    }
+    
+    public static class BottoneRicerca extends JButton {
+        private BottoneRicerca(RubricaController controller){
+            setText("🔍");
+        }
+    }
+    
+    public static class BottoneAggiungi extends JButton {
+        private BottoneAggiungi(RubricaController controller){
+            setText("+");
+        }
+    }
 }

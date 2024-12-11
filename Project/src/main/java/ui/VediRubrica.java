@@ -46,8 +46,8 @@ public class VediRubrica {
             }
         };
         
-        schermata.add(new TopPanel(), BorderLayout.NORTH);
-        schermata.add(new CenterPanel(), BorderLayout.CENTER);
+        schermata.add(new TopPanel(controller), BorderLayout.NORTH);
+        schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
         schermata.add(new BottomPanel(controller), BorderLayout.SOUTH);
     }
 
@@ -69,4 +69,3 @@ public class VediRubrica {
     }
     
 }
-
