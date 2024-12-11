@@ -6,6 +6,7 @@
 /// come la selezione di pulsanti o l'inserimento di dati.
 
 package ui;
+import model.*;
 
 import controller.RubricaController;
 import javax.swing.*;
@@ -44,49 +45,9 @@ public class VediRubrica {
                 g2d.fillRect(0, 0, getWidth(), getHeight());
             }
         };
-
-        //schermata.add(new TopPanel(controller), BorderLayout.NORTH);
-        //schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
-        //schermata.add(new BottomPanel(controller), BorderLayout.SOUTH);
         
-        //Creazione del TOP PANEL (sezione superiore della finestra)
-        JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(new Color(0x5271FF));
-        topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
-        
-        //Etichetta del titolo RUBRICAPP
-        JLabel titolo = new JLabel("RUBRICAPP", JLabel.CENTER);
-        titolo.setFont(new Font("Colette", Font.BOLD, 28));
-        titolo.setForeground(Color.white);
-        titolo.setBackground(new Color(0x5271FF));
-        topPanel.add(titolo, BorderLayout.WEST);
-        
-        //Barra di ricerca
-        JPanel barraRicerca = new JPanel(new BorderLayout());
-        barraRicerca.setPreferredSize(new Dimension(600, 40));
-        
-        //Campo dove inserire caratteri per la ricerca
-        JTextField campoRicerca = new JTextField();
-        campoRicerca.setForeground(Color.black);
-        barraRicerca.add(campoRicerca, BorderLayout.CENTER);
-        
-        //Pulsante della ricerca
-        JButton bottoneRicerca = new JButton("🔍");
-        barraRicerca.add(bottoneRicerca, BorderLayout.EAST);
-        topPanel.add(barraRicerca, BorderLayout.CENTER);
-        
-        //Pulsante "+"
-        JButton bottoneAggiungi = new JButton("+");
-        topPanel.add(bottoneAggiungi, BorderLayout.WEST);
-        
-        //Aggiunta del pannello superiore a schermata
-        schermata.add(topPanel, BorderLayout.NORTH);
-        
-        //Creazione del CENTER PANEL (sezione centrale della finestra)
-        
-
         schermata.add(new TopPanel(), BorderLayout.NORTH);
-        schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
+        schermata.add(new CenterPanel(), BorderLayout.CENTER);
         schermata.add(new BottomPanel(controller), BorderLayout.SOUTH);
     }
 
@@ -97,6 +58,14 @@ public class VediRubrica {
     /// dell'interfaccia utente necessari per visualizzare la rubrica.
     public JPanel getSchermata() {
         return schermata;
+    }
+    
+    public static void main(String[] args) {
+        Finestra.start();
+        Rubrica.svuota();
+        Rubrica.aggiungi(new Contatto("Marco", "Giampaolo"));
+        Rubrica.aggiungi(new Contatto("Gino", "Paoli"));
+        Finestra.mostraVediRubrica(Rubrica.getContatti());
     }
     
 }

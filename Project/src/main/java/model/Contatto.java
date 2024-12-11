@@ -271,5 +271,26 @@ public class Contatto implements Comparable<Contatto> {
         Contatto c = (Contatto) other;
         return esporta().equals(c.esporta());
     }
-
+    
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        
+        if(nome != "" ){
+            sb.append(nome);
+        }
+        
+        if(cognome != ""){
+            if(sb.length() > 0){
+                sb.append(" ");
+            }
+            sb.append(cognome);
+        }
+        
+        if(tag != ""){
+            sb.append("[ ").append(tag).append(" ]");
+        }
+        
+        return sb.toString();
+    }
 }
