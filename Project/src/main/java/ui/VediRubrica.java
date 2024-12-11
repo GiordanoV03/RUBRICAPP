@@ -7,11 +7,13 @@
 
 package ui;
 
+import controller.RubricaController;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import model.Contatto;
 import java.util.List;
+import ui.VediRubricaPanels.*;
 
 /// @class VediRubrica
 /// @brief Classe per la gestione della schermata di visualizzazione della rubrica.
@@ -22,12 +24,11 @@ import java.util.List;
 public class VediRubrica {
 
     private JPanel schermata; ///< Pannello che contiene la schermata dell'interfaccia utente per la visualizzazione della rubrica.
-    private List<Contatto> contatti; /// < Lista che contiene tutti i contatti
+    private RubricaController controller;   ///< Controller che gestisce la logica della schermata.
 
     /// @brief Costruttore che inizializza la schermata di visualizzazione della rubrica.
     public VediRubrica(List<Contatto> contatti) {
-        this.contatti = contatti;
-        
+        controller = new RubricaController(contatti);
         schermata = new JPanel(new BorderLayout()) {
             private final Color bg1 = new Color(0x8C52FF);
             private final Color bg2 = new Color(0x5CE1E6);
@@ -43,6 +44,9 @@ public class VediRubrica {
                 g2d.fillRect(0, 0, getWidth(), getHeight());
             }
         };
+        //schermata.add(new TopPanel(controller), BorderLayout.NORTH);
+        //schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
+        //schermata.add(new BottomPanel(controller), BorderLayout.SOUTH);
         
         //Creazione del TOP PANEL (sezione superiore della finestra)
         JPanel topPanel = new JPanel(new BorderLayout());
