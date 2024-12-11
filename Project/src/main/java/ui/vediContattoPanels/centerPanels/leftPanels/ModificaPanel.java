@@ -1,4 +1,6 @@
 package ui.vediContattoPanels.centerPanels.leftPanels;
 
-public class ModificaPanel {
+import javax.swing.*;
+
+public class ModificaPanel extends JPanel {
 }

@@ -1,4 +1,6 @@
 package ui.vediContattoPanels.centerPanels.leftPanels;
 
-public class IdentificativoPanel {
+import javax.swing.*;
+
+public class IdentificativoPanel extends JPanel {
 }

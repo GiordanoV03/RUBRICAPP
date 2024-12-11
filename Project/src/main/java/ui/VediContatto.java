@@ -49,7 +49,7 @@ public class VediContatto {
             }
         };
         schermata.add(new TopPanel(controller), BorderLayout.NORTH);
-        schermata.add(new CenterPanel(), BorderLayout.CENTER);
+        schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
     }
 
     /// @brief Restituisce il pannello della schermata di modifica.

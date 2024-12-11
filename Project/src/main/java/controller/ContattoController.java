@@ -25,7 +25,6 @@ public class ContattoController {
     /// di un contatto specifico, incluse email e numeri di telefono.
     public ContattoController(Contatto contatto) {
         this.contatto = contatto;
-        
     }
 
     /// @brief Modifica il contatto visualizzato con nuovi dati.
