@@ -9,7 +9,6 @@ import java.awt.event.*;
 import java.util.Objects;
 
 
-///PIETRO
 public class TopPanel extends JPanel {
 
     public TopPanel(ContattoController controller) {

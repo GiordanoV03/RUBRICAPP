@@ -6,7 +6,6 @@
 /// la schermata corrispondente.
 
 package ui;
-
 import controller.ContattoController;
 import model.*;
 import ui.vediContattoPanels.CenterPanel;
@@ -32,6 +31,7 @@ public class VediContatto {
     /// Inizializza l'interfaccia utente per visualizzare le informazioni del contatto specificato.
     public VediContatto(Contatto c) {
         ContattoController controller = new ContattoController(c);
+
         schermata = new JPanel(new BorderLayout()) {
             private final Color bg1 = new Color(0x8C52FF);
             private final Color bg2 = new Color(0x5CE1E6);
@@ -49,7 +49,7 @@ public class VediContatto {
             }
         };
         schermata.add(new TopPanel(controller), BorderLayout.NORTH);
-        schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
+        schermata.add(new CenterPanel(controller, c), BorderLayout.CENTER);
     }
 
     /// @brief Restituisce il pannello della schermata di modifica.
@@ -63,8 +63,8 @@ public class VediContatto {
 
     public static void main(String[] args) {
         Finestra.start();
-        Contatto contatto = new Contatto("Giuseppe", "Pastore");
-        contatto.setTag("Demone");
+        Contatto contatto = new Contatto("Romario", "");
+        contatto.setTag("Ufficialee");
         Finestra.mostraContatto(contatto);
     }
 }
