@@ -44,6 +44,7 @@ public class VediRubrica {
                 g2d.fillRect(0, 0, getWidth(), getHeight());
             }
         };
+
         //schermata.add(new TopPanel(controller), BorderLayout.NORTH);
         //schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
         //schermata.add(new BottomPanel(controller), BorderLayout.SOUTH);
@@ -83,6 +84,10 @@ public class VediRubrica {
         
         //Creazione del CENTER PANEL (sezione centrale della finestra)
         
+
+        schermata.add(new TopPanel(), BorderLayout.NORTH);
+        schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
+        schermata.add(new BottomPanel(controller), BorderLayout.SOUTH);
     }
 
     /// @brief Restituisce il pannello della schermata di visualizzazione della rubrica.
