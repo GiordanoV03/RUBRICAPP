@@ -1,6 +1,7 @@
 package ui.modificaContattoPanels;
 
 import controller.ModificaContattoController;
+import ui.Finestra;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +11,8 @@ import java.util.Objects;
 
 public class BottomPanel extends JPanel {
     private final ModificaContattoController controller;
+    private final int larghezza = Finestra.getLarghezza();
+    private final int altezza = Finestra.getAltezza();
 
     public BottomPanel(ModificaContattoController controller) {
         this.controller = controller;
@@ -20,11 +23,13 @@ public class BottomPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 0; gbc.gridy = 0;
-        gbc.insets = new Insets(125,10,85,10);
+        gbc.insets = new Insets(altezza*25/206,larghezza/192,altezza*17/206,larghezza/192);
         add(new Button(controller), gbc);
     }
 
     private static class Button extends JButton {
+        private final int larghezza = Finestra.getLarghezza();
+        private final int altezza = Finestra.getAltezza();
 
         public Button(ModificaContattoController controller) {
             setFocusPainted(false);
@@ -34,7 +39,7 @@ public class BottomPanel extends JPanel {
                 setIcon(icona("/salvaButton.png"));
             else
                 setIcon(icona("/aggiungiButton.png"));
-            setPreferredSize(new Dimension(700,100));
+            setPreferredSize(new Dimension(larghezza*35/96,altezza*10/103));
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
@@ -50,7 +55,7 @@ public class BottomPanel extends JPanel {
 
         private ImageIcon icona(String path) {
             ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(path)));
-            Image img = icon.getImage().getScaledInstance(700, 100, Image.SCALE_SMOOTH);
+            Image img = icon.getImage().getScaledInstance(larghezza*35/96,altezza*10/103, Image.SCALE_SMOOTH);
             return new ImageIcon(img);
         }
 

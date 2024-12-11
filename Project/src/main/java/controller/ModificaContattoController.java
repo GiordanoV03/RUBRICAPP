@@ -16,8 +16,8 @@ import ui.*;
 /// consentendo di aggiungere un nuovo contatto, modificare i dati di un contatto esistente, salvare
 /// le modifiche apportate e annullare le operazioni in corso.
 public class ModificaContattoController {
-    private ModificaContatto parent; ///< La schermata chiamante.
-    private Contatto vecchio; ///< Il contatto originale da modificare, o `null` se si sta creando un nuovo contatto.
+    private final ModificaContatto parent; ///< La schermata chiamante.
+    private final Contatto vecchio; ///< Il contatto originale da modificare, o `null` se si sta creando un nuovo contatto.
     private final Contatto nuovo = new Contatto("NOME", "COGNOME"); ///< Il contatto che verrà salvato nella rubrica.
 
     /// @brief Costruttore del controller.

@@ -1,6 +1,7 @@
 package ui.modificaContattoPanels.CenterPanels;
 
 import controller.ModificaContattoController;
+import ui.Finestra;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,10 +15,13 @@ public class TelefoniEmailsPanel extends JPanel {
     private final CampoDiTesto email2;
     private final CampoDiTesto email3;
 
-    private static final Insets telLabelInsets = new Insets(12,0,12,0);
-    private static final Insets telCampoInsets = new Insets(12, 0, 12, 40);
-    private static final Insets emailLabelInsets = new Insets(12, 40, 12, 0);
-    private static final Insets emailCampoInsets = new Insets(12, 0, 12, 0);
+    private final int larghezza = Finestra.getLarghezza();
+    private final int altezza = Finestra.getAltezza();
+
+    private final Insets telLabelInsets = new Insets(altezza*6/515,0,altezza*6/515,0);
+    private final Insets telCampoInsets = new Insets(altezza*6/515, 0, altezza*6/515, larghezza/48);
+    private final Insets emailLabelInsets = new Insets(altezza*6/515, larghezza/48, altezza*6/515, 0);
+    private final Insets emailCampoInsets = new Insets(altezza*6/515, 0, altezza*6/515, 0);
 
     public TelefoniEmailsPanel(ModificaContattoController controller) {
         this.controller = controller;
@@ -106,10 +110,12 @@ public class TelefoniEmailsPanel extends JPanel {
     }
 
     private static class CampoDiTesto extends JTextField {
+        private final int larghezza = Finestra.getLarghezza();
+        private final int altezza = Finestra.getAltezza();
 
         public CampoDiTesto(String placeholder) {
             super(placeholder);
-            setPreferredSize(new Dimension(375, 60));
+            setPreferredSize(new Dimension(larghezza*25/128, altezza*6/103));
             setFont(new Font("Capriola", Font.PLAIN, 19));
             setHorizontalAlignment(SwingConstants.CENTER);
             setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));

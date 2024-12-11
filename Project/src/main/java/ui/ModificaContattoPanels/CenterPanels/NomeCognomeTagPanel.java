@@ -1,18 +1,18 @@
 package ui.modificaContattoPanels.CenterPanels;
 
 import controller.ModificaContattoController;
+import ui.Finestra;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class NomeCognomeTagPanel extends JPanel {
-    private final ModificaContattoController controller;
     private final CampoDiTesto nome;
     private final CampoDiTesto cognome;
     private final CampoDiTesto tag;
+    private final int larghezza = Finestra.getLarghezza();
 
     public NomeCognomeTagPanel(ModificaContattoController controller) {
-        this.controller = controller;
         if (controller.getContatto() == null) {
             nome = new CampoDiTesto("");
             cognome = new CampoDiTesto("");
@@ -27,7 +27,7 @@ public class NomeCognomeTagPanel extends JPanel {
         setBackground(new Color(0,0,0,0));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0,45,0,45);
+        gbc.insets = new Insets(0, larghezza*3/128,0,larghezza*3/128);
 
         gbc.gridx = 0; gbc.gridy = 0;
         add(new Label("  NOME  "), gbc);
@@ -61,11 +61,13 @@ public class NomeCognomeTagPanel extends JPanel {
     }
 
     private static class CampoDiTesto extends JTextField {
+        private final int larghezza = Finestra.getLarghezza();
+        private final int altezza = Finestra.getAltezza();
 
         public CampoDiTesto(String placeholder) {
             super(placeholder);
-            setPreferredSize(new Dimension(375, 60));
-            setFont(new Font("Capriola", Font.PLAIN, 19));
+            setPreferredSize(new Dimension(larghezza*25/128, altezza*6/103));
+            setFont(new Font("Capriola", Font.PLAIN, 25));
             setHorizontalAlignment(SwingConstants.CENTER);
             setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         }
