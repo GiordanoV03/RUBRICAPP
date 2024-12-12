@@ -49,7 +49,7 @@ public class VediContatto {
             }
         };
         schermata.add(new TopPanel(controller), BorderLayout.NORTH);
-        schermata.add(new CenterPanel(controller, c), BorderLayout.CENTER);
+        schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
     }
 
     /// @brief Restituisce il pannello della schermata di modifica.
@@ -65,6 +65,8 @@ public class VediContatto {
         Finestra.start();
         Contatto contatto = new Contatto("Romario", "");
         contatto.setTag("Ufficialee");
+        contatto.setEmail(0,"romario@gmail.com");
+        contatto.setEmail(1,"pastore@gmail.com");
         Finestra.mostraContatto(contatto);
     }
 }

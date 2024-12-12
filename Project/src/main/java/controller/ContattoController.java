@@ -24,7 +24,7 @@ public class ContattoController {
     /// Questo metodo è responsabile della visualizzazione delle informazioni complete
     /// di un contatto specifico, incluse email e numeri di telefono.
     public ContattoController(Contatto contatto) {
-        this.contatto = contatto;
+        this.contatto = contatto; 
     }
 
     /// @brief Modifica il contatto visualizzato con nuovi dati.
@@ -57,6 +57,10 @@ public class ContattoController {
     /// Questo metodo gestisce il ritorno alla schermata precedente nel flusso dell'applicazione.
     public void indietro() {
         Finestra.mostraVediRubrica(Rubrica.getContatti());
+    }
+    
+    public Contatto getContatto() {
+        return contatto;
     }
 
 }
