@@ -63,7 +63,7 @@ public class LeftPanel extends JPanel {
         public Titolo(String testo) {
             super(testo);
             setHorizontalAlignment(JLabel.CENTER);
-            setFont(new Font("Colette", Font.BOLD, 20));
+            setFont(new Font("Capriola", Font.BOLD, 20));
             setForeground(Color.WHITE);
             setBackground(new Color(0, 0, 0, 25));
             setOpaque(true);
@@ -82,7 +82,7 @@ public class LeftPanel extends JPanel {
             if (dato == COGNOME) setText(controller.getContatto().getCognome());
             if (dato == TAG) setText(controller.getContatto().getTag());
             setHorizontalAlignment(JLabel.CENTER);
-            setFont(new Font("Colette", Font.BOLD, 30));
+            setFont(new Font("Capriola", Font.PLAIN, 30));
             setForeground(Color.BLACK);
             setBackground(new Color(211, 211, 211));
             setBorder(new LineBorder(Color.BLACK, 2));
@@ -103,6 +103,8 @@ public class LeftPanel extends JPanel {
             if (dato == ELIMINA) setElimina();
 
             setBackground(new Color(0xFFFFFF));
+            setBorderPainted(false);
+            setFocusPainted(false);
             setPreferredSize(new Dimension(140, 140));
         }
 
