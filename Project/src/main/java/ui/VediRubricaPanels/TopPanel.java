@@ -15,13 +15,13 @@ public class TopPanel extends JPanel {
         setVisible(true);
         setBackground(new Color(0,0,0,0));
         
-        add(new Titolo(controller), BorderLayout.WEST);
+        add(new Titolo(), BorderLayout.WEST);
         add(new BarraRicerca(controller), BorderLayout.CENTER);
         add(new BottoneAggiungi(controller), BorderLayout.EAST);
     }
     
     public static class Titolo extends JLabel {
-        private Titolo(RubricaController controller){
+        private Titolo(){
             setText("RUBRICAPP");
             setHorizontalAlignment(JLabel.CENTER);
             setFont(new Font("Colette", Font.BOLD, 28));
@@ -38,12 +38,7 @@ public class TopPanel extends JPanel {
             CampoRicerca campoRicerca = new CampoRicerca(controller);
             BottoneRicerca bottoneRicerca = new BottoneRicerca(controller);
             
-            bottoneRicerca.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.cerca(campoRicerca.getText());
-            }
-        });
+            bottoneRicerca.addActionListener(e -> controller.cerca(campoRicerca.getText()));
             
             add(campoRicerca, BorderLayout.CENTER);
             add(bottoneRicerca, BorderLayout.EAST);

@@ -198,7 +198,7 @@ public class Contatto implements Comparable<Contatto> {
     }
 
     /// @brief Confronta il contatto corrente con un altro contatto in base all'ordinamento configurato.
-    /// @param o Il contatto da confrontare.
+    /// @param altro Il contatto da confrontare.
     /// @return Un valore negativo, zero o positivo se il contatto corrente è rispettivamente minore, uguale o maggiore del contatto passato.
     ///
     /// Il confronto tra i contatti avviene in base ai criteri di ordinamento configurati tramite la classe `Ordinamento`:
@@ -208,20 +208,18 @@ public class Contatto implements Comparable<Contatto> {
     /// Il confronto ignora la distinzione tra maiuscole e minuscole. In caso di parità, il metodo restituisce 1 per
     /// permettere la presenza di duplicati all'interno della rubrica.
     @Override
-    public int compareTo(Contatto o) {
+    public int compareTo(Contatto altro) {
         String mio, suo;
 
         if (Ordinamento.isOrdinamentoPerNome()) {
             mio = nome + cognome;
-            suo = o.getNome() + o.getCognome();
+            suo = altro.getNome() + altro.getCognome();
         } else {
             mio = cognome + nome;
-            suo = o.getCognome() + o.getNome();
+            suo = altro.getCognome() + altro.getNome();
         }
 
-        if (mio.compareToIgnoreCase(suo) != 0)
-            return mio.compareToIgnoreCase(suo);
-        return 1;
+        return mio.compareToIgnoreCase(suo);
     }
 
     /// @brief Verifica se una stringa è contenuta nei dati del contatto.
@@ -276,21 +274,14 @@ public class Contatto implements Comparable<Contatto> {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         
-        if(nome != "" ){
-            sb.append(nome);
-        }
-        
-        if(cognome != ""){
-            if(sb.length() > 0){
+        if (!nome.isEmpty()) sb.append(nome);
+        if (!cognome.isEmpty()) {
+            if (sb.length() > 0)
                 sb.append(" ");
-            }
             sb.append(cognome);
         }
-        
-        if(tag != ""){
-            sb.append("[ ").append(tag).append(" ]");
-        }
-        
+        if (!tag.isEmpty()) sb.append(" [ ").append(tag).append(" ]");
+
         return sb.toString();
     }
 }
