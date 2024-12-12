@@ -1,74 +1,103 @@
 package ui.VediRubricaPanels;
 
 import controller.RubricaController;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.util.Objects;
 
 public class TopPanel extends JPanel {
     
     public TopPanel(RubricaController controller) {
         setVisible(true);
         setBackground(new Color(0,0,0,0));
-        
-        add(new Titolo(), BorderLayout.WEST);
-        add(new BarraRicerca(controller), BorderLayout.CENTER);
-        add(new BottoneAggiungi(controller), BorderLayout.EAST);
+        setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.insets = new Insets(20, 130,20,200);
+        add(new Titolo(), gbc);
+
+        gbc.gridx ++;
+        gbc.insets = new Insets(20, 0,20,500);
+        add(new BarraRicerca(controller), gbc);
+
+        gbc.gridx ++;
+        gbc.insets = new Insets(20, 0,20,100);
+        add(new BottoneAggiungi(controller), gbc);
     }
     
     public static class Titolo extends JLabel {
         private Titolo(){
             setText("RUBRICAPP");
             setHorizontalAlignment(JLabel.CENTER);
-            setFont(new Font("Colette", Font.BOLD, 28));
+            setFont(new Font("Colette", Font.BOLD, 56));
             setForeground(Color.white);
             setBackground(new Color(0x5271FF));
+            setPreferredSize(new Dimension(340, 50));
         } 
     }
     
     public static class BarraRicerca extends JPanel {
         private BarraRicerca(RubricaController controller){
-            setPreferredSize(new Dimension(600, 40));
-            setBackground(new Color(0,0,0,0));
+            setBackground(Color.WHITE);
+            setLayout(new GridBagLayout());
             
-            CampoRicerca campoRicerca = new CampoRicerca(controller);
-            BottoneRicerca bottoneRicerca = new BottoneRicerca(controller);
-            
+            CampoRicerca campoRicerca = new CampoRicerca();
+            BottoneRicerca bottoneRicerca = new BottoneRicerca();
+
             bottoneRicerca.addActionListener(e -> controller.cerca(campoRicerca.getText()));
-            
-            add(campoRicerca, BorderLayout.CENTER);
-            add(bottoneRicerca, BorderLayout.EAST);
+
+            GridBagConstraints gbc = new GridBagConstraints();
+
+            gbc.gridx = 0; gbc.gridy = 0;
+            gbc.insets = new Insets(0, 10,0,0);
+            add(campoRicerca, gbc);
+            gbc.gridx ++;
+            gbc.insets = new Insets(0, 0,0,0);
+            add(bottoneRicerca, gbc);
+
+            setBorder(BorderFactory.createLineBorder(Color.BLACK));
         }
     }
     
-    public static class CampoRicerca extends JTextField {
-        private CampoRicerca(RubricaController controller){
+    private static class CampoRicerca extends JTextField {
+        public CampoRicerca(){
             setForeground(Color.black);
-            setPreferredSize(new Dimension(500, 40));
+            setFont(new Font("Arial", Font.PLAIN, 20));
+            setPreferredSize(new Dimension(500, 50));
+            setBorder(BorderFactory.createLineBorder(Color.black, 0));
         }
     }
     
-    public static class BottoneRicerca extends JButton {
-        private BottoneRicerca(RubricaController controller){
-            setText("🔍");
+    private static class BottoneRicerca extends JButton {
+        public BottoneRicerca(){
+            setPreferredSize(new Dimension(50, 50));
+            setBackground(Color.WHITE);
+            setBorderPainted(false);
+            setFocusPainted(false);
+            setIcon(icona("/cercaButton.png"));
+        }
+
+        private ImageIcon icona(String path) {
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(TopPanel.class.getResource(path)));
+            Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            return new ImageIcon(img);
         }
     }
     
-    public static class BottoneAggiungi extends JButton {
-        private BottoneAggiungi(RubricaController controller){
+    private static class BottoneAggiungi extends JButton {
+
+        public BottoneAggiungi(RubricaController controller) {
             setText("+");
-            addMouseListener(new MouseAdapter(){
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    if(e.getClickCount() == 1){
-                        controller.aggiungiContatto();
-                    }
-                }
-            });
+            setFont(new Font("Courier", Font.BOLD, 48));
+            setBorderPainted(false);
+            setFocusPainted(false);
+            setBackground(Color.WHITE);
+            addActionListener(e -> controller.aggiungiContatto());
+            setBorder(BorderFactory.createLineBorder(Color.RED));
+            setPreferredSize(new Dimension(70, 50));
         }
     }
 }

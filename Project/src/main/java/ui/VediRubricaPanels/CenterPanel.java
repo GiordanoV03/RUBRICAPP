@@ -3,11 +3,9 @@ package ui.VediRubricaPanels;
 import controller.RubricaController;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import model.Contatto;
-import model.Rubrica;
 
 public class CenterPanel extends JPanel {
     private JList<Contatto> listaContatti;
@@ -17,7 +15,6 @@ public class CenterPanel extends JPanel {
         setVisible(true);
         setLayout(new BorderLayout());
         setBackground(new Color(0,0,0,0));
-        //setBorder(BorderFactory.createLineBorder(Color.yellow, 2));
 
         // Creazione della lista contatti
         DefaultListModel<Contatto> contattiModel = new DefaultListModel<>();
@@ -30,7 +27,6 @@ public class CenterPanel extends JPanel {
         listaContatti.setCellRenderer(new ContattoRenderer());
         
         visualizzaContatto(controller);
-        aggiornaListaContatti(listaContatti);
         
         scrollPane = new JScrollPane(listaContatti);
         scrollPane.setBackground(new Color(0,0,0,0));
@@ -49,16 +45,6 @@ public class CenterPanel extends JPanel {
             }
         });
     }
-    
-    public void aggiornaListaContatti(JList<Contatto> contatti) {
-        DefaultListModel<Contatto> contattiModel = new DefaultListModel<>();
-        for(int i = 0; i<contatti.getModel().getSize(); i++){
-            Contatto c = contatti.getModel().getElementAt(i);
-            contattiModel.addElement(c);
-        }
-        listaContatti.setModel(contattiModel);
-    }
-
 
     public class ContattoRenderer extends JPanel implements ListCellRenderer<Contatto> {
         private JLabel label;
