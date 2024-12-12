@@ -19,7 +19,7 @@ import ui.Finestra;
 /// La classe RubricaController fornisce metodi per visualizzare la rubrica, cercare contatti,
 /// aggiungere, modificare e selezionare contatti, nonché esportare e importare la rubrica da file.
 public class RubricaController {
-    private List<Contatto> contatti;    ///< La lista di contatti sulla quale effettuare le operazioni.
+    private final List<Contatto> contatti;    ///< La lista di contatti sulla quale effettuare le operazioni.
     
     /// @brief Costruttore del controller.
     /// @param contatti La lista di contatti.
@@ -27,6 +27,12 @@ public class RubricaController {
     /// Inizializza il controller.
     public RubricaController(List<Contatto> contatti){
         this.contatti = contatti;
+    }
+
+    /// @brief Restituisce la lista dei contatti.
+    /// @return La lista dei contatti usata nel costruttore.
+    public List<Contatto> getContatti() {
+        return contatti;
     }
 
     /// @brief Visualizza tutti i contatti della rubrica.

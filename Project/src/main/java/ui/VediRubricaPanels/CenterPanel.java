@@ -21,7 +21,7 @@ public class CenterPanel extends JPanel {
 
         // Creazione della lista contatti
         DefaultListModel<Contatto> contattiModel = new DefaultListModel<>();
-        for(Contatto c : Rubrica.getContatti()){
+        for(Contatto c : controller.getContatti()){
             contattiModel.addElement(c);
         }
         
