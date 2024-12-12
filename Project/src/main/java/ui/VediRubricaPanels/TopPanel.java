@@ -5,6 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class TopPanel extends JPanel {
     
@@ -63,6 +66,14 @@ public class TopPanel extends JPanel {
     public static class BottoneAggiungi extends JButton {
         private BottoneAggiungi(RubricaController controller){
             setText("+");
+            addMouseListener(new MouseAdapter(){
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if(e.getClickCount() == 1){
+                        controller.aggiungiContatto();
+                    }
+                }
+            });
         }
     }
 }
