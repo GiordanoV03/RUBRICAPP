@@ -34,7 +34,7 @@ public class TopPanel extends JPanel {
 
     private static class Titolo extends JLabel {
         private Titolo(ContattoController controller) {
-            setText("CONTATTO");
+            setText("VEDI IL CONTATTO");
             setHorizontalAlignment(JLabel.CENTER);
             setFont(new Font("Colette", Font.BOLD, 60));
             setForeground(Color.WHITE);
