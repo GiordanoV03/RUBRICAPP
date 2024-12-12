@@ -38,6 +38,7 @@ public class Finestra {
         larghezza = schermo.width;
         altezza = schermo.height;
 
+        Rubrica.svuota();
         mostraVediRubrica(Rubrica.getContatti());
         finestra.setVisible(true);
     }
