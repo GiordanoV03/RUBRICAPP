@@ -3,9 +3,6 @@ package ui.VediRubricaPanels;
 import controller.RubricaController;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Objects;
 import ui.Finestra;
 
 public class BottomPanel extends JPanel {
@@ -15,8 +12,7 @@ public class BottomPanel extends JPanel {
         setBackground(new Color(0,0,0,0));
         
         add(new OrdinaPer(controller));
-        add(new Nome(controller));
-        add(new Cognome(controller));
+        add(new OrdinamentoPanel(controller));
         add(Box.createRigidArea(new Dimension(Finestra.getLarghezza() * 600 / 1920, 0)));
         add(new Importa(controller));
         add(new Esporta(controller));
@@ -33,26 +29,6 @@ public class BottomPanel extends JPanel {
         }
     }
     
-    public static class Nome extends JRadioButton {
-        public Nome(RubricaController controller){
-            setLayout(new BorderLayout());
-            setText("NOME");
-            setFont(new Font("Colette", Font.BOLD, 14));
-            setForeground(Color.BLACK);
-            setPreferredSize(new Dimension(Finestra.getLarghezza() * 100 / 1920, Finestra.getAltezza() * 40 / 1080));
-        }
-    }
-    
-    public static class Cognome extends JRadioButton {
-        public Cognome(RubricaController controller){
-            setLayout(new BorderLayout());
-            setText("COGNOME");
-            setFont(new Font("Colette", Font.BOLD, 14));
-            setForeground(Color.BLACK);
-            setPreferredSize(new Dimension(Finestra.getLarghezza() * 100 / 1920, Finestra.getAltezza() * 40 / 1080));
-        }
-    }
-    
     public static class Importa extends JButton {
         public Importa(RubricaController controller){
             setLayout(new BorderLayout());
@@ -60,6 +36,7 @@ public class BottomPanel extends JPanel {
             setFont(new Font("Colette", Font.BOLD, 14));
             setForeground(Color.BLACK);
             setPreferredSize(new Dimension(Finestra.getLarghezza() * 320 / 1920, Finestra.getAltezza() * 40 / 1080));
+            addActionListener(e -> controller.importa());
         }
     }
     
@@ -70,6 +47,38 @@ public class BottomPanel extends JPanel {
             setFont(new Font("Colette", Font.BOLD, 14));
             setForeground(Color.BLACK);
             setPreferredSize(new Dimension(Finestra.getLarghezza() * 320 / 1920, Finestra.getAltezza() * 40 / 1080));
+            addActionListener(e -> controller.salvaConNome());
+        }
+    }
+    
+    public static class OrdinamentoPanel extends JPanel {
+        public OrdinamentoPanel(RubricaController controller) {
+            JRadioButton ordinaPerNome = new JRadioButton("NOME");
+            ordinaPerNome.setLayout(new BorderLayout());
+            ordinaPerNome.setText("NOME");
+            ordinaPerNome.setFont(new Font("Colette", Font.BOLD, 14));
+            ordinaPerNome.setForeground(Color.BLACK);
+            ordinaPerNome.setPreferredSize(new Dimension(Finestra.getLarghezza() * 100 / 1920, Finestra.getAltezza() * 40 / 1080));
+            
+            JRadioButton ordinaPerCognome = new JRadioButton("COGNOME");
+            ordinaPerCognome.setLayout(new BorderLayout());
+            ordinaPerCognome.setText("COGNOME");
+            ordinaPerCognome.setFont(new Font("Colette", Font.BOLD, 14));
+            ordinaPerCognome.setForeground(Color.BLACK);
+            ordinaPerCognome.setPreferredSize(new Dimension(Finestra.getLarghezza() * 100 / 1920, Finestra.getAltezza() * 40 / 1080));
+
+            ButtonGroup group = new ButtonGroup();
+            group.add(ordinaPerNome);
+            group.add(ordinaPerCognome);
+
+            setLayout(new FlowLayout());
+            add(ordinaPerNome);
+            add(ordinaPerCognome);
+            
+            setBackground(Color.WHITE);
+            
+            ordinaPerNome.addActionListener(e -> controller.cambiaOrdinamento(true));
+            ordinaPerCognome.addActionListener(e -> controller.cambiaOrdinamento(false));
         }
     }
 }
