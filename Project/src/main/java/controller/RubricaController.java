@@ -52,7 +52,7 @@ public class RubricaController {
     /// per nome e per cognome.
     public void cambiaOrdinamento(boolean ordinamentoPerNome) {
         Ordinamento.setOrdinamento(ordinamentoPerNome);
-        Finestra.mostraVediRubrica(Rubrica.getContatti());
+        Finestra.mostraVediRubrica(contatti);
     }
 
     /// @brief Aggiunge un contatto alla rubrica.
@@ -82,7 +82,11 @@ public class RubricaController {
     /// confrontata con i campi nome, cognome o tag
     /// di ciascun contatto.
     public void cerca(String stringa) {
-        Finestra.mostraVediRubrica(Rubrica.cerca(stringa));
+        if(stringa.isEmpty()){
+            Finestra.mostraVediRubrica(Rubrica.getContatti());
+        }else{
+            Finestra.mostraVediRubrica(Rubrica.cerca(stringa));
+        }
     }
 
     /// @brief Seleziona un contatto.
@@ -129,7 +133,7 @@ public class RubricaController {
 
         try {
             contatti = FileIO.apri(nomeFile);
-        } catch (IOException e) {
+        } catch (IOException | FileNonValidoException e) {
             Finestra.mostraErrore("Non è stato possibile importare la rubrica.");
             return;
         }
