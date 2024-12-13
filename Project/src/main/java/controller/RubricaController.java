@@ -129,6 +129,9 @@ public class RubricaController {
     public void importa() {
         String nomeFile = Finestra.chiediPercorsoImport();
 
+        if(nomeFile == null) 
+            return;
+        
         List<Contatto> contatti = null;
 
         try {
