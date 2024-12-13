@@ -31,7 +31,9 @@ public class Rubrica {
     /// attualmente configurato nella classe `Ordinamento`.
     public static void riordina() {
         Set<Contatto> nuovo = new TreeSet<>();
-        nuovo.addAll(contatti);
+        for (Contatto c : contatti) {
+            nuovo.add(c);
+        }
         contatti = nuovo;
     }
 

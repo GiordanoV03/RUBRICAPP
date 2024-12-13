@@ -52,7 +52,7 @@ public class RubricaController {
     /// per nome e per cognome.
     public void cambiaOrdinamento(boolean ordinamentoPerNome) {
         Ordinamento.setOrdinamento(ordinamentoPerNome);
-        Finestra.mostraVediRubrica(contatti);
+        Finestra.mostraVediRubrica(Rubrica.getContatti());
     }
 
     /// @brief Aggiunge un contatto alla rubrica.
