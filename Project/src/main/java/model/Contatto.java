@@ -24,7 +24,7 @@ public class Contatto implements Comparable<Contatto> {
     private String tag;      ///< Tag associato al contatto.
     private final String[] telefoni; ///< Array di numeri di telefono.
     private final String[] emails;   ///< Array di indirizzi email.
-    private boolean selezionato;    ///< Indica se un contatto e' selezionato o meno
+    private boolean selezionato;    ///< Indica se un contatto è selezionato o meno
 
     /// @brief Costruttore con nome e cognome.
     /// @param nome Il nome del contatto.
@@ -118,9 +118,9 @@ public class Contatto implements Comparable<Contatto> {
     public String getEmail(int i) {
         return emails[i];
     }
-    
+
     /// @brief Restituisce un booleano.
-    /// @return Il booleano restituito e' vero se il contatto e' selezionato, falso altrimenti.
+    /// @return Il booleano restituito è vero se il contatto è selezionato, falso altrimenti.
     public boolean isSelezionato(){
         return selezionato;
     }
@@ -172,9 +172,9 @@ public class Contatto implements Comparable<Contatto> {
             throw new EmailNonValidaException("Indirizzo email non valido.");
         emails[i] = email;
     }
-    
+
     /// @brief Imposta un booleano.
-    /// @param selezionato Il nuovo valore del booleano (vero se un contatto e' selezionato, falso altrimenti)
+    /// @param selezionato Il nuovo valore del booleano (vero se un contatto è selezionato, falso altrimenti)
     public void setSelezionato(boolean selezionato){
         this.selezionato = selezionato;
     }
@@ -224,20 +224,18 @@ public class Contatto implements Comparable<Contatto> {
 
     /// @brief Verifica se una stringa è contenuta nei dati del contatto.
     /// @param stringa La stringa da cercare nei dati del contatto.
-    /// @return true se la stringa è presente in almeno uno dei campi del contatto (nome, cognome, tag) o nelle combinazioni di essi; false altrimenti.
+    /// @return true se la stringa è presente in almeno uno dei campi del contatto (nome, cognome, tag) o nelle combinazioni di essi, false altrimenti.
     ///
     /// Questo metodo verifica se la stringa fornita, trasformata in maiuscolo, è contenuta in uno dei seguenti campi del contatto:
     /// - Nome
     /// - Cognome
     /// - Tag
     /// - Combinazioni di nome, cognome e tag (concatenati o separati da spazi, in diversi ordini).
-    ///
     /// Se la stringa è nulla o vuota, il metodo restituisce `false`.
     public boolean contiene(String stringa) {
         if (stringa == null || stringa.isEmpty()) return false;
         stringa = stringa.toUpperCase();
 
-        // Usa ArrayList invece di List.of
         ArrayList<String> campi = new ArrayList<>();
         campi.add(nome);
         campi.add(cognome);
@@ -269,11 +267,11 @@ public class Contatto implements Comparable<Contatto> {
         Contatto c = (Contatto) other;
         return esporta().equals(c.esporta());
     }
-    
+
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        
+
         if (!nome.isEmpty()) sb.append(nome);
         if (!cognome.isEmpty()) {
             if (sb.length() > 0)
