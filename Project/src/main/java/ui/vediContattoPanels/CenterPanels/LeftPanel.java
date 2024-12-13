@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
+import ui.Finestra;
 
 public class LeftPanel extends JPanel {
     private static final Insets insetTitolo = new Insets(0, 0, 0, 0);
@@ -135,7 +136,10 @@ public class LeftPanel extends JPanel {
                     setIcon(icona("/eliminaButton.png", 100));
                 }
             });
-            addActionListener(e -> controller.elimina());
+            addActionListener(e -> {
+                if(Finestra.chiediConferma("Vuoi eliminare il contatto?"))
+                    controller.elimina();
+            });
         }
 
         private ImageIcon icona(String path, int dimensione) {

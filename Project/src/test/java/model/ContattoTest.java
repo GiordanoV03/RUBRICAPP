@@ -149,7 +149,7 @@ public class ContattoTest {
 
         assertTrue(contatto1.compareTo(contatto2) > 0); // "Mario" > "Luigi"
         assertTrue(contatto1.compareTo(contatto3) < 0); // "Rossi" < "Verdi"
-        assertEquals(1, contatto1.compareTo(contatto4)); // Identici
+        assertEquals(0, contatto1.compareTo(contatto4)); // Identici
     }
 
     @Test
