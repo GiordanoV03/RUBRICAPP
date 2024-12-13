@@ -79,7 +79,7 @@ public class FileIO {
 
             // Se ogni decima riga non c'è "*", il file non è valido
             for (int i = 9; i < lines.size(); i += 10) {
-                if (!lines.get(i).equals("*"))
+                if (!lines.get(i).equals("***"))
                     return false;
             }
 
@@ -144,7 +144,7 @@ public class FileIO {
         StringBuilder sb = new StringBuilder();
         Iterator<Contatto> it= contatti.iterator();
 
-        if (!it.hasNext()) {  
+        if (!it.hasNext()) {
             return "";
         }
 
