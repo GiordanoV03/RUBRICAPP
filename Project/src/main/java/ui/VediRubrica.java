@@ -11,9 +11,10 @@ import model.*;
 import controller.RubricaController;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import model.Contatto;
+
 import java.util.List;
+
 import ui.VediRubricaPanels.*;
 
 /// @class VediRubrica
@@ -31,8 +32,8 @@ public class VediRubrica {
     public VediRubrica(List<Contatto> contatti) {
         controller = new RubricaController(contatti);
         schermata = new JPanel(new BorderLayout()) {
-            private final Color bg1 = new Color(0x8C52FF);
-            private final Color bg2 = new Color(0x5CE1E6);
+            private final Color bg1 = new Color(0xCFB7FF);
+            private final Color bg2 = new Color(0xBCFDFF);
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -49,6 +50,15 @@ public class VediRubrica {
         schermata.add(new TopPanel(controller), BorderLayout.NORTH);
         schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
         schermata.add(new BottomPanel(controller), BorderLayout.SOUTH);
+        schermata.add(panelVuoto(), BorderLayout.LINE_START);
+        schermata.add(panelVuoto(), BorderLayout.LINE_END);
+    }
+
+    private JPanel panelVuoto() {
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(0,0,0,0));
+        panel.setPreferredSize(new Dimension(100, 0));
+        return panel;
     }
 
     /// @brief Restituisce il pannello della schermata di visualizzazione della rubrica.
@@ -59,13 +69,29 @@ public class VediRubrica {
     public JPanel getSchermata() {
         return schermata;
     }
-    
+
     public static void main(String[] args) {
         Finestra.start();
         Rubrica.svuota();
-        Rubrica.aggiungi(new Contatto("Marco", "Giampaolo"));
-        Rubrica.aggiungi(new Contatto("Gino", "Paoli"));
+
+        List<String> nomi = new java.util.ArrayList<>(java.util.Arrays.asList("Marco", "Luciano", "Simone", "Massimiliano", "Stefano", "Jose", "Maurizio", "Gian Piero", "Paolo", "Thiago", "Andrea", "Fabio", "Ivan", "Alessio", "Eusebio", "Raffaele", "Claudio", "Alberto", "Francesco", "Giovanni"));
+        List<String> cognomi = new java.util.ArrayList<>(java.util.Arrays.asList("Giampaolo", "Spalletti", "Inzaghi", "Allegri", "Pioli", "Mourinho", "Sarri", "Gasperini", "Zanetti", "Motta", "Sottil", "Grosso", "Juric", "Dionisi", "Di Francesco", "Palladino", "Ranieri", "Gilardino", "De Rossi", "Baresi"));
+        List<String> tags = new java.util.ArrayList<>(java.util.Arrays.asList("Allenatore", "Giocatore", "Dirigente", "Osservatore", "Preparatore atletico"));
+
+        java.util.Random random = new java.util.Random();
+
+        for (int i = 0; i < 50; i++) {
+            String nome = nomi.get(random.nextInt(nomi.size()));
+            String cognome = cognomi.get(random.nextInt(cognomi.size()));
+            String tag = tags.get(random.nextInt(tags.size()));
+
+            Contatto contatto = new Contatto(nome, random.nextBoolean() ? cognome : null);
+            if (random.nextBoolean()) contatto.setTag(tag);
+
+            Rubrica.aggiungi(contatto);
+        }
+
         Finestra.mostraVediRubrica(Rubrica.getContatti());
     }
-    
+
 }
