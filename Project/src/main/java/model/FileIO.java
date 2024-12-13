@@ -77,11 +77,21 @@ public class FileIO {
             if (lines.size() % 10 != 0)
                 return false;
 
-            // Se ogni decima riga non c'è "***", il file non è valido
+            // Se ogni decima riga non c'è "*", il file non è valido
             for (int i = 9; i < lines.size(); i += 10) {
-                if (!lines.get(i).equals("***"))
+                if (!lines.get(i).equals("*"))
                     return false;
             }
+
+            // Se non è presente almeno uno tra nome o cognome, il file non è valido
+            for(int i = 0; i < lines.size(); i++){
+                if(i%10 == 0){
+                    if(lines.get(i).isEmpty() && lines.get(i+1).isEmpty()){
+                        return false;
+                    }
+                }
+            }
+
         } catch (IOException e) {
             return false;
         }
@@ -134,8 +144,8 @@ public class FileIO {
         StringBuilder sb = new StringBuilder();
         Iterator<Contatto> it= contatti.iterator();
 
-        if (!it.hasNext()) {  // Nessun contatto
-            return "";  // Ritorna una stringa vuota
+        if (!it.hasNext()) {  
+            return "";
         }
 
         while(it.hasNext()){
