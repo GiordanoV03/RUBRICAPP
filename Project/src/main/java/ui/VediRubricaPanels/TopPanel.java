@@ -1,6 +1,7 @@
 package ui.VediRubricaPanels;
 
 import controller.RubricaController;
+import ui.Finestra;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,21 +11,21 @@ public class TopPanel extends JPanel {
     
     public TopPanel(RubricaController controller) {
         setVisible(true);
-        setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0x5271FF));
         setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 0; gbc.gridy = 0;
-        gbc.insets = new Insets(20, 130,20,200);
+        gbc.insets = new Insets(20, Finestra.getLarghezza() * 13 / 192,20,Finestra.getLarghezza() * 5 / 48);
         add(new Titolo(), gbc);
 
         gbc.gridx ++;
-        gbc.insets = new Insets(20, 0,20,500);
+        gbc.insets = new Insets(20, 0,20,Finestra.getLarghezza() * 25 / 96);
         add(new BarraRicerca(controller), gbc);
 
         gbc.gridx ++;
-        gbc.insets = new Insets(20, 0,20,100);
+        gbc.insets = new Insets(20, 0,20,Finestra.getLarghezza() * 5 / 96);
         add(new BottoneAggiungi(controller), gbc);
     }
     
@@ -66,7 +67,7 @@ public class TopPanel extends JPanel {
         public CampoRicerca(){
             setForeground(Color.black);
             setFont(new Font("Arial", Font.PLAIN, 20));
-            setPreferredSize(new Dimension(500, 50));
+            setPreferredSize(new Dimension(Finestra.getLarghezza() * 25 / 96, 50));
             setBorder(BorderFactory.createLineBorder(Color.black, 0));
         }
     }
@@ -97,7 +98,7 @@ public class TopPanel extends JPanel {
             setBackground(Color.WHITE);
             addActionListener(e -> controller.aggiungiContatto());
             setBorder(BorderFactory.createLineBorder(Color.RED));
-            setPreferredSize(new Dimension(70, 50));
+            setPreferredSize(new Dimension(50, 50));
         }
     }
 }
