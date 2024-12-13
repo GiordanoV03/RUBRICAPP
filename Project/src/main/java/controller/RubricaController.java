@@ -166,7 +166,10 @@ public class RubricaController {
     /// Questo metodo consente di salvare la rubrica su un file
     /// specificando un nome.
     public void salvaConNome() {
+        
         String nomeFile = Finestra.chiediPercorsoExport();
+        if(nomeFile == null)
+            return;
         try {
             FileIO.salvaConNome(nomeFile);
         } catch (IOException e) {
