@@ -64,16 +64,6 @@ public class RubricaController {
         Finestra.mostraModificaContatto(null);
     }
 
-    /// @brief Visualizza le informazioni di un singolo contatto.
-    /// @param contatto Il contatto di cui visualizzare le informazioni.
-    ///
-    /// Questo metodo permette di vedere in dettaglio le informazioni
-    /// di un singolo contatto, come nome, cognome,
-    /// numeri di telefono ed email.
-    public void vediContatto(Contatto contatto) {
-        Finestra.mostraContatto(contatto);
-    }
-
     /// @brief Cerca un contatto nella rubrica.
     /// @param stringa La sottostringa da cercare nel nome, cognome o tag del contatto.
     ///
@@ -87,22 +77,6 @@ public class RubricaController {
         }else{
             Finestra.mostraVediRubrica(Rubrica.cerca(stringa));
         }
-    }
-
-    /// @brief Seleziona un contatto.
-    /// @param contatto Il contatto da selezionare.
-    ///
-    /// Questo metodo consente di selezionare un contatto.
-    public void selezionaContatto(Contatto contatto) {
-        contatto.setSelezionato(true);
-    }
-
-    /// @brief Deseleziona un contatto.
-    /// @param contatto Il contatto da deselezionare.
-    ///
-    /// Questo metodo consente di deselezionare un contatto.
-    public void deselezionaContatto(Contatto contatto) {
-        contatto.setSelezionato(false);
     }
 
     /// @brief Elimina uno o più contatti dalla rubrica.
@@ -146,19 +120,6 @@ public class RubricaController {
             Rubrica.aggiungi(c);
 
         Finestra.mostraVediRubrica(Rubrica.getContatti());
-    }
-
-    /// @brief Esporta la rubrica su un file.
-    ///
-    /// Questo metodo consente di salvare l'intera
-    /// rubrica su un file, esportando i dati in un
-    /// formato specifico.
-    public void salva() {
-        try {
-            FileIO.salva();
-        } catch (IOException e) {
-            Finestra.mostraErrore("Non è stato possibile salvare la rubrica.");
-        }
     }
 
     /// @brief Esporta la rubrica su un file con un nome personalizzato.
