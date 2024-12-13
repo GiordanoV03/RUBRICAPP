@@ -89,14 +89,19 @@ public class TopPanel extends JPanel {
     }
     
     private static class BottoneAggiungi extends JButton {
+        
+        private ImageIcon icona(String path) {
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(TopPanel.class.getResource(path)));
+            Image img = icon.getImage().getScaledInstance(75, 75, Image.SCALE_SMOOTH);
+            return new ImageIcon(img);
+        }
 
         public BottoneAggiungi(RubricaController controller) {
-            setText("+");
-            setFont(new Font("Courier", Font.BOLD, 28));
+            setIcon(icona("/aggiungiContattoButton.png"));
             setFocusPainted(false);
             setBackground(Color.WHITE);
             addActionListener(e -> controller.aggiungiContatto());
-            setPreferredSize(new Dimension(50, 50));
+            setPreferredSize(new Dimension(70, 70));
         }
     }
 }
