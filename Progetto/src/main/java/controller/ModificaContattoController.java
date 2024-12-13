@@ -97,10 +97,19 @@ public class ModificaContattoController {
             nuovo.setEmail(1, parent.getEmail(1));
             nuovo.setEmail(2, parent.getEmail(2));
 
-            if (vecchio == null)
+            if (vecchio == null) {
+                if (Rubrica.getContatti().contains(nuovo)) {
+                    Finestra.mostraErrore("Il contatto è già contenuto in rubrica.");
+                    return;
+                }
                 aggiungi();
-            else
+            } else {
+                if (Rubrica.getContatti().contains(nuovo) && !vecchio.equals(nuovo)) {
+                    Finestra.mostraErrore("Il contatto è già contenuto in rubrica.");
+                    return;
+                }
                 modifica();
+            }
 
         } catch (ContattoNonValidoException | EmailNonValidaException e) {
             Finestra.mostraErrore(e.getMessage());

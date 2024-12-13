@@ -250,4 +250,22 @@ public class Contatto implements Comparable<Contatto> {
         return false;
     }
 
+    /// @brief Confronta il contatto corrente con un altro oggetto per verificarne l'uguaglianza.
+    /// @param obj L'oggetto da confrontare con il contatto corrente.
+    /// @return true se l'oggetto è un'istanza della classe Contatto e ha lo stesso nome e cognome (ignorando maiuscole/minuscole), false altrimenti.
+    ///
+    /// Il metodo `equals` verifica l'uguaglianza tra due oggetti Contatto in base ai campi `nome` e `cognome`.
+    /// L'uguaglianza non è case-sensitive: i nomi e i cognomi vengono convertiti in maiuscolo per il confronto.
+    /// Se l'oggetto passato non è un'istanza della classe Contatto, il metodo restituisce `false`.
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (!(obj instanceof Contatto)) return false;
+        Contatto other = (Contatto) obj;
+        if (!nome.toUpperCase().equals(other.getNome().toUpperCase())) return false;
+        if (!cognome.toUpperCase().equals(other.getCognome().toUpperCase())) return false;
+        return true;
+    }
+
 }
