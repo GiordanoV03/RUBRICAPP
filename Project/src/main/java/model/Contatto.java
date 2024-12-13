@@ -86,7 +86,6 @@ public class Contatto implements Comparable<Contatto> {
         }
     }
 
-
     /// @brief Restituisce il nome del contatto.
     /// @return Il nome del contatto.
     public String getNome() {
@@ -251,35 +250,4 @@ public class Contatto implements Comparable<Contatto> {
         return false;
     }
 
-    /// @brief Verifica se l'oggetto corrente è uguale a un altro oggetto.
-    /// @param other L'oggetto da confrontare con il contatto corrente.
-    /// @return true se l'oggetto passato è un'istanza di Contatto e i dati esportati dai due oggetti sono identici, false altrimenti.
-    ///
-    /// Questo metodo utilizza il risultato del metodo `esporta()` per confrontare due oggetti Contatto.
-    /// Due oggetti sono considerati uguali se i dati esportati, che includono nome, cognome, tag,
-    /// numeri di telefono ed email, sono identici. Se l'oggetto passato è null o non è un'istanza
-    /// di Contatto, il metodo restituisce false.
-    @Override
-    public boolean equals(Object other) {
-        if (other == null) return false;
-        if (other == this) return true;
-        if (!(other instanceof Contatto)) return false;
-        Contatto c = (Contatto) other;
-        return esporta().equals(c.esporta());
-    }
-
-    @Override
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-
-        if (!nome.isEmpty()) sb.append(nome);
-        if (!cognome.isEmpty()) {
-            if (sb.length() > 0)
-                sb.append(" ");
-            sb.append(cognome);
-        }
-        if (!tag.isEmpty()) sb.append(" [ ").append(tag).append(" ]");
-
-        return sb.toString();
-    }
 }

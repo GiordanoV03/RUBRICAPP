@@ -20,17 +20,14 @@ import java.awt.*;
 /// Questa classe gestisce l'interfaccia utente per visualizzare le informazioni di un contatto.
 /// Permette di interagire con i dati del contatto tramite eventi generati dall'utente.
 public class VediContatto {
-    Contatto c = new Contatto("Pietro", "Giordano");
-
-
     private JPanel schermata; ///< Pannello della schermata per visualizzare il contatto.
 
     /// @brief Costruttore della classe VediContatto.
-    /// @param c Il contatto da visualizzare.
+    /// @param contatto Il contatto da visualizzare.
     ///
     /// Inizializza l'interfaccia utente per visualizzare le informazioni del contatto specificato.
-    public VediContatto(Contatto c) {
-        ContattoController controller = new ContattoController(c);
+    public VediContatto(Contatto contatto) {
+        ContattoController controller = new ContattoController(contatto);
 
         schermata = new JPanel(new BorderLayout()) {
             private final Color bg1 = new Color(0x8C52FF);
@@ -61,12 +58,4 @@ public class VediContatto {
         return schermata;
     }
 
-    public static void main(String[] args) {
-        Finestra.start();
-        Contatto contatto = new Contatto("Romario", "");
-        contatto.setTag("Ufficialee");
-        contatto.setEmail(0,"romario@gmail.com");
-        contatto.setEmail(1,"pastore@gmail.com");
-        Finestra.mostraContatto(contatto);
-    }
 }

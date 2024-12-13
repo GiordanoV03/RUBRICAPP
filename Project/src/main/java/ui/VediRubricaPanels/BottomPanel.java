@@ -3,8 +3,6 @@ package ui.VediRubricaPanels;
 import controller.RubricaController;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -15,7 +13,6 @@ import model.Contatto;
 import model.Ordinamento;
 import model.Rubrica;
 import ui.Finestra;
-import ui.vediContattoPanels.TopPanel;
 
 public class BottomPanel extends JPanel {
     public BottomPanel(RubricaController controller) {
@@ -65,7 +62,7 @@ public class BottomPanel extends JPanel {
             setFont(new Font("Colette", Font.BOLD, 14));
             setForeground(Color.BLACK);
             setPreferredSize(new Dimension(Finestra.getLarghezza() * 200 / 1920, Finestra.getAltezza() * 40 / 1080));
-            addActionListener(e -> controller.salvaConNome());
+            addActionListener(e -> controller.esporta());
         }
     }
     

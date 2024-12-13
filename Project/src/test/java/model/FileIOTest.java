@@ -12,7 +12,7 @@ public class FileIOTest {
     @BeforeEach
     public void setUp() throws IOException {
         Rubrica.svuota();
-        FileIO.salvaConNome(TEST_FILE);
+        FileIO.salva(TEST_FILE);
         eliminaFile(TEST_FILE);
     }
 
@@ -27,29 +27,10 @@ public class FileIOTest {
         Contatto contatto2 = new Contatto("Luca", "Bianchi");
         Rubrica.aggiungi(contatto1);
         Rubrica.aggiungi(contatto2);
-        FileIO.salvaConNome(TEST_FILE);
+        FileIO.salva(TEST_FILE);
         String fileContenuto = leggiFile(TEST_FILE);
         assertTrue(fileContenuto.contains(contatto1.esporta()), "Il contatto 1 non è stato trovato nel file");
         assertTrue(fileContenuto.contains(contatto2.esporta()), "Il contatto 2 non è stato trovato nel file");
-    }
-
-    @Test
-    public void testSalvaConNome() throws Exception {
-        Contatto contatto = new Contatto("Anna", "Verdi");
-        contatto.setTag("Amica");
-        contatto.setTelefono(0, "123456789");
-        contatto.setTelefono(1, "234567890");
-        contatto.setTelefono(2, "345678901");
-        contatto.setEmail(0, "anna@esempio.com");
-        contatto.setEmail(1, "anna2@esempio.com");
-        contatto.setEmail(2, "anna3@esempio.com");
-        Rubrica.aggiungi(contatto);
-        FileIO.salvaConNome(TEST_FILE);
-        File file = new File(TEST_FILE);
-        assertTrue(file.exists(), "Il file non è stato creato");
-        String fileContenuto = leggiFile(TEST_FILE).trim();
-        String contenutoAtteso = contatto.esporta().trim();
-        assertEquals(contenutoAtteso, fileContenuto, "Il contenuto del file non corrisponde");
     }
 
     @Test
@@ -70,7 +51,7 @@ public class FileIOTest {
         contatto.setEmail(1, "giulia2@esempio.com");
         contatto.setEmail(2, "giulia3@esempio.com");
         Rubrica.aggiungi(contatto);
-        FileIO.salva();
+        FileIO.salva(TEST_FILE);
         File file = new File(TEST_FILE);
         assertTrue(file.exists(), "Il file non è stato creato");
         String fileContenuto = leggiFile(TEST_FILE).trim();
@@ -81,7 +62,7 @@ public class FileIOTest {
     @Test
     public void testSalvaConRubricaVuota() throws Exception {
         Rubrica.svuota();
-        FileIO.salvaConNome(TEST_FILE);
+        FileIO.salva(TEST_FILE);
         assertTrue(leggiFile(TEST_FILE).isEmpty(), "Il file non è vuoto come atteso");
     }
 

@@ -103,6 +103,17 @@ public class Finestra {
         return scelta == JOptionPane.YES_OPTION;
     }
 
+    /// @brief Mostra un dialogo per notificare un errore.
+    /// @param messaggio Messaggio di errore da visualizzare.
+    public static void mostraErrore(String messaggio) {
+        JOptionPane.showMessageDialog(
+                finestra,                   // Finestra chiamante
+                messaggio,                  // Messaggio da mostrare
+                "Errore",                   // Titolo della finestra
+                JOptionPane.ERROR_MESSAGE   // Tipo di messaggio
+        );
+    }
+
     /// @brief Mostra un dialogo per selezionare un file da importare.
     /// @return Percorso del file selezionato, oppure null se l'utente annulla.
     public static String chiediPercorsoImport() {
@@ -131,14 +142,4 @@ public class Finestra {
         return null;
     }
 
-    /// @brief Mostra un dialogo per notificare un errore.
-    /// @param messaggio Messaggio di errore da visualizzare.
-    public static void mostraErrore(String messaggio) {
-        JOptionPane.showMessageDialog(
-                finestra,                   // Finestra chiamante
-                messaggio,                  // Messaggio da mostrare
-                "Errore",                   // Titolo della finestra
-                JOptionPane.ERROR_MESSAGE   // Tipo di messaggio
-        );
-    }
 }

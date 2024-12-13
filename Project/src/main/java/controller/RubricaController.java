@@ -126,13 +126,13 @@ public class RubricaController {
     ///
     /// Questo metodo consente di salvare la rubrica su un file
     /// specificando un nome.
-    public void salvaConNome() {
+    public void esporta() {
         
         String nomeFile = Finestra.chiediPercorsoExport();
         if(nomeFile == null)
             return;
         try {
-            FileIO.salvaConNome(nomeFile);
+            FileIO.salva(nomeFile);
         } catch (IOException e) {
             Finestra.mostraErrore("Non è stato possibile salvare la rubrica.");
         }

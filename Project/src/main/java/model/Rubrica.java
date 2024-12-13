@@ -22,8 +22,7 @@ import java.util.TreeSet;
 /// I contatti all'interno della rubrica sono mantenuti in ordine, rispettando il criterio 
 /// di ordinamento configurato nella classe `Ordinamento`.
 public class Rubrica {
-    private static Set<Contatto> contatti = new TreeSet<>(); ///< Insieme di contatti nella rubrica.
-    private static int numeroContatti = 0;
+    private static Set<Contatto> contatti = new TreeSet<>(); ///< Insieme di contatti nella rubrica.ì
 
     /// @brief Riordina i contatti nella rubrica.
     ///
@@ -47,24 +46,16 @@ public class Rubrica {
         }
         return l;
     }
-    
-    /// @brief Restituisce il numero di contatti presenti in rubrica.
-    /// @return un intero che rappresenta il numero di contatti presenti nella rubrica
-    public static int getNumeroContatti(){
-        return numeroContatti;
-    }
 
     /// @brief Aggiunge un nuovo contatto alla rubrica.
     /// @param c Il contatto da aggiungere alla rubrica.
     public static void aggiungi(Contatto c) {
-        numeroContatti++;
         contatti.add(c);
     }
 
     /// @brief Rimuove un contatto dalla rubrica.
     /// @param c Il contatto da rimuovere dalla rubrica.
     public static void rimuovi(Contatto c) {
-        numeroContatti--;
         contatti.remove(c);
     }
 
@@ -78,23 +69,7 @@ public class Rubrica {
     
     /// @brief Eliminazione di tutti i contatti presenti in rubrica.
     public static void svuota(){
-        numeroContatti = 0;
         contatti.clear();
-    }
-
-    /// @brief Esporta i dati dei contatti in formato testuale.
-    /// @return Una stringa contenente i dati esportati di tutti i contatti presenti
-    ///         nella rubrica.
-    ///
-    /// Questo metodo restituisce una rappresentazione testuale dei contatti della rubrica,
-    /// utile per l'esportazione dei dati su un file di testo.
-    public static String esporta() {
-        StringBuilder sb = new StringBuilder();
-        for (Contatto c : contatti) {
-            sb.append(c.esporta());
-            sb.append("\n");
-        }
-        return sb.toString();
     }
 
     /// @brief Cerca contatti che contengono una specifica stringa nei loro nome, cognome o tag.

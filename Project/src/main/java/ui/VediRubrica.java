@@ -54,6 +54,12 @@ public class VediRubrica {
         schermata.add(panelVuoto(), BorderLayout.LINE_END);
     }
 
+    /// @brief Crea e restituisce un pannello vuoto utilizzato come spazio separatore.
+    /// @return Un oggetto JPanel di dimensioni 100x0, vuoto e trasparente.
+    ///
+    /// Questo metodo genera un oggetto JPanel trasparente e di dimensioni
+    /// prefissate (100x0), utilizzato per creare uno spazio visivo tra
+    /// altri pannelli, dando l'impressione che siano più distanti tra loro.
     private JPanel panelVuoto() {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(0,0,0,0));
@@ -68,30 +74,6 @@ public class VediRubrica {
     /// dell'interfaccia utente necessari per visualizzare la rubrica.
     public JPanel getSchermata() {
         return schermata;
-    }
-
-    public static void main(String[] args) {
-        Finestra.start();
-        Rubrica.svuota();
-
-        List<String> nomi = new java.util.ArrayList<>(java.util.Arrays.asList("Marco", "Luciano", "Simone", "Massimiliano", "Stefano", "Jose", "Maurizio", "Gian Piero", "Paolo", "Thiago", "Andrea", "Fabio", "Ivan", "Alessio", "Eusebio", "Raffaele", "Claudio", "Alberto", "Francesco", "Giovanni"));
-        List<String> cognomi = new java.util.ArrayList<>(java.util.Arrays.asList("Giampaolo", "Spalletti", "Inzaghi", "Allegri", "Pioli", "Mourinho", "Sarri", "Gasperini", "Zanetti", "Motta", "Sottil", "Grosso", "Juric", "Dionisi", "Di Francesco", "Palladino", "Ranieri", "Gilardino", "De Rossi", "Baresi"));
-        List<String> tags = new java.util.ArrayList<>(java.util.Arrays.asList("Allenatore", "Giocatore", "Dirigente", "Osservatore", "Preparatore atletico"));
-
-        java.util.Random random = new java.util.Random();
-
-        for (int i = 0; i < 50; i++) {
-            String nome = nomi.get(random.nextInt(nomi.size()));
-            String cognome = cognomi.get(random.nextInt(cognomi.size()));
-            String tag = tags.get(random.nextInt(tags.size()));
-
-            Contatto contatto = new Contatto(nome, random.nextBoolean() ? cognome : null);
-            if (random.nextBoolean()) contatto.setTag(tag);
-
-            Rubrica.aggiungi(contatto);
-        }
-
-        Finestra.mostraVediRubrica(Rubrica.getContatti());
     }
 
 }

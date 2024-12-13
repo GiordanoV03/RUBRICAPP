@@ -31,12 +31,4 @@ public class Ordinamento {
         Rubrica.riordina();
     }
 
-    /// @brief Inverte il criterio di ordinamento corrente.
-    ///
-    /// Se l'ordinamento corrente è per nome, lo cambia in per cognome e viceversa.
-    public static void cambiaOrdinamento() {
-        ordinamentoPerNome = !ordinamentoPerNome;
-        Rubrica.riordina();
-    }
-
 }

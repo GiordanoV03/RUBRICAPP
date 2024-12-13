@@ -18,7 +18,6 @@ import java.util.*;
 /// un insieme di oggetti Contatto da o verso un file. Permette inoltre di specificare
 /// il nome del file su cui lavorare.
 public class FileIO {
-    private static String nomePercorso; ///< Il percorso del file gestito.
 
     /// @brief Apre un file contenente una rubrica di contatti.
     /// @param nomefile nome del file da aprire.
@@ -34,7 +33,6 @@ public class FileIO {
         if (!isFileValido(nomefile)) {
             throw new FileNonValidoException("Il file non è valido.");
         }
-        setNomefile(nomePercorso);
 
         List<Contatto> contatti = new ArrayList<>();
 
@@ -99,37 +97,17 @@ public class FileIO {
         return true;
     }
 
-    /// @brief Imposta il nome del file da utilizzare per il salvataggio.
-    /// @param nomefile Il nuovo nome del file da associare alla variabile nomePercorso.
-    ///
-    /// Questo metodo permette di cambiare il nome del file in cui verranno salvati o da cui verranno
-    /// caricati i contatti. Modifica il percorso del file su cui le operazioni di salvataggio/apertura
-    /// saranno eseguite in futuro.
-    private static void setNomefile(String nomefile) {
-        nomePercorso = nomefile;
-    }
-
-    /// @brief Salva un insieme di contatti in un file con un nome specifico.
-    /// @param nomefile Il nome del file in cui salvare i contatti.
-    /// @throw IOExecption se ci sono errori nel PrintWriter o nel FileWriter
-    /// Questo metodo permette di salvare una rubrica di contatti su un file il cui nome viene specificato
-    /// come parametro. I contatti vengono salvati nel file in un formato predefinito.
-    public static void salvaConNome(String nomefile) throws IOException {
-        setNomefile(nomefile);
-        salva();
-    }
-
-    /// @brief Salva un insieme di contatti nel file attualmente associato.
-    /// @throw IOExecption se ci sono errori nel PrintWriter o nel FileWriter
-    /// @throw FileNonValidoException il nome del file non è impostato
-    /// Questo metodo salva la rubrica di contatti nel file associato alla variabile nomePercorso.
-    /// Se il nome del file non è stato modificato, i contatti saranno salvati nel file di default.
-    public static void salva() throws IOException,FileNonValidoException {
-        if (nomePercorso == null || nomePercorso.isEmpty()) {
+    /// @brief Salva un insieme di contatti su un file.
+    /// @param nomefile Il percorso del file.
+    /// @throw IOException se ci sono errori nel PrintWriter o nel FileWriter.
+    /// @throw FileNonValidoException il nome del file non è impostato.
+    /// Questo metodo salva la rubrica di contatti nel file passato come variabile.
+    public static void salva(String nomefile) throws IOException,FileNonValidoException {
+        if (nomefile == null || nomefile.isEmpty()) {
             throw new FileNonValidoException("Nome file non impostato. Utilizzare salvaConNome().");
         }
         String testo = preparaTesto();
-        try (PrintWriter scrivi = new PrintWriter(new FileWriter(nomePercorso))) {
+        try (PrintWriter scrivi = new PrintWriter(new FileWriter(nomefile))) {
             scrivi.print(testo);
         }
     }

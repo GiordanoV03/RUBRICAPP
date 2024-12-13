@@ -101,14 +101,4 @@ public class ModificaContatto {
         return centerPanel.getEmail(i);
     }
 
-    /// @brief Metodo per testare l'interfaccia grafica.
-    ///
-    /// Questo metodo avvia l'applicazione e mostra la schermata di modifica
-    /// di un contatto. Può essere utilizzato per verificare il corretto
-    /// funzionamento dell'interfaccia.
-    public static void main(String[] args) {
-        Finestra.start();
-        Finestra.mostraModificaContatto(null);
-        // Finestra.mostraModificaContatto(new Contatto("Giuseppe", "Pastore"));
-    }
 }
