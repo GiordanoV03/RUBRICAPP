@@ -10,12 +10,10 @@ import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 public class BottomPanel extends JPanel {
-    private final ModificaContattoController controller;
     private final int larghezza = Finestra.getLarghezza();
     private final int altezza = Finestra.getAltezza();
 
     public BottomPanel(ModificaContattoController controller) {
-        this.controller = controller;
         setVisible(true);
         setLayout(new GridBagLayout());
         setBackground(new Color(0,0,0,0));
@@ -50,7 +48,10 @@ public class BottomPanel extends JPanel {
                     SwingUtilities.getWindowAncestor(Button.this).repaint();
                 }
             });
-            addActionListener(e -> controller.salvaModifiche());
+            addActionListener(e -> {
+                if (Finestra.chiediConferma("Vuoi salvare il contatto?"))
+                    controller.salvaModifiche();
+            });
         }
 
         private ImageIcon icona(String path) {

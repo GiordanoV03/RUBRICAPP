@@ -1,6 +1,7 @@
 package ui.modificaContattoPanels;
 
 import controller.ModificaContattoController;
+import ui.Finestra;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +47,7 @@ public class TopPanel extends JPanel {
         private Annulla(ModificaContattoController controller) {
             setFocusPainted(false);
             setBorderPainted(false);
-            setContentAreaFilled(false);
+            setBackground(Color.WHITE);
             setIcon(icona("/annulla.png"));
             setPreferredSize(new Dimension(140, 140));
             addMouseListener(new MouseAdapter() {
@@ -61,7 +62,10 @@ public class TopPanel extends JPanel {
                     SwingUtilities.getWindowAncestor(Annulla.this).repaint();
                 }
             });
-            addActionListener(e -> controller.annulla());
+            addActionListener(e -> {
+                if (Finestra.chiediConferma("Vuoi annullare le modifiche?"))
+                    controller.annulla();
+            });
         }
 
         private ImageIcon icona(String path) {
