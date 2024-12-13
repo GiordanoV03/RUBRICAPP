@@ -140,7 +140,7 @@ public class BottomPanel extends JPanel {
                     if (c.isSelezionato())
                         selezionati.add(c);
                 
-                if (selezionati.size() == 0) {
+                if (selezionati.isEmpty()) {
                     Finestra.mostraErrore("Non c'è nessun contatto selezionato.");
                     return;
                 }
@@ -148,8 +148,7 @@ public class BottomPanel extends JPanel {
                 if (!Finestra.chiediConferma("Vuoi eliminare i contatti selezionati?"))
                     return;
                 
-                for (Contatto c : selezionati)
-                    Rubrica.rimuovi(c);
+                controller.eliminaSelezionati();
                 
                 Finestra.mostraVediRubrica(Rubrica.getContatti());
             });

@@ -83,7 +83,7 @@ public class RubricaController {
     ///
     /// Questo metodo consente di eliminare uno o più
     /// contatti selezionati dalla rubrica.
-    public void eliminaContatti() {
+    public void eliminaSelezionati() {
         List<Contatto> contatti = Rubrica.getContatti();
         List<Contatto> contattiSelezionati = new ArrayList<>();
 
