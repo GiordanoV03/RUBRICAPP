@@ -92,12 +92,10 @@ public class TopPanel extends JPanel {
 
         public BottoneAggiungi(RubricaController controller) {
             setText("+");
-            setFont(new Font("Courier", Font.BOLD, 48));
-            setBorderPainted(false);
+            setFont(new Font("Courier", Font.BOLD, 28));
             setFocusPainted(false);
             setBackground(Color.WHITE);
             addActionListener(e -> controller.aggiungiContatto());
-            setBorder(BorderFactory.createLineBorder(Color.RED));
             setPreferredSize(new Dimension(50, 50));
         }
     }

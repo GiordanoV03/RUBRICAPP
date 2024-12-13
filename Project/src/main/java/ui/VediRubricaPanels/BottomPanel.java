@@ -38,6 +38,8 @@ public class BottomPanel extends JPanel {
     public static class Importa extends JButton {
         public Importa(RubricaController controller){
             setLayout(new BorderLayout());
+            setBackground(Color.WHITE);
+            setFocusPainted(false);
             setText("Importa");
             setFont(new Font("Colette", Font.BOLD, 14));
             setForeground(Color.BLACK);
@@ -49,6 +51,9 @@ public class BottomPanel extends JPanel {
     public static class Esporta extends JButton {
         public Esporta(RubricaController controller){
             setLayout(new BorderLayout());
+            setLayout(new BorderLayout());
+            setBackground(Color.WHITE);
+            setFocusPainted(false);
             setText("Esporta");
             setFont(new Font("Colette", Font.BOLD, 14));
             setForeground(Color.BLACK);
