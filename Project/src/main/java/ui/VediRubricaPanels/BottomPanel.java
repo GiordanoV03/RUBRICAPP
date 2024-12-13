@@ -3,11 +3,17 @@ package ui.VediRubricaPanels;
 import controller.RubricaController;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
+import model.Contatto;
 
 import model.Ordinamento;
+import model.Rubrica;
 import ui.Finestra;
 import ui.vediContattoPanels.TopPanel;
 
@@ -22,6 +28,7 @@ public class BottomPanel extends JPanel {
         add(Box.createRigidArea(new Dimension(Finestra.getLarghezza() * 500 / 1920, 0)));
         add(new Importa(controller));
         add(new Esporta(controller));
+        add(new EliminaTutti(controller));
     }
     
     public static class OrdinaPer extends JLabel {
@@ -110,4 +117,53 @@ public class BottomPanel extends JPanel {
             return new ImageIcon(img);
         }
     }
+    
+    public static class EliminaTutti extends JButton {
+        
+        public EliminaTutti(RubricaController controller){
+            setBackground(Color.WHITE);
+            setFocusPainted(false);
+            setIcon(icona("/eliminaButton.png", 40));
+            
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    setIcon(icona("/eliminaButton_hover.png", 40));
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    setIcon(icona("/eliminaButton.png", 40));
+                }
+            });
+            
+            addActionListener(e -> {
+                List<Contatto> selezionati = new ArrayList<Contatto>();
+                
+                for (Contatto c : controller.getContatti())
+                    if (c.isSelezionato())
+                        selezionati.add(c);
+                
+                if (selezionati.size() == 0) {
+                    Finestra.mostraErrore("Non c'è nessun contatto selezionato.");
+                    return;
+                }
+                
+                if (!Finestra.chiediConferma("Vuoi eliminare i contatti selezionati?"))
+                    return;
+                
+                for (Contatto c : selezionati)
+                    Rubrica.rimuovi(c);
+                
+                Finestra.mostraVediRubrica(Rubrica.getContatti());
+            });
+        }
+        
+        private ImageIcon icona(String path, int dimensione) {
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(BottomPanel.class.getResource(path)));
+            Image img = icon.getImage().getScaledInstance(dimensione, dimensione, Image.SCALE_SMOOTH);
+            return new ImageIcon(img);
+        }
+        
+    }
+    
 }
