@@ -1,5 +1,4 @@
-package model;
-
+import model.Email;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +6,7 @@ public class EmailTest {
 
     @Test
     public void testIsEmailValida() {
-        assertTrue(Email.isEmail("test@example.com"));
+        Assertions.assertTrue(Email.isEmail("test@example.com"));
     }
 
     @Test

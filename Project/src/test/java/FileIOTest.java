@@ -1,6 +1,9 @@
-package model;
-
 import static org.junit.jupiter.api.Assertions.*;
+
+import model.Contatto;
+import model.FileIO;
+import model.FileNonValidoException;
+import model.Rubrica;
 import org.junit.jupiter.api.*;
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +40,7 @@ public class FileIOTest {
     public void testApri_FileConErroriParziali() throws Exception {
         String contenuto = "Mario\nRossi\nFAMIGLIA\n123456789\n\nmario@rossi.it\n\n\n***\nErrore\nMancanoDati";
         scriviFile(TEST_FILE, contenuto);
-        assertThrows(FileNonValidoException.class, () -> FileIO.apri(TEST_FILE), "Non è stata lanciata l'eccezione per formato errato");
+        Assertions.assertThrows(FileNonValidoException.class, () -> FileIO.apri(TEST_FILE), "Non è stata lanciata l'eccezione per formato errato");
     }
 
     @Test
