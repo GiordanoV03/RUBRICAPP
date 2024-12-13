@@ -3,7 +3,12 @@ package ui.VediRubricaPanels;
 import controller.RubricaController;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Objects;
+
 import ui.Finestra;
+import ui.vediContattoPanels.TopPanel;
 
 public class BottomPanel extends JPanel {
     public BottomPanel(RubricaController controller) {
@@ -35,7 +40,7 @@ public class BottomPanel extends JPanel {
             setText("Importa");
             setFont(new Font("Colette", Font.BOLD, 14));
             setForeground(Color.BLACK);
-            setPreferredSize(new Dimension(Finestra.getLarghezza() * 320 / 1920, Finestra.getAltezza() * 40 / 1080));
+            setPreferredSize(new Dimension(Finestra.getLarghezza() * 200 / 1920, Finestra.getAltezza() * 40 / 1080));
             addActionListener(e -> controller.importa());
         }
     }
@@ -46,7 +51,7 @@ public class BottomPanel extends JPanel {
             setText("Esporta");
             setFont(new Font("Colette", Font.BOLD, 14));
             setForeground(Color.BLACK);
-            setPreferredSize(new Dimension(Finestra.getLarghezza() * 320 / 1920, Finestra.getAltezza() * 40 / 1080));
+            setPreferredSize(new Dimension(Finestra.getLarghezza() * 200 / 1920, Finestra.getAltezza() * 40 / 1080));
             addActionListener(e -> controller.salvaConNome());
         }
     }
@@ -54,15 +59,11 @@ public class BottomPanel extends JPanel {
     public static class OrdinamentoPanel extends JPanel {
         public OrdinamentoPanel(RubricaController controller) {
             JRadioButton ordinaPerNome = new JRadioButton("NOME");
-            ordinaPerNome.setLayout(new BorderLayout());
-            ordinaPerNome.setText("NOME");
             ordinaPerNome.setFont(new Font("Colette", Font.BOLD, 14));
             ordinaPerNome.setForeground(Color.BLACK);
             ordinaPerNome.setPreferredSize(new Dimension(Finestra.getLarghezza() * 100 / 1920, Finestra.getAltezza() * 40 / 1080));
             
             JRadioButton ordinaPerCognome = new JRadioButton("COGNOME");
-            ordinaPerCognome.setLayout(new BorderLayout());
-            ordinaPerCognome.setText("COGNOME");
             ordinaPerCognome.setFont(new Font("Colette", Font.BOLD, 14));
             ordinaPerCognome.setForeground(Color.BLACK);
             ordinaPerCognome.setPreferredSize(new Dimension(Finestra.getLarghezza() * 100 / 1920, Finestra.getAltezza() * 40 / 1080));
