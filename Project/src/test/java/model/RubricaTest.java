@@ -40,7 +40,7 @@ public class RubricaTest {
         Rubrica.aggiungi(contatto1);
         Rubrica.aggiungi(contatto2);
         
-        assertEquals(2, Rubrica.getNumeroContatti());
+        assertEquals(2, Rubrica.getContatti().size());
     }  
 
     @Test
@@ -70,13 +70,13 @@ public class RubricaTest {
         Rubrica.aggiungi(contatto1);
         Rubrica.aggiungi(contatto2);
         
-        assertEquals(2, Rubrica.getNumeroContatti());
+        assertEquals(2, Rubrica.getContatti().size());
         
         Rubrica.rimuovi(contatto1);
         
         List<Contatto> contatti = Rubrica.getContatti();
         
-        assertEquals(1, Rubrica.getNumeroContatti());
+        assertEquals(1, Rubrica.getContatti().size());
     }
 
     @Test

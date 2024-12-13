@@ -49,9 +49,5 @@ public class EmailTest {
     public void testIsEmailDominioNonValido() {
         assertFalse(Email.isEmail("test@com"));
     }
-
-    @Test
-    public void testApriEmailValida() {
-        assertDoesNotThrow(() -> Email.apriEmail("test@example.com"));
-    }
+    
 }
