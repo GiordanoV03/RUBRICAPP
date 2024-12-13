@@ -17,7 +17,7 @@ public class TopPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 0; gbc.gridy = 0;
-        gbc.insets = new Insets(20, Finestra.getLarghezza() * 13 / 192,20,Finestra.getLarghezza() * 5 / 48);
+        gbc.insets = new Insets(20, 0,20,Finestra.getLarghezza() * 5 / 48);
         add(new Titolo(), gbc);
 
         gbc.gridx ++;
@@ -25,7 +25,7 @@ public class TopPanel extends JPanel {
         add(new BarraRicerca(controller), gbc);
 
         gbc.gridx ++;
-        gbc.insets = new Insets(20, 0,20,Finestra.getLarghezza() * 5 / 96);
+        gbc.insets = new Insets(20, 0,20,0);
         add(new BottoneAggiungi(controller), gbc);
     }
     
