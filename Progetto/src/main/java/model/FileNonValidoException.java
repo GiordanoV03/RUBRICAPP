@@ -14,7 +14,7 @@ package model;
 /// Questa eccezione viene utilizzata per segnalare che un'operazione su un
 /// file non è valida. Viene lanciata, ad esempio, quando il file ha un'estensione
 /// non supportata, non è stato generato dal programma o non è leggibile.
-public class FileNonValidoException extends RuntimeException {
+public class FileNonValidoException extends Exception {
 
     /// @brief Costruttore dell'eccezione FileNonValidoException.
     /// @param message Il messaggio di errore che descrive il motivo dell'eccezione.

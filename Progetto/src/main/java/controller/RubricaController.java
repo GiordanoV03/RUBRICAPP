@@ -7,11 +7,12 @@
 
 package controller;
 
-import java.io.IOException;
+import model.*;
+import ui.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import model.*;
-import ui.Finestra;
+import java.io.IOException;
 
 /// @class RubricaController
 /// @brief Classe che gestisce le operazioni relative alla rubrica dei contatti.
@@ -23,8 +24,6 @@ public class RubricaController {
     
     /// @brief Costruttore del controller.
     /// @param contatti La lista di contatti.
-    ///
-    /// Inizializza il controller.
     public RubricaController(List<Contatto> contatti){
         this.contatti = contatti;
     }
@@ -33,16 +32,6 @@ public class RubricaController {
     /// @return La lista dei contatti usata nel costruttore.
     public List<Contatto> getContatti() {
         return contatti;
-    }
-
-    /// @brief Visualizza tutti i contatti della rubrica.
-    ///
-    /// Questo metodo permette di visualizzare l'intero
-    /// gruppo di contatti salvati nella rubrica,
-    /// mostrando le informazioni disponibili
-    /// per ciascun contatto.
-    public void visualizza() {
-        Finestra.mostraVediRubrica(Rubrica.getContatti());
     }
 
     /// @brief Cambia l'ordinamento dei contatti.
@@ -72,11 +61,10 @@ public class RubricaController {
     /// confrontata con i campi nome, cognome o tag
     /// di ciascun contatto.
     public void cerca(String stringa) {
-        if(stringa.isEmpty()){
+        if (stringa.isEmpty())
             Finestra.mostraVediRubrica(Rubrica.getContatti());
-        }else{
+        else
             Finestra.mostraVediRubrica(Rubrica.cerca(stringa));
-        }
     }
 
     /// @brief Elimina uno o più contatti dalla rubrica.
@@ -102,11 +90,9 @@ public class RubricaController {
     /// rubrica da un file precedentemente salvato.
     public void importa() {
         String nomeFile = Finestra.chiediPercorsoImport();
-
-        if(nomeFile == null) 
-            return;
+        if (nomeFile == null) return;
         
-        List<Contatto> contatti = null;
+        List<Contatto> contatti;
 
         try {
             contatti = FileIO.apri(nomeFile);
@@ -127,13 +113,12 @@ public class RubricaController {
     /// Questo metodo consente di salvare la rubrica su un file
     /// specificando un nome.
     public void esporta() {
-        
         String nomeFile = Finestra.chiediPercorsoExport();
-        if(nomeFile == null)
-            return;
+        if (nomeFile == null) return;
+
         try {
             FileIO.salva(nomeFile);
-        } catch (IOException e) {
+        } catch (IOException | FileNonValidoException e) {
             Finestra.mostraErrore("Non è stato possibile salvare la rubrica.");
         }
     }

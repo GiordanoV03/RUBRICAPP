@@ -19,12 +19,12 @@ import java.util.ArrayList;
 /// Implementa anche un metodo per confrontare i contatti.
 public class Contatto implements Comparable<Contatto> {
 
-    private String nome;     ///< Nome del contatto.
-    private String cognome;  ///< Cognome del contatto.
-    private String tag;      ///< Tag associato al contatto.
+    private String nome; ///< Nome del contatto.
+    private String cognome; ///< Cognome del contatto.
+    private String tag; ///< Tag associato al contatto.
     private final String[] telefoni; ///< Array di numeri di telefono.
-    private final String[] emails;   ///< Array di indirizzi email.
-    private boolean selezionato;    ///< Indica se un contatto è selezionato o meno
+    private final String[] emails; ///< Array di indirizzi email.
+    private boolean selezionato; ///< Indica se un contatto è selezionato o meno
 
     /// @brief Costruttore con nome e cognome.
     /// @param nome Il nome del contatto.
@@ -43,7 +43,6 @@ public class Contatto implements Comparable<Contatto> {
 
         telefoni = new String[3];
         emails = new String[3];
-
         for (int i = 0; i < 3; i++) {
             setTelefono(i, "");
             setEmail(i, "");
@@ -61,8 +60,7 @@ public class Contatto implements Comparable<Contatto> {
     /// @throw EmailNonValidaException Se uno degli indirizzi email nel testo è
     ///        malformato o non valido.
     public Contatto(String testo) throws ContattoNonValidoException, EmailNonValidaException {
-        if (testo == null) testo = "";
-        if (testo.isEmpty())
+        if (testo == null || testo.isEmpty())
             throw new ContattoNonValidoException("Input nullo");
 
         String[] dati = testo.split("\n");
@@ -75,7 +73,6 @@ public class Contatto implements Comparable<Contatto> {
 
         telefoni = new String[3];
         emails = new String[3];
-
         for (int i = 0; i < 3; i++) {
             setTelefono(i, dati[i+3]);
             try {
@@ -129,9 +126,8 @@ public class Contatto implements Comparable<Contatto> {
     /// @throw ContattoNonValidoException Se il nome e il cognome sono vuoti o null.
     public void setNome(String nome) throws ContattoNonValidoException {
         if (nome == null) nome = "";
-        if (nome.isEmpty() && cognome.isEmpty()) {
+        if (nome.isEmpty() && cognome.isEmpty())
             throw new ContattoNonValidoException("Un contatto deve avere almeno uno tra nome e cognome.");
-        }
         this.nome = nome;
     }
 
@@ -140,9 +136,8 @@ public class Contatto implements Comparable<Contatto> {
     /// @throw ContattoNonValidoException Se il nome e il cognome sono vuoti o null.
     public void setCognome(String cognome) throws ContattoNonValidoException {
         if (cognome == null) cognome = "";
-        if (cognome.isEmpty() && nome.isEmpty()) {
+        if (cognome.isEmpty() && nome.isEmpty())
             throw new ContattoNonValidoException("Un contatto deve avere almeno uno tra nome e cognome.");
-        }
         this.cognome = cognome;
     }
 
@@ -263,9 +258,8 @@ public class Contatto implements Comparable<Contatto> {
         if (obj == this) return true;
         if (!(obj instanceof Contatto)) return false;
         Contatto other = (Contatto) obj;
-        if (!nome.toUpperCase().equals(other.getNome().toUpperCase())) return false;
-        if (!cognome.toUpperCase().equals(other.getCognome().toUpperCase())) return false;
-        return true;
+        if (!nome.equalsIgnoreCase(other.getNome())) return false;
+        return cognome.equalsIgnoreCase(other.getCognome());
     }
 
 }

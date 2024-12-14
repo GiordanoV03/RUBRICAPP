@@ -1,7 +1,6 @@
 package ui.vediContattoPanels;
 
 import controller.ContattoController;
-import controller.ModificaContattoController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +21,7 @@ public class TopPanel extends JPanel {
         gbc.gridy = 0;
         gbc.insets = new Insets(30, 30, 30, 0);
         gbc.anchor = GridBagConstraints.CENTER;
-        add(new Titolo(controller), gbc);
+        add(new Titolo(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -33,7 +32,7 @@ public class TopPanel extends JPanel {
     }
 
     private static class Titolo extends JLabel {
-        private Titolo(ContattoController controller) {
+        private Titolo() {
             setText("VEDI IL CONTATTO");
             setHorizontalAlignment(JLabel.CENTER);
             setFont(new Font("Colette", Font.BOLD, 60));

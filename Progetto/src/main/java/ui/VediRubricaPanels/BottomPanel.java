@@ -20,7 +20,7 @@ public class BottomPanel extends JPanel {
         setLayout(new FlowLayout(FlowLayout.CENTER));
         setBackground(new Color(0,0,0,0));
         
-        add(new OrdinaPer(controller));
+        add(new OrdinaPer());
         add(new OrdinamentoPanel(controller));
         add(Box.createRigidArea(new Dimension(Finestra.getLarghezza() * 500 / 1920, 0)));
         add(new Importa(controller));
@@ -29,7 +29,7 @@ public class BottomPanel extends JPanel {
     }
     
     public static class OrdinaPer extends JLabel {
-        public OrdinaPer(RubricaController controller){
+        public OrdinaPer(){
             setLayout(new BorderLayout());
             setText("Ordina per:");
             setFont(new Font("Colette", Font.BOLD, 14));
@@ -74,15 +74,8 @@ public class BottomPanel extends JPanel {
             setLayout(new GridBagLayout());
             setBackground(new Color(0,0,0,0));
 
-            GridBagConstraints gbc = new GridBagConstraints();
-
-            gbc.gridx = 0; gbc.gridy = 0;
             add(label("Nome  "));
-
-            gbc.gridx ++;
             add(button());
-
-            gbc.gridx ++;
             add(label("  Cognome"));
         }
 
@@ -102,9 +95,7 @@ public class BottomPanel extends JPanel {
             button.setPreferredSize(new Dimension(60, 40));
             button.setFocusPainted(false);
             button.setBorderPainted(false);
-            button.addActionListener(e -> {
-                controller.cambiaOrdinamento(!Ordinamento.isOrdinamentoPerNome());
-            });
+            button.addActionListener(e -> controller.cambiaOrdinamento(!Ordinamento.isOrdinamentoPerNome()));
             return button;
         }
 
@@ -120,21 +111,21 @@ public class BottomPanel extends JPanel {
         public EliminaTutti(RubricaController controller){
             setBackground(Color.WHITE);
             setFocusPainted(false);
-            setIcon(icona("/eliminaButton.png", 40));
+            setIcon(icona("/eliminaButton.png"));
             
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    setIcon(icona("/eliminaButton_hover.png", 40));
+                    setIcon(icona("/eliminaButton_hover.png"));
                 }
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    setIcon(icona("/eliminaButton.png", 40));
+                    setIcon(icona("/eliminaButton.png"));
                 }
             });
             
             addActionListener(e -> {
-                List<Contatto> selezionati = new ArrayList<Contatto>();
+                List<Contatto> selezionati = new ArrayList<>();
                 
                 for (Contatto c : controller.getContatti())
                     if (c.isSelezionato())
@@ -154,9 +145,9 @@ public class BottomPanel extends JPanel {
             });
         }
         
-        private ImageIcon icona(String path, int dimensione) {
+        private ImageIcon icona(String path) {
             ImageIcon icon = new ImageIcon(Objects.requireNonNull(BottomPanel.class.getResource(path)));
-            Image img = icon.getImage().getScaledInstance(dimensione, dimensione, Image.SCALE_SMOOTH);
+            Image img = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
             return new ImageIcon(img);
         }
         

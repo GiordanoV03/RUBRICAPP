@@ -21,7 +21,6 @@ import java.awt.*;
 /// contatto selezionato. Consente di interagire con l'interfaccia utente e
 /// inviare comandi per apportare modifiche.
 public class ModificaContatto {
-
     private final JPanel schermata; ///< Pannello principale della schermata.
     private final ModificaContattoController controller; ///< Controller logico.
     private final TopPanel topPanel; ///< Pannello superiore della schermata.
@@ -29,16 +28,14 @@ public class ModificaContatto {
     private final BottomPanel bottomPanel; ///< Pannello inferiore della schermata.
 
     /// @brief Costruttore per creare una schermata di modifica del contatto.
-    /// @param c Il contatto da modificare.
+    /// @param contatto Il contatto da modificare.
     ///
     /// Inizializza l'interfaccia per la modifica dei dati di un contatto
     /// specifico, creando i pannelli necessari e impostando il layout.
-    public ModificaContatto(Contatto c) {
-        controller = new ModificaContattoController(this, c);
+    public ModificaContatto(Contatto contatto) {
         schermata = new JPanel(new BorderLayout()) {
             private final Color bg1 = new Color(0x8C52FF);
             private final Color bg2 = new Color(0x5CE1E6);
-
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -51,6 +48,8 @@ public class ModificaContatto {
                 g2d.fillRect(0, 0, getWidth(), getHeight());
             }
         };
+
+        controller = new ModificaContattoController(this, contatto);
         topPanel = new TopPanel(controller);
         centerPanel = new CenterPanel(controller);
         bottomPanel = new BottomPanel(controller);

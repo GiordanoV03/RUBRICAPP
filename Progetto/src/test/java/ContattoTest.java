@@ -1,7 +1,4 @@
-import model.Contatto;
-import model.ContattoNonValidoException;
-import model.EmailNonValidaException;
-import model.Ordinamento;
+import model.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,9 +16,7 @@ public class ContattoTest {
 
     @Test
     public void testCostruttoreNomeCognomeNonValido() {
-        assertThrows(ContattoNonValidoException.class, () -> {
-            new Contatto("", "");
-        });
+        assertThrows(ContattoNonValidoException.class, () -> new Contatto("", ""));
     }
 
     @Test
@@ -109,4 +104,5 @@ public class ContattoTest {
         assertTrue(contatto.contiene("FRIEND"));
         assertFalse(contatto.contiene("NonEsistente"));
     }
+
 }

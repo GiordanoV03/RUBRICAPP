@@ -78,11 +78,11 @@ public class TopPanel extends JPanel {
             setBackground(Color.WHITE);
             setBorderPainted(false);
             setFocusPainted(false);
-            setIcon(icona("/cercaButton.png"));
+            setIcon(icona());
         }
 
-        private ImageIcon icona(String path) {
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(TopPanel.class.getResource(path)));
+        private ImageIcon icona() {
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(TopPanel.class.getResource("/cercaButton.png")));
             Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
             return new ImageIcon(img);
         }
@@ -90,14 +90,14 @@ public class TopPanel extends JPanel {
     
     private static class BottoneAggiungi extends JButton {
         
-        private ImageIcon icona(String path) {
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(TopPanel.class.getResource(path)));
+        private ImageIcon icona() {
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(TopPanel.class.getResource("/aggiungiContattoButton.png")));
             Image img = icon.getImage().getScaledInstance(75, 75, Image.SCALE_SMOOTH);
             return new ImageIcon(img);
         }
 
         public BottoneAggiungi(RubricaController controller) {
-            setIcon(icona("/aggiungiContattoButton.png"));
+            setIcon(icona());
             setFocusPainted(false);
             setBackground(Color.WHITE);
             addActionListener(e -> controller.aggiungiContatto());

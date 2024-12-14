@@ -7,7 +7,7 @@
 package controller;
 
 import model.*;
-import ui.Finestra;
+import ui.*;
 
 /// @class ContattoController
 /// @brief Classe che gestisce le operazioni sui contatti.
@@ -16,7 +16,7 @@ import ui.Finestra;
 /// la visualizzazione, modifica ed eliminazione dei dati, oltre alla gestione di operazioni
 /// come l'apertura di email e il ritorno a una schermata precedente.
 public class ContattoController {
-    private Contatto contatto;
+    private final Contatto contatto; ///< Il contatto visualizzato.
 
     /// @brief Costruttore del controller.
     /// @param contatto Il contatto di cui visualizzare i dettagli.

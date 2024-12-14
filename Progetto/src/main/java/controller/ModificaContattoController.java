@@ -18,7 +18,7 @@ import ui.*;
 public class ModificaContattoController {
     private final ModificaContatto parent; ///< La schermata chiamante.
     private final Contatto vecchio; ///< Il contatto originale da modificare, o `null` se si sta creando un nuovo contatto.
-    private final Contatto nuovo = new Contatto("NOME", "COGNOME"); ///< Il contatto che verrà salvato nella rubrica.
+    private final Contatto nuovo = new Contatto("_", "_"); ///< Il contatto che verrà salvato nella rubrica.
 
     /// @brief Costruttore del controller.
     /// @param parent La schermata chiamante.
@@ -42,7 +42,7 @@ public class ModificaContattoController {
     /// e passa alla schermata di visualizzazione del contatto aggiunto.
     public void aggiungi() {
         Rubrica.aggiungi(nuovo);
-        Finestra.mostraContatto(nuovo);
+        Finestra.mostraVediContatto(nuovo);
     }
 
     /// @brief Modifica un contatto esistente nella rubrica.
@@ -52,7 +52,7 @@ public class ModificaContattoController {
     /// passando alla schermata di visualizzazione del contatto aggiornato.
     public void modifica() {
         Rubrica.modifica(vecchio, nuovo);
-        Finestra.mostraContatto(nuovo);
+        Finestra.mostraVediContatto(nuovo);
     }
 
     /// @brief Annulla l'operazione in corso.
@@ -70,7 +70,7 @@ public class ModificaContattoController {
     ///
     /// Ripristina lo stato precedente della rubrica senza apportare modifiche.
     private void annullaModifica() {
-        Finestra.mostraContatto(vecchio);
+        Finestra.mostraVediContatto(vecchio);
     }
 
     /// @brief Annulla la creazione di un nuovo contatto.
@@ -90,12 +90,10 @@ public class ModificaContattoController {
             nuovo.setNome(parent.getNome());
             nuovo.setCognome(parent.getCognome());
             nuovo.setTag(parent.getTag());
-            nuovo.setTelefono(0, parent.getTelefono(0));
-            nuovo.setTelefono(1, parent.getTelefono(1));
-            nuovo.setTelefono(2, parent.getTelefono(2));
-            nuovo.setEmail(0, parent.getEmail(0));
-            nuovo.setEmail(1, parent.getEmail(1));
-            nuovo.setEmail(2, parent.getEmail(2));
+            for (int i = 0; i < 3; i++) {
+                nuovo.setTelefono(i, parent.getTelefono(i));
+                nuovo.setEmail(i, parent.getEmail(i));
+            }
 
             if (vecchio == null) {
                 if (Rubrica.getContatti().contains(nuovo)) {
@@ -115,4 +113,5 @@ public class ModificaContattoController {
             Finestra.mostraErrore(e.getMessage());
         }
     }
+
 }
