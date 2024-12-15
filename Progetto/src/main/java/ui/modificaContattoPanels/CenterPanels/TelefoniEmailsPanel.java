@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TelefoniEmailsPanel extends JPanel {
-    private final ModificaContattoController controller;
     private final CampoDiTesto tel1;
     private final CampoDiTesto tel2;
     private final CampoDiTesto tel3;
@@ -24,7 +23,6 @@ public class TelefoniEmailsPanel extends JPanel {
     private final Insets emailCampoInsets = new Insets(altezza*6/515, 0, altezza*6/515, 0);
 
     public TelefoniEmailsPanel(ModificaContattoController controller) {
-        this.controller = controller;
         if (controller.getContatto() == null) {
             tel1 = new CampoDiTesto("");
             tel2 = new CampoDiTesto("");

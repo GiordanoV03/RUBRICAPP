@@ -8,8 +8,8 @@
 
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -30,9 +30,7 @@ public class Rubrica {
     /// attualmente configurato nella classe `Ordinamento`.
     public static void riordina() {
         Set<Contatto> nuovo = new TreeSet<>();
-        for (Contatto c : contatti) {
-            nuovo.add(c);
-        }
+        for (Contatto c : contatti) nuovo.add(c);
         contatti = nuovo;
     }
 
@@ -40,11 +38,9 @@ public class Rubrica {
     /// @return Un set di oggetti `Contatto` che rappresentano tutti i contatti presenti
     ///         nella rubrica.
     public static List<Contatto> getContatti() {
-        List<Contatto> l = new ArrayList<>();
-        for(Contatto c : contatti){
-            l.add(c);
-        }
-        return l;
+        List<Contatto> list = new ArrayList<>();
+        for (Contatto c : contatti) list.add(c);
+        return list;
     }
 
     /// @brief Aggiunge un nuovo contatto alla rubrica.
@@ -82,11 +78,10 @@ public class Rubrica {
     public static List<Contatto> cerca(String stringa) {
         List<Contatto> trovati = new ArrayList<>();
 
-        for(Contatto c : contatti){
-            if(c.contiene(stringa.toUpperCase()))
-                trovati.add(c);
-        }
+        for (Contatto c : contatti)
+            if (c.contiene(stringa)) trovati.add(c);
 
         return trovati;
     }
+
 }

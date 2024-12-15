@@ -1,27 +1,23 @@
-import static org.junit.jupiter.api.Assertions.*;
-
-import model.Contatto;
-import model.FileIO;
-import model.FileNonValidoException;
-import model.Rubrica;
-import org.junit.jupiter.api.*;
+import model.*;
+import java.util.List;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FileIOTest {
     private static final String TEST_FILE = "test_rubrica.txt";
 
     @BeforeEach
-    public void setUp() throws IOException {
+    public void setUp() throws IOException, FileNonValidoException {
         Rubrica.svuota();
         FileIO.salva(TEST_FILE);
-        eliminaFile(TEST_FILE);
+        eliminaFile();
     }
 
     @AfterEach
-    public void tearDown() throws IOException {
-        eliminaFile(TEST_FILE);
+    public void tearDown() {
+        eliminaFile();
     }
 
     @Test
@@ -31,7 +27,7 @@ public class FileIOTest {
         Rubrica.aggiungi(contatto1);
         Rubrica.aggiungi(contatto2);
         FileIO.salva(TEST_FILE);
-        String fileContenuto = leggiFile(TEST_FILE);
+        String fileContenuto = leggiFile();
         assertTrue(fileContenuto.contains(contatto1.esporta()), "Il contatto 1 non è stato trovato nel file");
         assertTrue(fileContenuto.contains(contatto2.esporta()), "Il contatto 2 non è stato trovato nel file");
     }
@@ -39,7 +35,7 @@ public class FileIOTest {
     @Test
     public void testApri_FileConErroriParziali() throws Exception {
         String contenuto = "Mario\nRossi\nFAMIGLIA\n123456789\n\nmario@rossi.it\n\n\n***\nErrore\nMancanoDati";
-        scriviFile(TEST_FILE, contenuto);
+        scriviFile(contenuto);
         Assertions.assertThrows(FileNonValidoException.class, () -> FileIO.apri(TEST_FILE), "Non è stata lanciata l'eccezione per formato errato");
     }
 
@@ -57,7 +53,7 @@ public class FileIOTest {
         FileIO.salva(TEST_FILE);
         File file = new File(TEST_FILE);
         assertTrue(file.exists(), "Il file non è stato creato");
-        String fileContenuto = leggiFile(TEST_FILE).trim();
+        String fileContenuto = leggiFile().trim();
         String contenutoAtteso = contatto.esporta().trim();
         assertEquals(contenutoAtteso, fileContenuto, "Il contenuto del file non corrisponde");
     }
@@ -66,13 +62,13 @@ public class FileIOTest {
     public void testSalvaConRubricaVuota() throws Exception {
         Rubrica.svuota();
         FileIO.salva(TEST_FILE);
-        assertTrue(leggiFile(TEST_FILE).isEmpty(), "Il file non è vuoto come atteso");
+        assertTrue(leggiFile().isEmpty(), "Il file non è vuoto come atteso");
     }
 
     @Test
     public void testApri() throws Exception {
         String contenuto = "Francesca\nRossi\nFAMIGLIA\n123456789\n\n\nfrancesca@rossi.it\n\n\n***\n";
-        scriviFile(TEST_FILE, contenuto);
+        scriviFile(contenuto);
         List<Contatto> contatti = FileIO.apri(TEST_FILE);
         assertEquals(1, contatti.size(), "Il contatto non è stato caricato correttamente");
     }
@@ -92,7 +88,7 @@ public class FileIOTest {
             sb.append(c.esporta());
             if (i < 999) sb.append("\n");
         }
-        scriviFile(TEST_FILE, sb.toString());
+        scriviFile(sb.toString());
         List<Contatto> contatti = FileIO.apri(TEST_FILE);
         assertEquals(1000, contatti.size(), "Non tutti i contatti sono stati caricati");
     }
@@ -100,7 +96,7 @@ public class FileIOTest {
     @Test
     public void testApriFormatoNonValido() throws IOException {
         String contenutoInvalido = "Mario\n";
-        scriviFile(TEST_FILE, contenutoInvalido);
+        scriviFile(contenutoInvalido);
         assertThrows(FileNonValidoException.class, () -> FileIO.apri(TEST_FILE));
     }
 
@@ -114,9 +110,9 @@ public class FileIOTest {
                 "Non è stata lanciata l'eccezione attesa per un file inesistente");
     }
     
-    private String leggiFile(String nomeFile) throws IOException {
+    private String leggiFile() throws IOException {
         StringBuilder sb = new StringBuilder();
-        try (java.util.Scanner scanner = new java.util.Scanner(new File(nomeFile))) {
+        try (java.util.Scanner scanner = new java.util.Scanner(new File(FileIOTest.TEST_FILE))) {
             while (scanner.hasNextLine()) {
                 sb.append(scanner.nextLine());
                 if (scanner.hasNextLine())
@@ -126,14 +122,14 @@ public class FileIOTest {
         return sb.toString();
     }
     
-        private void scriviFile(String nomeFile, String contenuto) throws IOException {
-        java.io.FileWriter writer = new java.io.FileWriter(nomeFile);
+        private void scriviFile(String contenuto) throws IOException {
+        java.io.FileWriter writer = new java.io.FileWriter(FileIOTest.TEST_FILE);
         writer.write(contenuto);
         writer.close();
     }
         
-    private void eliminaFile(String nomeFile) {
-        File file = new File(nomeFile);
+    private void eliminaFile() {
+        File file = new File(FileIOTest.TEST_FILE);
         if (file.exists()) {
             file.delete();
         }

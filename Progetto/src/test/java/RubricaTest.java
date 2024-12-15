@@ -1,8 +1,7 @@
-import model.Contatto;
-import model.Rubrica;
+import model.*;
+import java.util.List;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.List;
 
 public class RubricaTest {
 
@@ -73,9 +72,7 @@ public class RubricaTest {
         assertEquals(2, Rubrica.getContatti().size());
         
         Rubrica.rimuovi(contatto1);
-        
-        List<Contatto> contatti = Rubrica.getContatti();
-        
+
         assertEquals(1, Rubrica.getContatti().size());
     }
 
@@ -127,4 +124,5 @@ public class RubricaTest {
         assertEquals(1, contattiTrovati.size());
         assertTrue(contattiTrovati.contains(contatto1));
     } 
+
 }

@@ -6,10 +6,10 @@
 /// la schermata corrispondente.
 
 package ui;
+
 import controller.ContattoController;
 import model.*;
-import ui.vediContattoPanels.CenterPanel;
-import ui.vediContattoPanels.TopPanel;
+import ui.vediContattoPanels.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ import java.awt.*;
 /// Questa classe gestisce l'interfaccia utente per visualizzare le informazioni di un contatto.
 /// Permette di interagire con i dati del contatto tramite eventi generati dall'utente.
 public class VediContatto {
-    private JPanel schermata; ///< Pannello della schermata per visualizzare il contatto.
+    private final JPanel schermata; ///< Pannello della schermata per visualizzare il contatto.
 
     /// @brief Costruttore della classe VediContatto.
     /// @param contatto Il contatto da visualizzare.

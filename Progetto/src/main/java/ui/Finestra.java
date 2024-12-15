@@ -8,6 +8,7 @@
 package ui;
 
 import model.*;
+
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
@@ -70,8 +71,8 @@ public class Finestra {
     }
 
     /// @brief Mostra la schermata "VediContatto".
-    /// @param contatto Contatto i cui dettagli devono essere visualizzati.
-    public static void mostraContatto(Contatto contatto) {
+    /// @param contatto Contatto da visualizzare.
+    public static void mostraVediContatto(Contatto contatto) {
         schermata = new VediContatto(contatto).getSchermata();
         mostraSchermata();
     }

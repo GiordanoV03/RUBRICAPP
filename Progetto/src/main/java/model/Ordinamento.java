@@ -15,7 +15,6 @@ package model;
 /// Questa configurazione viene utilizzata da altre classi, come `Contatto`, per determinare
 /// l'ordine in cui i contatti vengono ordinati o confrontati.
 public class Ordinamento {
-
     private static boolean ordinamentoPerNome = true; ///< Criterio attuale: true per ordinamento per nome, false per cognome.
 
     /// @brief Restituisce il criterio di ordinamento corrente.

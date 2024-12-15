@@ -6,16 +6,14 @@
 /// come la selezione di pulsanti o l'inserimento di dati.
 
 package ui;
-import model.*;
 
 import controller.RubricaController;
+import model.*;
+import ui.VediRubricaPanels.*;
+
 import javax.swing.*;
 import java.awt.*;
-import model.Contatto;
-
 import java.util.List;
-
-import ui.VediRubricaPanels.*;
 
 /// @class VediRubrica
 /// @brief Classe per la gestione della schermata di visualizzazione della rubrica.
@@ -24,9 +22,8 @@ import ui.VediRubricaPanels.*;
 /// visualizzare e interagire con una rubrica. Utilizza il controller della rubrica per
 /// invocare le operazioni necessarie in risposta alle azioni dell'utente.
 public class VediRubrica {
-
-    private JPanel schermata; ///< Pannello che contiene la schermata dell'interfaccia utente per la visualizzazione della rubrica.
-    private RubricaController controller;   ///< Controller che gestisce la logica della schermata.
+    private final JPanel schermata; ///< Pannello che contiene la schermata dell'interfaccia utente per la visualizzazione della rubrica.
+    private final RubricaController controller;   ///< Controller che gestisce la logica della schermata.
 
     /// @brief Costruttore che inizializza la schermata di visualizzazione della rubrica.
     public VediRubrica(List<Contatto> contatti) {
@@ -50,21 +47,8 @@ public class VediRubrica {
         schermata.add(new TopPanel(controller), BorderLayout.NORTH);
         schermata.add(new CenterPanel(controller), BorderLayout.CENTER);
         schermata.add(new BottomPanel(controller), BorderLayout.SOUTH);
-        schermata.add(panelVuoto(), BorderLayout.LINE_START);
-        schermata.add(panelVuoto(), BorderLayout.LINE_END);
-    }
-
-    /// @brief Crea e restituisce un pannello vuoto utilizzato come spazio separatore.
-    /// @return Un oggetto JPanel di dimensioni 100x0, vuoto e trasparente.
-    ///
-    /// Questo metodo genera un oggetto JPanel trasparente e di dimensioni
-    /// prefissate (100x0), utilizzato per creare uno spazio visivo tra
-    /// altri pannelli, dando l'impressione che siano più distanti tra loro.
-    private JPanel panelVuoto() {
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(0,0,0,0));
-        panel.setPreferredSize(new Dimension(100, 0));
-        return panel;
+        schermata.add(new PanelVuoto(), BorderLayout.LINE_START);
+        schermata.add(new PanelVuoto(), BorderLayout.LINE_END);
     }
 
     /// @brief Restituisce il pannello della schermata di visualizzazione della rubrica.

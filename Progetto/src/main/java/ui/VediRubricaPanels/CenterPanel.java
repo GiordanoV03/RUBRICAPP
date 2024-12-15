@@ -77,9 +77,10 @@ public class CenterPanel extends JPanel {
                 public void mouseClicked(MouseEvent e) {
                     int DOUBLE_CLICK_DELAY = 300;
                     long oraAttuale = System.currentTimeMillis();
-                    if (oraAttuale - ultimoClick < DOUBLE_CLICK_DELAY)
-                        Finestra.mostraContatto(contatto);
-                    else {
+                    if (oraAttuale - ultimoClick < DOUBLE_CLICK_DELAY) {
+                        contatto.setSelezionato(!contatto.isSelezionato());
+                        Finestra.mostraVediContatto(contatto);
+                    } else {
                         contatto.setSelezionato(!contatto.isSelezionato());
                         setColoriSfondo();
                     }
